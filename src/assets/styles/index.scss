@@ -4,6 +4,24 @@
 @import './element-ui.scss';
 @import './sidebar.scss';
 
+// 全局去除滚动条，用于去除table内滚动条样式 未兼容：Chrome有效
+::-webkit-scrollbar {
+    width: 5px;
+    /*滚动条宽度*/
+    height: 10px;
+    /*滚动条高度*/
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: #fff;
+}
+
+/*定义滑块 内阴影+圆角*/
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #d8d4d4;
+}
 body {
   height: 100%;
   -moz-osx-font-smoothing: grayscale;
@@ -58,6 +76,63 @@ div:focus {
     height: 0;
   }
 }
+
+/* 封装flex */
+.u-f,.u-f-ac,.u-f-ajc,.u-f-jsb,.u-f-jsa{
+	display: flex;
+}
+/* 水平居两边 */
+.u-f-jb{
+	justify-content: space-between;
+}
+/* 水平均匀分布 */
+.u-f-ja{
+	justify-content: space-around;
+}
+.u-f-ac,.u-f-ajc,.u-f-jsb,.u-f-jsa{
+	align-items: center;
+}
+/* 水平居中 垂直居中*/
+.u-f-ajc{
+	justify-content: center;
+}
+/* 水平居两边 垂直居中*/
+.u-f-jsb{
+	justify-content: space-between;
+}
+/* 水平平均放置 垂直居中*/
+.u-f-jsa{
+	justify-content: space-around;
+}
+
+/* 位置居中 */
+.pos-center{
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translateX(-50%) translateY(-50%);
+}
+
+/* 浏览器侧面导航栏的封装  在会出现滚动条的地方添加scroll-style*/
+.scroll-style::-webkit-scrollbar {
+	width: 10px;
+	background-color: transparent;
+}
+
+.scroll-style::-webkit-scrollbar-thumb {
+	border-radius: 5px;
+	box-shadow: inset 0 0 4px rgba(0, 0, 0, .3);
+	-webkit-box-shadow: inset 0 0 4px rgba(0, 0, 0, .3);
+	background-color: #e9e8e8;
+}
+
+.scroll-style::-webkit-scrollbar-track {
+	box-shadow: inset 0 0 6px transparent;
+	-webkit-box-shadow: inset 0 0 6px transparent;
+	border-radius: 2px;
+	background-color: transparent;
+}
+
 
 // main-container global css
 .app-container {

@@ -90,5 +90,13 @@ export default {
       height: 49px;
     }
   }
+  ::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+  ::-webkit-scrollbar-track {
+      border-radius: 10px;
+      // background-color: #dc2d2d;
+  }
 }
 </style>

@@ -9,7 +9,7 @@ import store from './store'
 import router from './router'
 import '@/assets/icons' // icon
 import '@/permission' // permission control
-
+import { message } from '@/utils/resetMessage'
 /**
  * If you don't want to use mock-server
  * you want to use MockJs for mock api
@@ -22,10 +22,9 @@ import '@/permission' // permission control
 //   const { mockXHR } = require('../mock')
 //   mockXHR()
 // }
-// 如果想要中文版 element-ui，按如下方式声明
 Vue.use(ElementUI)
+Vue.prototype.$message = message
 Vue.config.productionTip = false
-
 new Vue({
   el: '#app',
   router,

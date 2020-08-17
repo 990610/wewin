@@ -32,9 +32,9 @@ router.beforeEach(async(to, from, next) => {
         // 判断当前用户是否已拉取完user_info信息
         store.dispatch('user/getInfo').then(res => {
           // 拉取user_info
-          // console.log(res)
-          const roles = res.roles
-          store.dispatch('GenerateRoutes', { roles }).then(accessRoutes => {
+          console.log(res)
+          // const roles = res.roles
+          store.dispatch('GenerateRoutes').then(accessRoutes => {
           // 测试 默认静态页面
           // store.dispatch('permission/generateRoutes', { roles }).then(accessRoutes => {
             // 根据roles权限生成可访问的路由表
@@ -44,7 +44,7 @@ router.beforeEach(async(to, from, next) => {
           })
         })
           .catch(err => {
-            store.dispatch('FedLogOut').then(() => {
+            store.dispatch('user/logout').then(() => {
               Message.error(err)
               next({ path: '/' })
             }).catch(function(error) { console.log(error) })
@@ -52,7 +52,7 @@ router.beforeEach(async(to, from, next) => {
       } else {
         // try {
         // get user info
-        await store.dispatch('user/getInfo')
+        // await store.dispatch('user/getInfo')
         next()
         // } catch (error) {
         //   // remove token and go to login page to re-login

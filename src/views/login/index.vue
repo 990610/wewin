@@ -15,7 +15,7 @@
           name="username"
           type="text"
           tabindex="1"
-          auto-complete="on"
+          auto-complete="new-password"
         />
       </el-form-item>
 
@@ -31,7 +31,7 @@
           placeholder="Password"
           name="password"
           tabindex="2"
-          auto-complete="on"
+          auto-complete="new-password"
           @keyup.enter.native="handleLogin"
         />
         <span class="show-pwd" @click="showPwd">
@@ -39,49 +39,72 @@
         </span>
       </el-form-item>
 
-      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">Login</el-button>
+      <el-form-item prop="code">
+        <span class="svg-container">
+          <svg-icon style="font-size:16px;" icon-class="validCode" />
+        </span>
+        <el-input
+          ref="loginForm.code"
+          v-model="loginForm.captcha"
+          placeholder="验证码"
+          type="text"
+          tabindex="1"
+          auto-complete="off"
+          style="width:30%;background-color:#fff;margin-left:10px;"
+          maxlength="5"
+        />
+        <div class="login-code">
+          <img :src="codeUrl" @click="getCode">
+        </div>
+      </el-form-item>
 
-      <div class="tips">
-        <span style="margin-right:20px;">username: admin</span>
-        <span> password: any</span>
-      </div>
-
+      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">登录</el-button>
     </el-form>
   </div>
 </template>
 
 <script>
 import { validUsername } from '@/utils/validate'
+import * as that from '@/api/login/login'
+import { randomString } from '@/utils/index.js'
 
 export default {
   name: 'Login',
   data() {
     const validateUsername = (rule, value, callback) => {
       if (!validUsername(value)) {
-        callback(new Error('Please enter the correct user name'))
+        callback(new Error('请输入用户名'))
       } else {
         callback()
       }
     }
     const validatePassword = (rule, value, callback) => {
-      if (value.length < 6) {
-        callback(new Error('The password can not be less than 6 digits'))
-      } else {
+      if (value.length === 0) {
+        callback(new Error('请输入密码'))
+      }
+      // if (value.length < 5) {
+      //   callback(new Error('密码长度不能小于6位'))
+      // }
+      else {
         callback()
       }
     }
     return {
       loginForm: {
         username: 'admin',
-        password: '111111'
+        password: 'admin',
+        captcha: '',
+        uuid: ''
       },
       loginRules: {
         username: [{ required: true, trigger: 'blur', validator: validateUsername }],
-        password: [{ required: true, trigger: 'blur', validator: validatePassword }]
+        password: [{ required: true, trigger: 'blur', validator: validatePassword }],
+        captcha: [{ required: true, trigger: 'blur', message: '请输入验证码' }]
       },
       loading: false,
       passwordType: 'password',
-      redirect: undefined
+      redirect: undefined,
+      codeUrl: ''
     }
   },
   watch: {
@@ -91,6 +114,9 @@ export default {
       },
       immediate: true
     }
+  },
+  mounted() {
+    this.getCode()
   },
   methods: {
     showPwd() {
@@ -118,6 +144,10 @@ export default {
           return false
         }
       })
+    },
+    getCode() {
+      this.loginForm.uuid = randomString(16)
+      this.codeUrl = process.env.VUE_APP_BASE_API + '/makeid-boot/captcha.jpg?uuid=' + this.loginForm.uuid
     }
   }
 }
@@ -126,9 +156,9 @@ export default {
 <style lang="scss">
 /* 修复input 背景不协调 和光标变色 */
 /* Detail see https://github.com/PanJiaChen/vue-element-admin/pull/927 */
-$bg:#283443;
-$light_gray:#fff;
-$cursor: #fff;
+$bg:#ffffff;
+$light_gray:#242425;
+$cursor: #000000;
 @supports (-webkit-mask: none) and (not (cater-color: $cursor)) {
   .login-container .el-input input {
     color: $cursor;
@@ -141,9 +171,8 @@ $cursor: #fff;
     display: inline-block;
     height: 47px;
     width: 85%;
-
     input {
-      background: transparent;
+      background: #ffffff;
       border: 0px;
       -webkit-appearance: none;
       border-radius: 0px;
@@ -165,13 +194,25 @@ $cursor: #fff;
     border-radius: 5px;
     color: #454545;
   }
+  .login-code {
+  width: 200px;
+  height: 52px;
+  float: right;
+  background: #eee;
+  img {
+    cursor: pointer;
+    vertical-align: middle;
+    width: 100%;
+    height: 100%;
+  }
+}
 }
 </style>
 
 <style lang="scss" scoped>
-$bg:#2d3a4b;
-$dark_gray:#889aa4;
-$light_gray:#eee;
+$bg:#F0F2F5;
+$dark_gray:#242425;
+$light_gray:#242425;
 
 .login-container {
   min-height: 100%;
@@ -186,17 +227,8 @@ $light_gray:#eee;
     padding: 160px 35px 0;
     margin: 0 auto;
     overflow: hidden;
-  }
-
-  .tips {
-    font-size: 14px;
-    color: #fff;
-    margin-bottom: 10px;
-
-    span {
-      &:first-of-type {
-        margin-right: 16px;
-      }
+    .el-form-item{
+      background: #ffffff;
     }
   }
 
@@ -206,11 +238,13 @@ $light_gray:#eee;
     vertical-align: middle;
     width: 30px;
     display: inline-block;
+    svg-icon{
+      font-size: 14px;
+    }
   }
 
   .title-container {
     position: relative;
-
     .title {
       font-size: 26px;
       color: $light_gray;
@@ -219,7 +253,6 @@ $light_gray:#eee;
       font-weight: bold;
     }
   }
-
   .show-pwd {
     position: absolute;
     right: 10px;

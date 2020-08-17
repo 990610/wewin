@@ -16,7 +16,8 @@ export default [
         component: 'goods/info/index',
         meta: {
           title: '库存管理',
-          icon: 'el-icon-star-off'
+          icon: 'el-icon-star-off',
+          noCache: false
         }
       },
       {

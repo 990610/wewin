@@ -11,7 +11,8 @@
 import { mapGetters } from 'vuex'
 import pieChart from '@/components/echart/PieChart'
 export default {
-  name: 'Dashboard',
+  // eslint-disable-next-line vue/name-property-casing
+  name: 'dashboard',
   components: {
     pieChart
   },
@@ -19,6 +20,9 @@ export default {
     ...mapGetters([
       'name'
     ])
+  },
+  mounted() {
+    console.log('首页')
   }
 }
 </script>
@@ -26,7 +30,10 @@ export default {
 <style lang="scss" scoped>
 .dashboard {
   &-container {
-    margin: 30px;
+    height: 100%;
+    padding-top: 15px;
+    box-sizing: border-box;
+    background-color: skyblue;
   }
   &-text {
     font-size: 30px;

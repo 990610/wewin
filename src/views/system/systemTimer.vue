@@ -1,16 +1,14 @@
-<!---->
+<!--定时任务-->
 <template>
   <div>
-    物资管理info
+    --定时任务--
   </div>
 </template>
 <script>
 export default {
+  name: 'SystemTimer',
   data() {
     return {}
-  },
-  mounted() {
-    console.log(1)
   },
   methods: {}
 }

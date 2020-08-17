@@ -1,16 +1,12 @@
-<!---->
+<!--系统设置-参数管理-->
 <template>
-  <div>
-    物资管理info
-  </div>
+  <div />
 </template>
 <script>
 export default {
+  name: 'SystemParameter',
   data() {
     return {}
-  },
-  mounted() {
-    console.log(1)
   },
   methods: {}
 }

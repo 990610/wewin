@@ -1,16 +1,12 @@
-<!---->
+<!--系统设置-角色guanlii-->
 <template>
-  <div>
-    物资管理info
-  </div>
+  <div />
 </template>
 <script>
 export default {
+  name: 'SystemRole',
   data() {
     return {}
-  },
-  mounted() {
-    console.log(1)
   },
   methods: {}
 }

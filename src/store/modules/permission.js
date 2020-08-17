@@ -1,7 +1,7 @@
 import { constantRoutes } from '@/router'
 import Layout from '@/components/layout/index'
-// import { getRouters } from '@/api/menu'
-import roleData from '@/api/roleTest'
+import { getRouters } from '@/api/system/menu'
+import roleData from '@/api/myMenu'
 const permission = {
   state: {
     routes: [],
@@ -19,12 +19,13 @@ const permission = {
     GenerateRoutes({ commit }) {
       return new Promise(resolve => {
         // 向后端请求路由数据
-        // getRouters().then(res => {
-        const accessedRoutes = filterAsyncRouter(roleData)
-        // accessedRoutes.push({ path: '*', redirect: '/404', hidden: true })
-        commit('SET_ROUTES', accessedRoutes)
-        resolve(accessedRoutes)
-        // }).catch(function(error) { console.log(error) })
+        getRouters().then(res => {
+          console.log(res)
+          const accessedRoutes = filterAsyncRouter(roleData)
+          accessedRoutes.push({ path: '*', redirect: '/404', hidden: true })
+          commit('SET_ROUTES', accessedRoutes)
+          resolve(accessedRoutes)
+        }).catch(function(error) { console.log(error) })
       })
     }
   }

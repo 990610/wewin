@@ -1,7 +1,9 @@
 <template>
   <section class="app-main scroll-style">
     <transition name="fade-transform" mode="out-in">
-      <router-view :key="key" />
+      <keep-alive :include="cachedViews">
+        <router-view :key="key" />
+      </keep-alive>
     </transition>
   </section>
 </template>
@@ -10,6 +12,10 @@
 export default {
   name: 'AppMain',
   computed: {
+    cachedViews() {
+      console.log(this.$store.state.tagsView.cachedViews)
+      return this.$store.state.tagsView.cachedViews
+    },
     key() {
       return this.$route.path
     }
@@ -24,7 +30,9 @@ export default {
   width: 100%;
   position: relative;
   overflow: auto;
-  // background: seagreen;
+  box-sizing: border-box;
+  padding: 15px;
+  background: #F0F2F5;
 }
 .fixed-header+.app-main {
   padding-top: 50px;
@@ -35,7 +43,7 @@ export default {
     min-height: calc(100vh - 84px);
   }
   .fixed-header+.app-main {
-    padding-top: 84px;
+    padding-top: 99px;
   }
 }
 </style>

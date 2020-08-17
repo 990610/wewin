@@ -1,16 +1,11 @@
-<!---->
+<!--系统设置-数据字典-->
 <template>
-  <div>
-    物资管理info
-  </div>
+  <div />
 </template>
 <script>
 export default {
   data() {
     return {}
-  },
-  mounted() {
-    console.log(1)
   },
   methods: {}
 }

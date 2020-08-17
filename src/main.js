@@ -10,6 +10,7 @@ import router from './router'
 import '@/assets/icons' // icon
 import '@/permission' // permission control
 import { message } from '@/utils/resetMessage'
+
 /**
  * If you don't want to use mock-server
  * you want to use MockJs for mock api

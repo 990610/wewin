@@ -1,10 +1,12 @@
-<!--系统设置-用户管理-->
+<!--SQL监控-->
 <template>
-  <div />
+  <div>
+    --SQL监控--
+  </div>
 </template>
 <script>
 export default {
-  name: 'SystemManagerList',
+  name: 'SQLMoni',
   data() {
     return {}
   },

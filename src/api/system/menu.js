@@ -11,21 +11,29 @@ export function getMenu() {
     method: 'get'
   })
 }
-export function addMenu() {
+export function getMenuInfo(meunId) {
   return request({
-    url: '/makeid-boot/sys/menu/list',
+    url: '/makeid-boot/sys/menu/info/' + meunId,
     method: 'get'
   })
 }
-export function delMenu() {
+export function addMenu(data) {
   return request({
-    url: '/makeid-boot/sys/menu/list',
-    method: 'get'
+    url: '/makeid-boot/sys/menu/save',
+    method: 'post',
+    data
   })
 }
-export function updateMenu() {
+export function delMenu(menuId) {
   return request({
-    url: '/makeid-boot/sys/menu/list',
-    method: 'get'
+    url: '/makeid-boot/sys/menu/delete/' + menuId,
+    method: 'delete'
+  })
+}
+export function updateMenu(data) {
+  return request({
+    url: '/makeid-boot/sys/menu/update',
+    method: 'patch',
+    data
   })
 }

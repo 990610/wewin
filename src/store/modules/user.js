@@ -7,7 +7,9 @@ const getDefaultState = () => {
     token: getToken(),
     name: '',
     deptName: '',
-    phone: ''
+    phone: '',
+    roles: [],
+    permissions: []
   }
 }
 
@@ -28,6 +30,12 @@ const mutations = {
   },
   SET_PHONE: (state, phone) => {
     state.deptName = phone
+  },
+  SET_ROLES: (state, roles) => {
+    state.roles = roles
+  },
+  SET_PERMISSIONS: (state, permissions) => {
+    state.permissions = permissions
   }
 
 }
@@ -56,6 +64,15 @@ const actions = {
         // const { data } = response
         if (!response.userName) {
           return reject('Verification failed, please Login again.')
+        }
+        if (response.roles && resetRouter.roles.length > 0) {
+          commit('SET_ROLES', response.roles)
+          commit('SET_PERMISSIONS', response.permissions)
+        } else {
+          commit('SET_ROLES', ['ROLE_DEFAULT'])
+          // console.log(response)
+          // console.log(response.permissions)
+          commit('SET_PERMISSIONS', response.permissions)
         }
         const { userName, deptName, phone } = response
         commit('SET_NAME', userName)

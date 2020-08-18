@@ -1,10 +1,12 @@
-<!--系统设置-用户管理-->
+<!--文件上传-->
 <template>
-  <div />
+  <div>
+    文件上传
+  </div>
 </template>
 <script>
 export default {
-  name: 'SystemManagerList',
+  name: 'FileUpLoad',
   data() {
     return {}
   },

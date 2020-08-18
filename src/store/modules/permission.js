@@ -5,13 +5,17 @@ import roleData from '@/api/myMenu'
 const permission = {
   state: {
     routes: [],
-    addRoutes: []
+    addRoutes: [],
+    permissions: []
   },
   mutations: {
     SET_ROUTES: (state, routes) => {
       state.addRoutes = routes
       state.routes = constantRoutes.concat(routes)
       console.log(state.routes)
+    },
+    SET_PERMISSIONS: (state, permissions) => {
+      state.permissions = permissions
     }
   },
   actions: {
@@ -20,8 +24,11 @@ const permission = {
       return new Promise(resolve => {
         // 向后端请求路由数据
         getRouters().then(res => {
-          console.log(res)
-          const accessedRoutes = filterAsyncRouter(roleData)
+          // console.log(res)
+          commit('SET_PERMISSIONS', res.permissions)
+          const menuList = formatMenu(res.menuList)
+          const accessedRoutes = filterAsyncRouter(menuList)
+          console.log(accessedRoutes)
           accessedRoutes.push({ path: '*', redirect: '/404', hidden: true })
           commit('SET_ROUTES', accessedRoutes)
           resolve(accessedRoutes)
@@ -47,6 +54,29 @@ function filterAsyncRouter(asyncRouterMap) {
     }
     return true
   })
+}
+function formatMenu(data) {
+  const res = []
+  for (const item of data) {
+    const temp = {
+      name: item.name,
+      path: item.path,
+      component: item.component,
+      redirect: item.redirect,
+      // alwaysShow: item.alwaysShow !== 0,
+      meta: {
+        title: item.title,
+        icon: item.icon,
+        naCache: item.noCache !== 0
+      }
+    }
+    if (item.children && item.children.length > 0) {
+      temp.alwaysShow = true
+      temp.children = formatMenu(item.children)
+    }
+    res.push(temp)
+  }
+  return res
 }
 
 // export const loadView = (view) => { // 路由懒加载

@@ -7,6 +7,7 @@ import '@/assets/styles/index.scss' // global css
 import App from './App'
 import store from './store'
 import router from './router'
+import permission from './directive/permission'
 import '@/assets/icons' // icon
 import '@/permission' // permission control
 import { message } from '@/utils/resetMessage'
@@ -24,6 +25,7 @@ import { message } from '@/utils/resetMessage'
 //   mockXHR()
 // }
 Vue.use(ElementUI)
+Vue.use(permission)
 Vue.prototype.$message = message
 Vue.config.productionTip = false
 new Vue({

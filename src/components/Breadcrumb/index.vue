@@ -74,5 +74,8 @@ export default {
     color: #ffffff;
     cursor: text;
   }
+  a:hove{
+    color: #333333 !important;
+  }
 }
 </style>

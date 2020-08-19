@@ -1,7 +1,6 @@
 import { constantRoutes } from '@/router'
 import Layout from '@/components/layout/index'
-import { getRouters } from '@/api/system/menu'
-import roleData from '@/api/myMenu'
+import { sysMenuNav } from '@/api/system/SysMenuController'
 const permission = {
   state: {
     routes: [],
@@ -23,12 +22,12 @@ const permission = {
     GenerateRoutes({ commit }) {
       return new Promise(resolve => {
         // 向后端请求路由数据
-        getRouters().then(res => {
+        sysMenuNav().then(res => {
           // console.log(res)
           commit('SET_PERMISSIONS', res.permissions)
           const menuList = formatMenu(res.menuList)
           const accessedRoutes = filterAsyncRouter(menuList)
-          console.log(accessedRoutes)
+          // console.log(accessedRoutes)
           accessedRoutes.push({ path: '*', redirect: '/404', hidden: true })
           commit('SET_ROUTES', accessedRoutes)
           resolve(accessedRoutes)

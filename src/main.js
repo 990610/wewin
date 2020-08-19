@@ -11,23 +11,16 @@ import permission from './directive/permission'
 import '@/assets/icons' // icon
 import '@/permission' // permission control
 import { message } from '@/utils/resetMessage'
-
-/**
- * If you don't want to use mock-server
- * you want to use MockJs for mock api
- * you can execute: mockXHR()
- *
- * Currently MockJs will be used in the production environment,
- * please remove it before going online ! ! !
- */
-// if (process.env.NODE_ENV === 'production') {
-//   const { mockXHR } = require('../mock')
-//   mockXHR()
-// }
+Vue.prototype.$message = message
+Vue.prototype.msgSuccess = function(msg) {
+  this.$message({ showClose: true, message: msg, type: 'success' })
+}
+Vue.prototype.msgWarning = function(msg) {
+  this.$message({ showClose: true, message: msg, type: 'warning', duration: 2000 })
+}
+Vue.config.productionTip = false
 Vue.use(ElementUI)
 Vue.use(permission)
-Vue.prototype.$message = message
-Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,

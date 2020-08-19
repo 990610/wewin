@@ -3,10 +3,8 @@ import { Message } from 'element-ui'
 import store from '@/store'
 import { getToken } from '@/utils/auth'
 
-console.log(process.env.VUE_APP_BASE_API)
-console.log(process.env.NODE_ENV)
 const service = axios.create({
-  baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
+  // baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
   timeout: 5000 // request timeout
 })
 service.interceptors.request.use(
@@ -49,3 +47,5 @@ service.interceptors.response.use(
 )
 
 export default service
+export var backendIP = 'http://192.168.10.242:8088/'
+export var mockIP = 'http://service.wewin.com.cn:8071/api/5f34e300c4557651c8ad2034/pc'// 模拟IP地址

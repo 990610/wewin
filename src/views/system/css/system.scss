@@ -1,0 +1,104 @@
+$defalt-color:#e8e8e8;
+
+.drawer {
+  .el-drawer__header {
+    padding: 10px 20px;
+    border-bottom: 1px solid $defalt-color;
+    font-size: 20px;
+    color: #333333;
+
+    :focus {
+      outline: 0;
+    }
+  }
+
+  .drawer-content {
+    width: 90%;
+    margin: 0 auto;
+    box-sizing: border-box;
+    padding: 20px 15px;
+    border: 1px solid $defalt-color;
+
+    .meun-select {
+      width: 75%;
+      margin: 0 auto;
+    }
+
+    .el-form {
+      width: 85%;
+      margin: 0 auto;
+      margin-top: 30px;
+      ;
+    }
+
+    .el-input {
+      // width: 60%;
+    }
+
+    .el-input-number {
+      .el-input {
+        width: 100%;
+      }
+    }
+
+    .el-form-item--small.el-form-item {
+      margin-bottom: 30px;
+    }
+  }
+}
+.f-query {
+  .btns {
+    float: right;
+
+    .el-button {
+      min-width: 70px;
+      border: none !important;
+      border-radius: 100px;
+    }
+
+    //重置按钮
+    .reset-btn {
+      border: none !important;
+      border-radius: 100px;
+      color: #3383ff !important;
+      // padding: 9px 15px;
+      background: #d8e7fc;
+    }
+    .reset-btn:active {
+      background: #ccdffa;
+    }
+
+    //查询按钮
+    .query-btn,
+    //导出按钮
+    .add-btn {
+      border-radius: 100px;
+      border: none !important;
+    }
+    .add-btn {
+      background: #f29b76 !important;
+    }
+
+    .query-btn:active {
+      background: #409EFF !important;
+    }
+    //导出按钮
+    .add-btn:active {
+      background: #f29b76 !important;
+    }
+  }
+
+  .el-form-item__label {
+    padding: 0px;
+  }
+
+  .el-input,
+  .el-date-picker {
+    width: 130px;
+    font-size: 12px;
+  }
+
+  .el-form-item__content {
+    margin-right: 5px;
+  }
+}

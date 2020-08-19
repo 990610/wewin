@@ -46,30 +46,32 @@ export function randomString(len) {
   }
   return pwd
 }
-/**
- * 构造树型结构数据
- * @param {*} data 数据源
- * @param {*} id id字段 默认 'id'
- * @param {*} parentId 父节点字段 默认 'parentId'
- * @param {*} children 孩子节点字段 默认 'children'
- * @param {*} rootId 根Id 默认 0
- */
-export function handleTree(data, id, parentId, children, rootId) {
-  id = id || 'id'
-  parentId = parentId || 'parentId'
-  children = children || 'children'
-  rootId = rootId || 0
-  // 对源数据深度克隆
-  const cloneData = JSON.parse(JSON.stringify(data))
-  // 循环所有项
-  const treeData = cloneData.filter(father => {
-    const branchArr = cloneData.filter(child => {
-      // 返回每一项的子级数组
-      return father[id] === child[parentId]
-    })
-    branchArr.length > 0 ? father.children = branchArr : ''
-    // 返回第一层
-    return father[parentId] === rootId
-  })
-  return treeData != '' ? treeData : data
+// url拼接
+export function replacePath(template, context) {
+  if (!context) return template
+  return template.replace(/{(.*?)}/g, (match, key) => context[key.trim()] || '')
+}
+// 时间格式化
+export function dateFormat(date, fmt) {
+  let ret = ''
+  date = new Date(date)
+  const opt = {
+    'y+': date.getFullYear().toString(), // 年
+    'M+': (date.getMonth() + 1).toString(), // 月
+    'd+': date.getDate().toString(), // 日
+    'h+': date.getHours().toString(), // 时
+    'm+': date.getMinutes().toString(), // 分
+    's+': date.getSeconds().toString() // 秒
+    // 有其他格式化字符需求可以继续添加，必须转化成字符串
+  }
+  for (const k in opt) {
+    ret = new RegExp('(' + k + ')').exec(fmt)
+    if (ret) {
+      fmt = fmt.replace(
+        ret[1],
+        ret[1].length === 1 ? opt[k] : opt[k].padStart(ret[1].length, '0')
+      )
+    }
+  }
+  return fmt
 }

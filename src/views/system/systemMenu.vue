@@ -1,34 +1,16 @@
 <template>
   <div id="systemMenu" class="app-container">
-    <el-form :inline="true">
-      <el-form-item label="菜单名称">
-        <el-input
-          v-model="queryParams.menuName"
-          placeholder="请输入菜单名称"
-          clearable
-          size="small"
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="状态">
-        <el-select v-model="queryParams.visible" placeholder="菜单状态" clearable size="small">
-          <el-option
-            v-for="dict in visibleOptions"
-            :key="dict.dictValue"
-            :label="dict.dictLabel"
-            :value="dict.dictValue"
-          />
-        </el-select>
-      </el-form-item>
+    <el-form :inline="true" class="f-query">
       <el-form-item>
         <el-button
           v-hasPermi="['sys:menu:save']"
           type="primary"
           icon="el-icon-plus"
           size="mini"
+          style="border-radius:100px;"
           @click="handleAdd"
         >新增</el-button>
-        <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
+        <!-- <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button> -->
       </el-form-item>
     </el-form>
     <div class="table">
@@ -38,23 +20,19 @@
         row-key="menuId"
         border
         :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
+        height="100%"
       >
         <el-table-column prop="title" label="菜单名称" :show-overflow-tooltip="true" width="160" />
         <el-table-column prop="icon" label="图标" align="center" width="100">
           <template slot-scope="scope">
-            <svg-icon icon-class="dashboard" />
+            <svg-icon :icon-class="scope.row.icon" />
           </template>
         </el-table-column>
-        <el-table-column prop="orderNum" label="排序" width="60" />
         <el-table-column prop="perms" label="权限标识" :show-overflow-tooltip="true" />
-        <el-table-column prop="component" label="组件路径" :show-overflow-tooltip="true" />
-        <!-- <el-table-column prop="visible" label="可见" :formatter="visibleFormat" width="80" /> -->
-        <el-table-column label="创建时间" align="center" prop="createTime">
-          <template slot-scope="scope">
-            <!-- <span>{{ parseTime(scope.row.createTime) }}</span> -->
-          </template>
-        </el-table-column>
-        <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
+        <el-table-column prop="component" label="组件" :show-overflow-tooltip="true" />
+        <el-table-column prop="path" label="路径" :show-overflow-tooltip="true" />
+        <el-table-column prop="orderNum" label="排序" width="100" />
+        <el-table-column label="操作" align="center" width="300" class-name="small-padding fixed-width">
           <template slot-scope="scope">
             <el-button
               v-hasPermi="['sys:menu:update']"
@@ -62,7 +40,7 @@
               type="text"
               icon="el-icon-edit"
               @click="handleUpdate(scope.row)"
-            >修改</el-button>
+            >编辑</el-button>
             <el-button
               v-hasPermi="['sys:menu:save']"
               size="mini"
@@ -84,8 +62,15 @@
     <div class="drawer">
       <el-drawer :title="title" :visible.sync="open" direction="rtl" size="700px">
         <div class="drawer-content">
-          <el-form ref="menuForm" :model="form" size="small" :rules="rules" label-width="100px" label-position="right">
-            <el-form-item label="菜单类型" prop="">
+          <el-form
+            ref="menuForm"
+            :model="form"
+            size="small"
+            :rules="rules"
+            label-width="100px"
+            label-position="right"
+          >
+            <el-form-item label="菜单类型" prop>
               <el-radio-group v-model="form.type">
                 <el-radio :label="0">目录</el-radio>
                 <el-radio :label="1">子菜单</el-radio>
@@ -98,9 +83,24 @@
               </el-form-item>
               <el-form-item v-if="form.type === 1" label="上级菜单" prop="parentId">
                 <el-popover ref="menuListPopover" placement="bottom-start" trigger="click">
-                  <el-tree ref="menuListTree" :data="menuList" :props="menuListProps" node-key="menuId" :default-expanded-keys="[0]" :default-expand-all="false" :highlight-current="true" :expand-on-click-node="false" @current-change="menuListTreeCurrentChangeHandle" />
+                  <el-tree
+                    ref="menuListTree"
+                    :data="menuList"
+                    :props="menuListProps"
+                    node-key="menuId"
+                    :default-expanded-keys="[0]"
+                    :default-expand-all="false"
+                    :highlight-current="true"
+                    :expand-on-click-node="false"
+                    @current-change="menuListTreeCurrentChangeHandle"
+                  />
                 </el-popover>
-                <el-input v-model="form.parentTitle" v-popover:menuListPopover :readonly="true" placeholder="请选择父级菜单" />
+                <el-input
+                  v-model="form.parentTitle"
+                  v-popover:menuListPopover
+                  :readonly="true"
+                  placeholder="请选择父级菜单"
+                />
               </el-form-item>
               <el-form-item label="菜单路径" prop="path">
                 <el-input v-model="form.path" placeholder="请输入菜单路径" />
@@ -146,15 +146,30 @@
                 <el-input v-model="form.title" placeholder="请选择菜单名称" />
               </el-form-item>
               <el-form-item label="上级菜单" :prop="form.type == 0 ? '': 'parentId'">
-                <el-popover ref="menuListPopover" placement="bottom-start" trigger="click">
-                  <el-tree ref="menuListTree" :data="menuList" :props="menuListProps" node-key="menuId" :default-expanded-keys="[0]" :default-expand-all="false" :highlight-current="true" :expand-on-click-node="false" @current-change="menuListTreeCurrentChangeHandle" />
+                <el-popover ref="menuListPopover2" placement="bottom-start" trigger="click">
+                  <el-tree
+                    ref="menuListTree"
+                    :data="menuList"
+                    :props="menuListProps"
+                    node-key="menuId"
+                    :default-expanded-keys="[0]"
+                    :default-expand-all="false"
+                    :highlight-current="true"
+                    :expand-on-click-node="false"
+                    @current-change="menuListTreeCurrentChangeHandle"
+                  />
                 </el-popover>
-                <el-input v-model="form.parentTitle" v-popover:menuListPopover :readonly="true" placeholder="请选择父级菜单" />
+                <el-input
+                  v-model="form.parentTitle"
+                  v-popover:menuListPopover2
+                  :readonly="true"
+                  placeholder="请选择父级菜单"
+                />
               </el-form-item>
-              <el-form-item label="菜单路径" prop="">
+              <el-form-item label="菜单路径" prop>
                 <el-input v-model="form.path" placeholder="请选择菜单名称" />
               </el-form-item>
-              <el-form-item label="权限标识" prop="">
+              <el-form-item label="权限标识" prop>
                 <el-input v-model="form.perms" placeholder="多个用逗号隔开，如: sys:menu:save,sys:menu:delete" />
               </el-form-item>
             </div>
@@ -171,12 +186,12 @@
 
 <script>
 import {
-  getMenu,
-  getMenuInfo,
-  delMenu,
-  addMenu,
-  updateMenu
-} from '@/api/system/menu'
+  sysMenuList,
+  sysMenuInfoMenuId,
+  sysMenuSave,
+  sysMenuDeleteMenuId,
+  sysMenuUpdate
+} from '@/api/system/SysMenuController'
 import router from '@/router'
 import store from '@/store'
 import IconSelect from '@/components/IconSelect'
@@ -188,27 +203,18 @@ export default {
     return {
       // 遮罩层
       loading: true,
-      // 添加、修改加载状态
-      dialogLoading: false,
       // 菜单表格树数据
       menuList: [],
+      // 下拉树配置
       menuListProps: {
         label: 'title',
         children: 'children'
       },
-      // 菜单树选项
-      menuOptions: [],
       // 弹出层标题
       title: '新增',
       // 是否显示弹出层
       open: false,
-      // 菜单状态数据字典
-      visibleOptions: [],
-      // 查询参数
-      queryParams: {
-        menuName: undefined,
-        visible: undefined
-      },
+      // visible: undefined
       labelWidth: '100px',
       // 表单参数
       form: {
@@ -221,7 +227,7 @@ export default {
         icon: '',
         orderNum: '',
         noCache: false,
-        parentTitle: 'title'
+        parentTitle: ''
       },
       // 表单校验
       rules: {
@@ -229,7 +235,11 @@ export default {
           { required: true, message: '菜单名称不能为空', trigger: 'blur' }
         ],
         parentId: [
-          { required: true, message: '父级菜单不能为空', trigger: 'current-change' }
+          {
+            required: true,
+            message: '父级菜单不能为空',
+            trigger: 'current-change'
+          }
         ],
         component: [
           { required: true, message: '组件名称不能为空', trigger: 'blur' }
@@ -247,14 +257,14 @@ export default {
     this.getMenuList()
   },
   methods: {
-    // 选择图标
-    selected(name) {
-      this.form.icon = name
+    // 表单重置
+    reset() {
+      this.form = this.$options.data().form
     },
     /** 查询菜单列表 */
     getMenuList() {
       this.loading = true
-      getMenu()
+      sysMenuList()
         .then((response) => {
           this.loading = false
           this.menuList = response
@@ -263,26 +273,30 @@ export default {
           this.loading = false
         })
     },
+    // 菜单下拉列表选择
     menuListTreeCurrentChangeHandle(event) {
       this.form.parentId = event.menuId
       this.form.parentTitle = event.title
       console.log(event)
+    },
+    // 选择图标
+    selected(name) {
+      this.form.icon = name
     },
     // 取消按钮
     cancel() {
       this.open = false
       this.reset()
     },
-    // 表单重置
-    reset() {
-      this.form = this.$options.data().form
-    },
-    /** 搜索按钮操作 */
-    handleQuery() {
-      this.getMenuList()
-    },
     /** 新增按钮操作 */
     handleAdd(row) {
+      this.reset()
+      if (row.menuId) {
+        this.form.type = 1
+        this.form.parentTitle = row.parentTitle
+        this.form.parentId = row.parentId
+        console.log(this.form)
+      }
       this.open = true
       this.title = '新增'
     },
@@ -290,13 +304,13 @@ export default {
     handleUpdate(row) {
       this.title = '编辑'
       this.reset()
-      getMenuInfo(row.menuId).then(res => {
+      sysMenuInfoMenuId({ menuId: row.menuId }).then((res) => {
         console.log(res)
         this.open = true
         this.form = res
       })
     },
-    /** 提交按钮 */
+    // 提交按钮
     submitForm(forName) {
       this.$refs[forName].validate((valid) => {
         if (valid) {
@@ -304,11 +318,8 @@ export default {
           if (this.title === '新增') {
             console.log('新增')
             console.log(this.form)
-            addMenu(this.form).then(res => {
-              this.$message({
-                message: '新增成功',
-                type: 'success'
-              })
+            sysMenuSave(this.form).then((res) => {
+              this.msgSuccess('新增成功')
               this.open = false
               this.getMenuList()
             })
@@ -316,17 +327,10 @@ export default {
             console.log('编辑')
             // this.form.noCache = this.form.noCache ? 1 : 0
             console.log(this.form)
-            updateMenu(this.form).then(res => {
-              this.$message({
-                message: '修改成功',
-                type: 'success'
-              })
+            sysMenuUpdate(this.form).then((res) => {
+              this.msgSuccess('修改成功')
               this.open = false
-              this.getMenuList()
-              // this.$router.go(0)
-              store.dispatch('GenerateRoutes').then(accessRoutes => {
-                router.addRoutes(accessRoutes) // 动态添加可访问路由表
-              })
+              this.freshRouter()
             })
           }
         } else {
@@ -334,80 +338,42 @@ export default {
         }
       })
     },
-    /** 删除按钮操作 */
+    // 删除按钮操作
     handleDelete(row) {
       console.log(row)
-      this.$confirm(
-        '是否确认删除名称为"' + row.title + '"的菜单项?',
-        '警告',
-        {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }
-      )
+      this.$confirm('是否确认删除名称为"' + row.title + '"的菜单项?', '警告', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      })
         .then(() => {
-          console.log(row.menuId)
-          delMenu(row.menuId).then(() => {
-            console.log('删除成功')
-            this.getMenuList()
+          sysMenuDeleteMenuId({ menuId: row.menuId }).then(() => {
+            this.freshRouter()
           })
         })
         .catch(function() {})
     },
-    handleClose() {}
+    // 修改菜单后刷新路由
+    freshRouter() {
+      this.getMenuList()
+      store.dispatch('GenerateRoutes').then((accessRoutes) => {
+        router.addRoutes(accessRoutes) // 动态添加可访问路由表
+      })
+    }
   }
 }
 </script>
 <style lang="scss">
-$defalt-color:#e8e8e8;
+@import "./css/system.scss";
 .el-popover {
-    width: 408px !important;
-    max-height: 200px;
-    overflow: auto;
+	width: 408px !important;
+	max-height: 200px;
+	overflow: auto;
 }
 #systemMenu {
-  .el-form-item__label{
-    color: #333333;
-    font-weight: 400;
-  }
-	.drawer {
-		.el-drawer__header {
-			padding: 10px 20px;
-			border-bottom: 1px solid $defalt-color;
-			font-size: 20px;
-			color: #333333;
-			:focus {
-				outline: 0;
-			}
-		}
-		.drawer-content {
-      width: 90%;
-      margin: 0 auto;
-      box-sizing: border-box;
-      padding: 20px 15px;
-      border: 1px solid $defalt-color;
-      .meun-select{
-        width: 75%;
-        margin: 0 auto;
-      }
-      .el-form{
-        width: 85%;
-        margin: 0 auto;
-        margin-top: 30px;;
-      }
-      .el-input{
-        // width: 60%;
-      }
-      .el-input-number{
-        .el-input{
-          width: 100%;
-       }
-      }
-      .el-form-item--small.el-form-item{
-        margin-bottom: 30px;
-      }
-		}
+	height: 100%;
+	.table {
+		height: calc(100% - 70px);
 	}
 }
 </style>

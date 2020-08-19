@@ -1,3 +1,4 @@
+<!--系统设置-角色管理-->
 <template>
   <div id="systemRole" class="app-container">
     <el-form :inline="true" class="f-query">
@@ -13,7 +14,7 @@
         <el-button class="reset-btn" type="primary" icon="el-icon-refresh-left" size="mini" @click="resetQuery">重置</el-button>
         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">查询</el-button>
         <el-button v-hasPermi="['sys:role:save']" type="primary" icon="el-icon-plus" size="mini" @click="handleAdd">新增角色</el-button>
-        <el-button v-hasPermi="['sys:role:save']" type="primary" icon="el-icon-plus" size="mini" @click="handleAdd">导出角色</el-button>
+        <el-button v-hasPermi="['sys:role:save']" class="add-btn" type="primary" icon="el-icon-download" size="mini" @click="handleAdd">导出角色</el-button>
         <el-button v-show="multipleSelection.length > 0" v-hasPermi="['sys:role:delete']" type="danger" icon="el-icon-delete" size="mini" @click="deleteMore">批量删除</el-button>
       </el-form-item>
     </el-form>

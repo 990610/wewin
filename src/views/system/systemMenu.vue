@@ -1,3 +1,4 @@
+<!--系统设置-菜单管理-->
 <template>
   <div id="systemMenu" class="app-container">
     <el-form :inline="true" class="f-query">
@@ -185,13 +186,7 @@
 </template>
 
 <script>
-import {
-  sysMenuList,
-  sysMenuInfoMenuId,
-  sysMenuSave,
-  sysMenuDeleteMenuId,
-  sysMenuUpdate
-} from '@/api/system/SysMenuController'
+import { sysMenuList, sysMenuInfoMenuId, sysMenuSave, sysMenuDeleteMenuId, sysMenuUpdate } from '@/api/system/SysMenuController'
 import router from '@/router'
 import store from '@/store'
 import IconSelect from '@/components/IconSelect'

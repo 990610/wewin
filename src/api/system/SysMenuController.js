@@ -2,7 +2,6 @@
 // 引入axios封装文件
 import request, { backendIP, mockIP } from '@/utils/request'
 import { replacePath } from '@/utils/index'
-console.log(mockIP)
 var IP = ''
 // mockIP = backendIP// 切换全局后台IP地址
 // backendIP = mockIP;//切换全局模拟IP地址

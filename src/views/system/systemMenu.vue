@@ -72,7 +72,7 @@
             label-position="right"
           >
             <el-form-item label="菜单类型" prop>
-              <el-radio-group v-model="form.type">
+              <el-radio-group v-model="form.type" @change="typeChange">
                 <el-radio :label="0">目录</el-radio>
                 <el-radio :label="1">子菜单</el-radio>
                 <el-radio :label="2">按钮/权限</el-radio>
@@ -107,9 +107,9 @@
                 <el-input v-model="form.path" placeholder="请输入菜单路径" />
               </el-form-item>
               <el-form-item label="组件路径" prop="component">
-                <el-input v-model="form.component" placeholder="请输入前端组件" />
+                <el-input v-model="form.component" placeholder="请输入前端组件：Layout" />
               </el-form-item>
-              <el-form-item label="组件路径" prop="name">
+              <el-form-item label="组件名称" prop="name">
                 <el-input v-model="form.name" placeholder="请输入前端组件名称" />
               </el-form-item>
               <el-form-item v-show="form.type === 0" label="默认跳转地址" prop="redirect">
@@ -134,6 +134,9 @@
                     <i v-else slot="prefix" class="el-icon-search el-input__icon" />
                   </el-input>
                 </el-popover>
+              </el-form-item>
+              <el-form-item label="权限标识" prop="perms">
+                <el-input v-model="form.perms" placeholder="多个用逗号隔开，如: sys:menu:save,sys:menu:delete" />
               </el-form-item>
               <el-form-item label="排序" prop="orderNum">
                 <el-input-number v-model="form.orderNum" :min="0" :max="100" />
@@ -303,7 +306,16 @@ export default {
         console.log(res)
         this.open = true
         this.form = res
+        setTimeout(() => {
+          this.menuListTreeSetCurrentNode()
+        }, 0)
       })
+    },
+    // 部门树设置当前选中节点
+    menuListTreeSetCurrentNode() {
+      console.log(this.form.parentId)
+      this.$refs.menuListTree.setCurrentKey(this.form.parentId)
+      this.form.parentTitle = (this.$refs.menuListTree.getCurrentNode() || {})['title']
     },
     // 提交按钮
     submitForm(forName) {
@@ -354,6 +366,15 @@ export default {
       store.dispatch('GenerateRoutes').then((accessRoutes) => {
         router.addRoutes(accessRoutes) // 动态添加可访问路由表
       })
+    },
+    typeChange(e) {
+      console.log(e)
+      if (e === 2) {
+        this.form.parentId = this.form.menuId
+        this.form.parentTitle = this.form.title
+        // this.form.title = ''
+      }
+      console.log(this.form)
     }
   }
 }

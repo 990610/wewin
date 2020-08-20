@@ -65,8 +65,12 @@ const actions = {
         if (!response.userName) {
           return reject('Verification failed, please Login again.')
         }
-        if (response.roles && resetRouter.roles.length > 0) {
-          commit('SET_ROLES', response.roles)
+        if (response.roles && response.roles.length > 0) {
+          const roleList = []
+          for (const item of response.roles) {
+            roleList.push(item.roleName)
+          }
+          commit('SET_ROLES', roleList)
           commit('SET_PERMISSIONS', response.permissions)
         } else {
           commit('SET_ROLES', ['ROLE_DEFAULT'])

@@ -36,6 +36,15 @@ export function sysRoleList(data) {
     data: data
   })
 }
+// 角色管理 - 分页角色列表
+export function sysRoleListAll(data) {
+  IP = false ? mockIP : backendIP
+  return request({
+    url: IP + '/makeid-boot/sys/role/listAll',
+    method: 'get',
+    data: data
+  })
+}
 
 // 角色管理 - 新增角色
 export function sysRoleSave(data) {

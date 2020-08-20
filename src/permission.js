@@ -40,10 +40,10 @@ router.beforeEach(async(to, from, next) => {
             // 根据roles权限生成可访问的路由表
             router.addRoutes(accessRoutes) // 动态添加可访问路由表
             next({ ...to, replace: true }) // hack方法 确保addRoutes已完成
-            console.log(accessRoutes)
           })
         })
           .catch(err => {
+            console.log(err)
             store.dispatch('user/logout').then(() => {
               Message.error(err)
               next({ path: '/' })

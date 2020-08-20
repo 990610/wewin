@@ -16,6 +16,10 @@ export default {
   components: {
     pieChart
   },
+  data() {
+    return {
+    }
+  },
   computed: {
     ...mapGetters([
       'name'
@@ -24,6 +28,7 @@ export default {
   mounted() {
     console.log('首页')
   }
+
 }
 </script>
 

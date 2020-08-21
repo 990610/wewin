@@ -26,7 +26,7 @@
         <el-table-column prop="title" label="菜单名称" :show-overflow-tooltip="true" width="160" />
         <el-table-column prop="icon" label="图标" align="center" width="100">
           <template slot-scope="scope">
-            <svg-icon :icon-class="scope.row.icon" />
+            <svg-icon :icon-class="scope.row.icon || ''" />
           </template>
         </el-table-column>
         <el-table-column prop="perms" label="权限标识" :show-overflow-tooltip="true" />
@@ -289,14 +289,17 @@ export default {
     /** 新增按钮操作 */
     handleAdd(row) {
       this.reset()
-      if (row.menuId) {
-        this.form.type = 1
-        this.form.parentTitle = row.parentTitle
-        this.form.parentId = row.parentId
-        console.log(this.form)
-      }
       this.open = true
       this.title = '新增'
+      if (row.menuId) {
+        this.form.type = 1
+        this.form.parentTitle = row.title
+        this.form.parentId = row.menuId
+        this.open = true
+        setTimeout(() => {
+          this.menuListTreeSetCurrentNode()
+        }, 0)
+      }
     },
     /** 修改按钮操作 */
     handleUpdate(row) {

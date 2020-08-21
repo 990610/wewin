@@ -45,7 +45,7 @@
           placeholder="请选择部门"
           size="small"
           clearable
-        /></el-input></el-form-item>
+        /></el-form-item>
       <el-form-item class="btns">
         <el-button class="reset-btn" type="primary" icon="el-icon-refresh-left" size="mini" @click="resetQuery">重置</el-button>
         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">查询</el-button>
@@ -133,10 +133,10 @@
               <el-radio v-model="form.sex" label="1">女</el-radio>
             </el-form-item>
             <el-form-item label="手机号" prop="mobile">
-              <el-input v-model="form.mobile" placeholder="请输入手机邮箱" maxlength="20" />
+              <el-input v-model="form.mobile" placeholder="请输入手机号" maxlength="20" />
             </el-form-item>
             <el-form-item label="邮箱" prop="email">
-              <el-input v-model="form.email" placeholder="请输入手机邮箱" maxlength="20" />
+              <el-input v-model="form.email" placeholder="请输入邮箱" maxlength="20" />
             </el-form-item>
             <el-form-item label="部门" prop="dept">
               <el-popover ref="deptListPopover" width="408" placement="bottom-start" trigger="click">

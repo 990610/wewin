@@ -42,18 +42,6 @@
           </template>
         </el-table-column>
       </el-table>
-      <div class="pagination">
-        <el-pagination
-          background
-          :current-page="pagination.pageNo"
-          :page-sizes="[10, 20, 30, 50]"
-          :page-size="pagination.pageSize"
-          layout="total, prev, pager, next, sizes"
-          :total="pagination.total"
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
-        />
-      </div>
     </div>
     <div class="drawer">
       <el-drawer :title="title" :visible.sync="open" direction="rtl" size="700px" :before-close="drawerClose">
@@ -78,6 +66,7 @@
                   :default-expand-all="false"
                   :highlight-current="true"
                   :expand-on-click-node="false"
+                  :default-expanded-keys="[form.parentId]"
                   :filter-node-method="filterNode"
                   @current-change="deptListTreeCurrentChangeHandle"
                 />
@@ -109,10 +98,6 @@ export default {
   name: 'SystemManagerList',
   data() {
     return {
-      // 分页管理员列表
-      managerList: [],
-      // 所有的角色
-      roleListAll: [],
       // 遮罩层
       loading: true,
       // 菜单表格树数据
@@ -128,9 +113,7 @@ export default {
       title: '新增',
       // 是否显示弹出层
       open: false,
-      // 查询参数
-      roleName: '',
-      // visible: undefined
+      // form表单label宽度
       labelWidth: '100px',
       // 表单参数
       form: {
@@ -150,12 +133,6 @@ export default {
           { required: true, message: '排序不能为空', trigger: 'blur' }
         ]
       },
-      // 分页
-      pagination: {
-        pageNo: 1,
-        pageSize: 10,
-        total: 0
-      },
       // table 选择
       multipleSelection: []
     }
@@ -169,6 +146,10 @@ export default {
     this.getDeptList()
   },
   methods: {
+    // 表单重置
+    reset() {
+      this.form = this.$options.data().form
+    },
     getDeptList() {
       that.sysDeptList().then(res => {
         this.loading = false
@@ -179,23 +160,9 @@ export default {
           console.log(error)
         })
     },
-    // 重置查询
-    resetQuery() {
-      this.queryForm = this.$options.data().queryForm
-      this.getDeptList()
-    },
-    // 查询按钮
-    handleQuery() {
-      this.getDeptList()
-    },
     // 取消按钮
     cancel() {
       this.open = false
-    },
-    // 表单重置
-    reset() {
-      this.form = this.$options.data().form
-      // this.$refs.menuTree.setCheckedKeys([])
     },
     // 新增按钮操作
     handleAdd(row) {
@@ -251,7 +218,7 @@ export default {
     // 删除按钮操作
     handleDelete(row) {
       this.$confirm(
-        '是否确认删除名称为"' + row.userName + '的用户?',
+        '是否确认删除名称为"' + row.name + '的部门?',
         '警告',
         {
           confirmButtonText: '确定',
@@ -271,7 +238,7 @@ export default {
     // 批量删除操作
     deleteMore() {
       this.$confirm(
-        '是否确认批量删除用户?',
+        '是否确认批量删除机构?',
         '警告',
         {
           confirmButtonText: '确定',
@@ -280,27 +247,17 @@ export default {
         }
       )
         .then(() => {
-          const userIdList = []
+          const deptIdList = []
           for (const item of this.multipleSelection) {
-            userIdList.push(item.userId)
+            deptIdList.push(item.deptId)
           }
-          that.sysUserDelete(userIdList).then(res => {
+          that.sysDeptDelete(deptIdList).then(res => {
             this.msgSuccess('删除成功')
             this.getDeptList()
           })
             .catch(error => { console.log(error) })
         })
         .catch(function() {})
-    },
-    // 分页大小选择
-    handleSizeChange(val) {
-      this.pagination.pageSize = val
-      this.getDeptList()
-    },
-    // 分页页面跳转
-    handleCurrentChange(val) {
-      this.pagination.pageNo = val
-      this.getDeptList()
     },
     // 关闭侧面弹出框
     drawerClose() {
@@ -322,7 +279,6 @@ export default {
       if (!value) return true
       return data.name.indexOf(value) !== -1
     }
-
   }
 }
 </script>

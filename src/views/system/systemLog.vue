@@ -153,9 +153,6 @@ export default {
 @import './css/system.scss';
 #systemLog {
   height: 100%;
-  .queryForm{
-
-  }
   .table{
     height: calc(100% - 96px);
   }

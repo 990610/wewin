@@ -1,4 +1,3 @@
-
 // 引入axios封装文件
 import request, { backendIP, mockIP } from '@/utils/request'
 import { replacePath } from '@/utils/index'

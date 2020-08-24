@@ -50,7 +50,7 @@
             >删除</el-button>
           </template>
         </el-table-column>
-        </el-table-column></el-table>
+      </el-table>
       <div class="pagination">
         <el-pagination
           background

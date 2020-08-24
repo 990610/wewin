@@ -193,7 +193,7 @@
 import * as that from '@/api/system/SysUserController'
 import { sysDeptList } from '@/api/system/SysDeptController'
 import { sysRoleListAll } from '@/api/system/SysRoleController'
-import { dateFormat } from '@/utils/index'
+import { dateFormat, encode } from '@/utils/index'
 export default {
   name: 'ManagerList',
   filters: {
@@ -368,6 +368,7 @@ export default {
         if (valid) {
           delete (this.form['deptName'])
           if (this.title === '新增') {
+            this.form.password = encode(this.form.password)
             that.sysUserAdd(this.form).then(res => {
               this.open = false
               this.msgSuccess('新增成功')

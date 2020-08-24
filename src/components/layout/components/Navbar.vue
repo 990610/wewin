@@ -96,6 +96,7 @@ import { mapGetters } from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
 import { sysUserPassword } from '@/api/system/SysUserController'
+import { encode } from '@/utils/index'
 
 export default {
   components: {
@@ -157,8 +158,8 @@ export default {
       console.log(this.dialog.form.newPassword, this.dialog.form.rePassword)
       if (this.dialog.form.newPassword === this.dialog.form.rePassword) {
         const item = {
-          password: this.dialog.form.password,
-          newPassword: this.dialog.form.newPassword
+          password: encode(this.dialog.form.password),
+          newPassword: encode(this.dialog.form.newPassword)
         }
         sysUserPassword(item).then((res) => {
           this.msgSuccess('修改成功,即将重新登录')

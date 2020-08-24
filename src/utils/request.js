@@ -3,6 +3,7 @@ import { Message } from 'element-ui'
 import store from '@/store'
 import { getToken, removeToken } from '@/utils/auth'
 import router from '../router'
+import md5 from 'js-md5'
 
 const service = axios.create({
   // baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
@@ -10,9 +11,18 @@ const service = axios.create({
 })
 service.interceptors.request.use(
   config => {
+    console.log(config.data)
     if (store.getters.token) {
       config.headers['token'] = getToken()
     }
+    config.headers['signature'] = ''
+    if (config.data) {
+      config.headers['signature'] = md5(md5(JSON.stringify(config.data)))
+    }
+    // const time = new Date().getTime()
+    // config.params['time'] = time
+    //
+
     return config
   },
   error => {
@@ -56,5 +66,6 @@ service.interceptors.response.use(
 )
 
 export default service
-export var backendIP = process.env.VUE_APP_BASE_API
+// export var backendIP = process.env.VUE_APP_BASE_API
+export var backendIP = 'http://192.168.11.164:8088'
 export var mockIP = 'http://service.wewin.com.cn:8071/api/5f34e300c4557651c8ad2034/pc'// 模拟IP地址

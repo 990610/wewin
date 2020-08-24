@@ -78,14 +78,14 @@
 </template>
 
 <script>
-import { validUsername } from '@/utils/validate'
-import { randomString } from '@/utils/index.js'
+// import { validUsername } from '@/utils/validate'
+import { randomString, encode } from '@/utils/index.js'
 
 export default {
   name: 'Login',
   data() {
     const validateUsername = (rule, value, callback) => {
-      if (!validUsername(value)) {
+      if (!value) {
         callback(new Error('请输入用户名'))
       } else {
         callback()
@@ -146,8 +146,15 @@ export default {
       this.$refs.loginForm.validate((valid) => {
         if (valid) {
           this.loading = true
+          const ps = encode(this.loginForm.password)
+          const item = {
+            username: this.loginForm.username,
+            password: ps,
+            captcha: this.loginForm.captcha,
+            uuid: this.loginForm.uuid
+          }
           this.$store
-            .dispatch('user/login', this.loginForm)
+            .dispatch('user/login', item)
             .then(() => {
               this.$router.push({ path: this.redirect || '/' })
               this.loading = false
@@ -164,6 +171,7 @@ export default {
       })
     },
     getCode() {
+      console.log(1)
       this.loginForm.uuid = randomString(16)
       this.codeUrl =
 				process.env.VUE_APP_BASE_API +

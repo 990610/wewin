@@ -75,3 +75,13 @@ export function dateFormat(date, fmt) {
   }
   return fmt
 }
+// base64 2次加密
+export function encode(str) {
+  // 对字符串进行编码
+  var encode = encodeURI(str)
+  // 对编码的字符串转化base64
+  var base64 = btoa(encode)
+  base64 = encodeURI(base64)
+  base64 = btoa(base64)
+  return base64
+}

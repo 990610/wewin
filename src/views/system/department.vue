@@ -3,8 +3,8 @@
   <div id="departmanet" class="app-container">
     <el-form :inline="true" class="f-query">
       <el-form-item class="btns" style="float:left;">
-        <el-button v-hasPermi="['sys:manage:save']" type="primary" icon="el-icon-plus" size="mini" @click="handleAdd">新增部门</el-button>
-        <el-button v-show="multipleSelection.length > 0" v-hasPermi="['sys:manage:delete']" type="danger" icon="el-icon-delete" size="mini" @click="deleteMore">批量删除</el-button>
+        <el-button v-hasPermi="['sys:dept:save']" type="primary" icon="el-icon-plus" size="mini" @click="handleAdd">新增部门</el-button>
+        <el-button v-show="multipleSelection.length > 0" v-hasPermi="['sys:dept:delete']" type="danger" icon="el-icon-delete" size="mini" @click="deleteMore">批量删除</el-button>
       </el-form-item>
     </el-form>
     <div class="table">
@@ -26,14 +26,14 @@
         <el-table-column label="操作" align="center" width="250" fixed="right" class-name="small-padding fixed-width">
           <template slot-scope="scope">
             <el-button
-              v-hasPermi="['sys:manage:update']"
+              v-hasPermi="['sys:dept:update']"
               size="mini"
               type="text"
               icon="el-icon-edit"
               @click="handleUpdate(scope.row)"
             >编辑</el-button>
             <el-button
-              v-hasPermi="['sys:manage:delete']"
+              v-hasPermi="['sys:dept:delete']"
               size="mini"
               type="text"
               icon="el-icon-delete"

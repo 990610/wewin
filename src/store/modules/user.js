@@ -46,7 +46,6 @@ const actions = {
     const { username, password, captcha, uuid } = userInfo
     return new Promise((resolve, reject) => {
       login({ username: username.trim(), password: password, captcha, uuid }).then(response => {
-        console.log(response)
         commit('SET_TOKEN', response.token)
         setToken(response.token)
         resolve()
@@ -60,8 +59,6 @@ const actions = {
   getInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
       getInfo().then(response => {
-        console.log(response)
-        // const { data } = response
         if (!response.userName) {
           return reject('Verification failed, please Login again.')
         }
@@ -74,8 +71,6 @@ const actions = {
           commit('SET_PERMISSIONS', response.permissions)
         } else {
           commit('SET_ROLES', ['ROLE_DEFAULT'])
-          // console.log(response)
-          // console.log(response.permissions)
           commit('SET_PERMISSIONS', response.permissions)
         }
         const { userName, deptName, phone } = response

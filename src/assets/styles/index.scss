@@ -133,10 +133,47 @@ div:focus {
 	background-color: transparent;
 }
 
-
 // main-container global css
 .app-container {
   background-color: #fff;
   box-sizing: border-box;
   padding: 15px;
+  height: 100%;
 }
+// 全局通用dialog样式
+.f-dialog {
+    .el-dialog__headerbtn {
+        top: 16px;
+        font-size: 23px;
+    }
+    .el-dialog {
+        // min-width: 800px;
+        border-radius: 5px;
+    }
+
+    .el-dialog__body {
+        padding: 20px;
+        box-sizing: border-box;
+        // min-height: 400px;
+    }
+    .el-dialog__header {
+        border-bottom: 1px solid #ddd;
+        padding-left: 10px;
+        span {
+            padding-left: 10px;
+            border-left: 5px solid #78aef9;
+        }
+    }
+    //关闭按钮样式重写
+    .close-btn {
+        width: 70px;
+        border: none !important;
+        border-radius: 100px;
+        // color: #3383ff !important;
+        padding: 9px 15px;
+        background: #d8e7fc;
+    }
+    .close-btn:active {
+        background: #ccdffa;
+    }
+  }

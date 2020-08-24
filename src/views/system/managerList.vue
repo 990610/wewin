@@ -48,9 +48,8 @@
         /></el-form-item>
       <el-form-item class="btns">
         <el-button class="reset-btn" type="primary" icon="el-icon-refresh-left" size="mini" @click="resetQuery">重置</el-button>
-        <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">查询</el-button>
+        <el-button v-hasPermi="['sys:manage:list']" type="primary" icon="el-icon-search" size="mini" @click="handleQuery">查询</el-button>
         <el-button v-hasPermi="['sys:manage:save']" type="primary" icon="el-icon-plus" size="mini" @click="handleAdd">新增用户</el-button>
-        <el-button v-hasPermi="['sys:manage:save']" class="add-btn" type="primary" icon="el-icon-download" size="mini" @click="handleAdd">导出用户</el-button>
         <el-button v-show="multipleSelection.length > 0" v-hasPermi="['sys:manage:delete']" type="danger" icon="el-icon-delete" size="mini" @click="deleteMore">批量删除</el-button>
       </el-form-item>
     </el-form>

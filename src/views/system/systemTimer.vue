@@ -12,7 +12,7 @@
       </el-form-item>
       <el-form-item class="btns">
         <el-button class="reset-btn" type="primary" icon="el-icon-refresh-left" size="mini" @click="resetQuery">重置</el-button>
-        <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">查询</el-button>
+        <el-button v-hasPermi="['sys:timer:list']" type="primary" icon="el-icon-search" size="mini" @click="handleQuery">查询</el-button>
         <el-button v-hasPermi="['sys:timer:save']" type="primary" icon="el-icon-plus" size="mini" @click="handleAdd">新增定时任务</el-button>
         <el-button v-hasPermi="['sys:log:list']" class="add-btn" type="primary" icon="el-icon-plus" size="mini" @click="openLog">日志列表</el-button>
       </el-form-item>
@@ -453,42 +453,6 @@ export default {
   .el-select{
     width: 100%;
   }
-  .f-dialog {
-    .el-dialog__headerbtn {
-        top: 16px;
-        font-size: 23px;
-    }
-    .el-dialog {
-        min-width: 800px;
-        border-radius: 5px;
-    }
-
-    .el-dialog__body {
-        padding: 20px;
-        box-sizing: border-box;
-        min-height: 400px;
-    }
-    .el-dialog__header {
-        border-bottom: 1px solid #ddd;
-        padding-left: 10px;
-        span {
-            padding-left: 10px;
-            border-left: 5px solid #78aef9;
-        }
-    }
-    //关闭按钮样式重写
-    .close-btn {
-        width: 70px;
-        border: none !important;
-        border-radius: 100px;
-        // color: #3383ff !important;
-        padding: 9px 15px;
-        background: #d8e7fc;
-    }
-    .close-btn:active {
-        background: #ccdffa;
-    }
-}
   .dialog{
     .search{
       .el-input__inner{

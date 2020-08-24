@@ -53,18 +53,6 @@ export const constantRoutes = [
       component: () => import('@/views/dashboard/index'),
       meta: { title: '首页', icon: 'dashboard', affix: true, noCache: true }
     }]
-  },
-  {
-    path: '/form',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        name: 'Form',
-        component: () => import('@/views/form/index'),
-        meta: { title: '表单', icon: 'form', noCache: false }
-      }
-    ]
   }
   // 404 page must be placed at the end !!!
   // { path: '*', redirect: '/404', hidden: true }

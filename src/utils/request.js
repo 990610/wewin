@@ -56,5 +56,5 @@ service.interceptors.response.use(
 )
 
 export default service
-export var backendIP = 'http://192.168.11.164:8088'
+export var backendIP = process.env.VUE_APP_BASE_API
 export var mockIP = 'http://service.wewin.com.cn:8071/api/5f34e300c4557651c8ad2034/pc'// 模拟IP地址

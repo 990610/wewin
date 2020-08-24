@@ -1,5 +1,5 @@
 <template>
-  <div class="dashboard-container">
+  <div class="dashboard-container app-container">
     <div class="dashboard-text">name: {{ name }}</div>
     <div class="mycharts">
       <pie-chart />
@@ -34,12 +34,6 @@ export default {
 
 <style lang="scss" scoped>
 .dashboard {
-  &-container {
-    height: 100%;
-    padding-top: 15px;
-    box-sizing: border-box;
-    background-color: skyblue;
-  }
   &-text {
     font-size: 30px;
     line-height: 46px;

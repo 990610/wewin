@@ -21,7 +21,7 @@
       </el-form-item>
       <el-form-item class="btns">
         <el-button class="reset-btn" type="primary" icon="el-icon-refresh-left" size="mini" @click="resetQuery">重置</el-button>
-        <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">查询</el-button>
+        <el-button v-hasPermi="['sys:log:list']" type="primary" icon="el-icon-search" size="mini" @click="handleQuery">查询</el-button>
       </el-form-item>
     </el-form>
     <div class="table">

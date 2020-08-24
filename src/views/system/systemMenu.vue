@@ -11,7 +11,6 @@
           style="border-radius:100px;"
           @click="handleAdd"
         >新增</el-button>
-        <!-- <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button> -->
       </el-form-item>
     </el-form>
     <div class="table">

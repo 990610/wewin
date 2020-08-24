@@ -1,25 +1,7 @@
 
 // 引入axios封装文件
-import request from "@/utils/request"
-
-function replacePath(template, context) {
-  if (!context) return template
-  return template.replace(/{(.*?)}/g, (match, key) => context[key.trim()] || "")
-}        
-            
-var IP = "";
-var mockIP = "http://service.wewin.com.cn:8071/api/5f34e300c4557651c8ad2034/pc";//模拟IP地址
-var backendIP = "http://192.168.10.242:8088";//后台IP地址
+// 引入axios封装文件
+import request, { backendIP, mockIP } from '@/utils/request'
+var IP = ''
 // mockIP = backendIP;//切换全局后台IP地址
 // backendIP = mockIP;//切换全局模拟IP地址
-                
-//任务执行日志 - 日志分页列表
-export function sysScheduleLogList(data) {
-  IP = true ? mockIP : backendIP;
-  return request({
-    url: IP + "/makeid-boot/sys/scheduleLog/list",
-    method: "post",
-    data: data
-  })
-}                   
-                                

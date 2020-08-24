@@ -118,59 +118,48 @@
       >
         <div class="search">
           <el-form :inline="true" class="f-query">
-            <el-form-item label="操作人姓名：">
-              <el-input v-model="dialog.userName" size="small" placeholder="操作人姓名" />
-            </el-form-item>
-            <el-form-item label="开始时间：">
-              <el-date-picker
-                v-model="dialog.beginDate"
-                type="datetime"
-                placeholder="选择开始时间"
-              />
-            </el-form-item>
-            <el-form-item label="结束时间：">
-              <el-date-picker
-                v-model="dialog.endDate"
-                type="datetime"
-                placeholder="选择结束时间"
-              />
+            <el-form-item label="bean名称：">
+              <el-input v-model="dialog.beanName" size="small" placeholder="操作人姓名" />
             </el-form-item>
             <el-form-item class="btns">
               <el-button class="reset-btn" type="primary" icon="el-icon-refresh-left" size="mini" @click="logRest">重置</el-button>
               <el-button type="primary" icon="el-icon-search" size="mini" @click="logQuery">查询</el-button>
             </el-form-item>
           </el-form>
-        </div>
-        <div class="table">
-          <el-table
-            v-loading="loading"
-            :data="dialog.logList"
-            height="100%"
-            border
-          >
-            <el-table-column prop="ip" label="源IP" />
-            <el-table-column prop="method" label="请求方法" />
-            <el-table-column prop="params" label="请求参数" />
-            <el-table-column prop="operation" label="用户操作" />
-            <el-table-column prop="time" label="执行时间" />
-            <el-table-column prop="username" label="操作用户名" />
-            <el-table-column prop="createDate" label="创建时间" width="200">
-              <template slot-scope="scope">
-                {{ scope.row.createDate | timeFormate }}
-              </template>
-            </el-table-column>
-          </el-table>
-          <div class="pagination">
-            <el-pagination
-              background
-              :current-page="dialog.pagination.pageNo"
-              :page-sizes="[10, 20, 30, 50]"
-              :page-size="dialog.pagination.pageSize"
-              layout="total, prev, pager, next, sizes"
-              :total="dialog.pagination.total"
-              @size-change="dialogHandleSizeChange"
-              @current-change="dialogHandleCurrentChange"
-            />
+          <div class="table">
+            <el-table
+              v-loading="dialog.loading"
+              :data="dialog.logList"
+              height="404px"
+              border
+            >
+              <el-table-column prop="logId" label="日志ID" />
+              <el-table-column prop="beanName" label="bean名称" />
+              <el-table-column prop="error" label="失败信息" />
+              <el-table-column prop="times" label="耗时" />
+              <el-table-column prop="status" label="执行结果">
+                <template slot-scope="scope">
+                  {{ scope.row.status ? '失败':'成功' }}
+                </template>
+              </el-table-column>
+              <el-table-column prop="createTime" label="创建时间" width="200">
+                <template slot-scope="scope">
+                  {{ scope.row.createTime | timeFormate }}
+                </template>
+              </el-table-column>
+            </el-table>
+            <div class="pagination">
+              <el-pagination
+                background
+                :current-page="dialog.pagination.pageNo"
+                :page-sizes="[5, 10, 20, 50]"
+                :page-size="dialog.pagination.pageSize"
+                layout="total, prev, pager, next, sizes"
+                :total="dialog.pagination.total"
+                @size-change="dialogHandleSizeChange"
+                @current-change="dialogHandleCurrentChange"
+              />
+            </div>
           </div>
         </div>
       </el-dialog>
@@ -182,7 +171,7 @@
 import * as that from '@/api/system/JobController'
 import { dateFormat } from '@/utils/index'
 export default {
-  name: 'SystemManagerList',
+  name: 'SystemTimer',
   filters: {
     timeFormate: function(value) {
       return dateFormat(value, 'yyyy-MM-dd hh:mm:ss')
@@ -230,14 +219,12 @@ export default {
       },
       dialog: {
         open: false,
-        userName: '',
-        beginDate: '',
-        endDate: '',
+        beanName: '',
         logList: [],
         loading: false,
         pagination: {
           pageNo: 1,
-          pageSize: 10,
+          pageSize: 5,
           total: 0
         }
       },
@@ -257,6 +244,8 @@ export default {
     }
   },
   created() {
+    const a = {}
+    console.log(!!a)
     this.getJobList()
   },
   methods: {
@@ -415,24 +404,21 @@ export default {
       item = {
         pageNo: pageNo || this.dialog.pagination.pageNo,
         pageSize: this.dialog.pagination.pageSize,
-        param: {
-          userName: this.dialog.userName,
-          beginDate: this.dialog.beginDate,
-          endDate: this.dialog.endDate
-        }
+        param: this.dialog.beanName
       }
       console.log(item)
-      that.sysLogList(item).then(res => {
+      that.sysScheduleLogList(item).then(res => {
         this.dialog.loading = false
+        this.dialog.pagination.total = res.total
+        this.dialog.pagination.pageNo = res.current
+        this.dialog.pagination.pageSize = res.size
         this.dialog.logList = res.records
       })
         .catch(error => { this.dialog.loading = false; console.log(error) })
     },
     // 日志重置查询
     logRest() {
-      this.dialog.userName = ''
-      this.dialog.beginDate = ''
-      this.dialog.endDate = ''
+      this.dialog.beanName = ''
       this.getLoglist(1)
     },
     // 分页大小选择

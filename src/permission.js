@@ -27,7 +27,6 @@ router.beforeEach(async(to, from, next) => {
       NProgress.done()
     } else {
       const hasGetUserInfo = store.getters.name
-      console.log(hasGetUserInfo)
       if (!hasGetUserInfo) {
         // 判断当前用户是否已拉取完user_info信息
         store.dispatch('user/getInfo').then(res => {

@@ -78,11 +78,11 @@ export function jobUpdate(data) {
     data: data
   })
 }
-// 系统日志 - 系统日志查询
-export function sysLogList(data) {
+// 任务执行日志 - 日志分页列表
+export function sysScheduleLogList(data) {
   IP = false ? mockIP : backendIP
   return request({
-    url: IP + '/makeid-boot/sys/log/list',
+    url: IP + '/makeid-boot/sys/scheduleLog/list',
     method: 'post',
     data: data
   })

@@ -1,7 +1,8 @@
 import axios from 'axios'
 import { Message } from 'element-ui'
 import store from '@/store'
-import { getToken } from '@/utils/auth'
+import { getToken, removeToken } from '@/utils/auth'
+import router from '../router'
 
 const service = axios.create({
   // baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
@@ -31,6 +32,14 @@ service.interceptors.response.use(
         duration: 5 * 1000
       })
       return Promise.reject(new Error(res.message || 'Error'))
+    } else if (res.code === 401) {
+      removeToken()
+      router.push('/login')
+      Message({
+        message: res.message,
+        type: 'error',
+        duration: 5000
+      })
     } else {
       return res
     }

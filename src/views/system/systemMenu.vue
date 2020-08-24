@@ -309,6 +309,8 @@ export default {
         console.log(res)
         this.open = true
         this.form = res
+        this.form.noCache = !!this.form.noCache
+        console.log(this.form)
         setTimeout(() => {
           this.menuListTreeSetCurrentNode()
         }, 0)

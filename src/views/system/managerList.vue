@@ -196,7 +196,7 @@ import { sysDeptList } from '@/api/system/SysDeptController'
 import { sysRoleListAll } from '@/api/system/SysRoleController'
 import { dateFormat } from '@/utils/index'
 export default {
-  name: 'SystemManagerList',
+  name: 'ManagerList',
   filters: {
     timeFormate: function(value) {
       return dateFormat(value, 'yyyy-MM-dd hh:mm:ss')

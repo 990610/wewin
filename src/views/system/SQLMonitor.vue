@@ -6,7 +6,7 @@
 </template>
 <script>
 export default {
-  name: 'SQLMoni',
+  name: 'SQLMonitor',
   data() {
     return {}
   },

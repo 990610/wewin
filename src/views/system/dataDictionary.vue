@@ -100,7 +100,7 @@
 <script>
 import * as that from '@/api/system/SysDictController'
 export default {
-  name: 'SystemManagerList',
+  name: 'DataDictionary',
   data() {
     return {
       // 分页管理员列表

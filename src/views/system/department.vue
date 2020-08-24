@@ -95,7 +95,7 @@
 <script>
 import * as that from '@/api/system/SysDeptController'
 export default {
-  name: 'SystemManagerList',
+  name: 'Department',
   data() {
     return {
       // 遮罩层

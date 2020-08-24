@@ -160,6 +160,7 @@ export default {
     }
   },
   created() {
+    console.log('角色管理')
     this.getRoleList()
     // 获取菜单下拉树
     sysMenuList().then(res => { this.menuList = res })

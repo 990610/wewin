@@ -1,6 +1,8 @@
 <!--系统设置-参数管理-->
 <template>
-  <div />
+  <div id="systemParmeter" class="app-container">
+    参数管理
+  </div>
 </template>
 <script>
 export default {
@@ -12,5 +14,7 @@ export default {
 }
 </script>
 <style lang='scss' scoped>
-
+  #systemParmeter{
+    height: 100%;
+  }
 </style>

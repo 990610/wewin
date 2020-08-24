@@ -1,5 +1,5 @@
 <template>
-  <div class="app-container">
+  <div id="Form" class="app-container">
     <el-form ref="form" :model="form" label-width="120px">
       <el-form-item label="活动名称">
         <el-input v-model="form.name" />
@@ -94,6 +94,7 @@
 
 <script>
 export default {
+  name: 'Form',
   data() {
     return {
       form: {
@@ -107,6 +108,9 @@ export default {
         desc: ''
       }
     }
+  },
+  mounted() {
+    console.log('表单')
   },
   methods: {
     onSubmit() {

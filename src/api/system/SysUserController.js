@@ -57,11 +57,10 @@ export function sysUserPassword(data) {
 // 用户管理 - 根据用户ID查询用户信息
 export function sysUserQueryByIdUserId(data) {
   IP = false ? mockIP : backendIP
-  const url = replacePath('/makeid-boot/sys/user/queryById/{userId}', data)
   return request({
-    url: IP + url,
+    url: IP + '/makeid-boot/sys/user/queryById',
     method: 'get',
-    data: data
+    params: data
   })
 }
 

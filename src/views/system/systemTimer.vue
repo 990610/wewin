@@ -14,7 +14,7 @@
         <el-button class="reset-btn" type="primary" icon="el-icon-refresh-left" size="mini" @click="resetQuery">重置</el-button>
         <el-button v-hasPermi="['sys:timer:list']" type="primary" icon="el-icon-search" size="mini" @click="handleQuery">查询</el-button>
         <el-button v-hasPermi="['sys:timer:save']" type="primary" icon="el-icon-plus" size="mini" @click="handleAdd">新增定时任务</el-button>
-        <el-button v-hasPermi="['sys:log:list']" class="add-btn" type="primary" icon="el-icon-plus" size="mini" @click="openLog">日志列表</el-button>
+        <el-button v-hasPermi="['sys:log:list']" class="add-btn" type="primary" icon="el-icon-date" size="mini" @click="openLog">日志列表</el-button>
       </el-form-item>
     </el-form>
     <div class="table">

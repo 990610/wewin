@@ -1,7 +1,7 @@
 
 // 引入axios封装文件
 import request, { mockIP, backendIP } from '@/utils/request'
-import { replacePath } from '@/utils/index'
+// import { replacePath } from '@/utils/index'
 var IP = ''
 // mockIP = backendIP;//切换全局后台IP地址
 // backendIP = mockIP;//切换全局模拟IP地址
@@ -19,17 +19,16 @@ export function sysDeptDelete(data) {
 // 机构管理 - 查询机构详情
 export function sysDeptInfoDeptId(data) {
   IP = false ? mockIP : backendIP
-  const url = replacePath('/makeid-boot/sys/dept/info/{deptId}', data)
   return request({
-    url: IP + url,
+    url: IP + '/makeid-boot/sys/dept/info',
     method: 'get',
-    data: data
+    params: data
   })
 }
 
 // 机构管理 - 机构树结构列表
-export function sysDeptList(data = { deptName: '' }) {
-  console.log(data)
+// eslint-disable-next-line quotes
+export function sysDeptList(data) {
   IP = false ? mockIP : backendIP
   return request({
     url: IP + '/makeid-boot/sys/dept/list',

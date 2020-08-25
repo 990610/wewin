@@ -305,13 +305,14 @@ export default {
       this.title = '编辑'
       this.reset()
       sysMenuInfoMenuId({ menuId: row.menuId }).then((res) => {
-        console.log(res)
         this.open = true
         this.form = res
         this.form.noCache = !!this.form.noCache
         console.log(this.form)
         setTimeout(() => {
-          this.menuListTreeSetCurrentNode()
+          if (this.form.parentId !== 0) {
+            this.menuListTreeSetCurrentNode()
+          }
         }, 0)
       })
     },

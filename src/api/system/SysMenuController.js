@@ -20,11 +20,10 @@ export function sysMenuDeleteMenuId(data) {
 // 系统菜单 - 菜单详情
 export function sysMenuInfoMenuId(data) {
   IP = false ? mockIP : backendIP
-  const url = replacePath('/makeid-boot/sys/menu/info/{menuId}', data)
   return request({
-    url: IP + url,
+    url: IP + '/makeid-boot/sys/menu/info',
     method: 'get',
-    data: data
+    params: data
   })
 }
 

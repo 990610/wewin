@@ -19,11 +19,11 @@ export function sysDictDelete(data) {
 // 数据字典 - 字典详情
 export function sysDictInfoId(data) {
   IP = false ? mockIP : backendIP
-  const url = replacePath('/makeid-boot/sys/dict/info/{id}', data)
+  // const url = replacePath('/makeid-boot/sys/dict/info/{id}', data)
   return request({
-    url: IP + url,
+    url: IP + '/makeid-boot/sys/dict/info',
     method: 'get',
-    data: data
+    params: data
   })
 }
 

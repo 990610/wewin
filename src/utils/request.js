@@ -11,13 +11,15 @@ const service = axios.create({
 })
 service.interceptors.request.use(
   config => {
-    console.log(config.data)
+    console.log(config)
     if (store.getters.token) {
       config.headers['token'] = getToken()
     }
     config.headers['signature'] = ''
     if (config.data) {
       config.headers['signature'] = md5(md5(JSON.stringify(config.data)))
+    } else if (config.hasOwnProperty('params') && config.params) {
+      config.headers['signature'] = md5(md5(JSON.stringify(config.params)))
     }
     // const time = new Date().getTime()
     // config.params['time'] = time

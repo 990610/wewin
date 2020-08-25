@@ -9,22 +9,20 @@ var IP = ''
 // 定时任务 - 删除定时任务
 export function jobDeleteJobId(data) {
   IP = false ? mockIP : backendIP
-  const url = replacePath('/makeid-boot/job/delete/{jobId}', data)
   return request({
-    url: IP + url,
+    url: IP + '/makeid-boot/job/delete',
     method: 'delete',
-    data: data
+    params: data
   })
 }
 
 // 定时任务 - 查看定时任务明细
 export function jobInfoJobId(data) {
   IP = false ? mockIP : backendIP
-  const url = replacePath('/makeid-boot/job/info/{jobId}', data)
   return request({
-    url: IP + url,
+    url: IP + '/makeid-boot/job/info',
     method: 'get',
-    data: data
+    params: data
   })
 }
 

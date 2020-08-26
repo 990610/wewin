@@ -32,7 +32,7 @@
         <el-table-column prop="component" label="组件" :show-overflow-tooltip="true" />
         <el-table-column prop="path" label="路径" :show-overflow-tooltip="true" />
         <el-table-column prop="orderNum" label="排序" width="100" />
-        <el-table-column label="操作" align="center" width="300" class-name="small-padding fixed-width">
+        <el-table-column label="操作" align="center" width="250" fixed="right" class-name="small-padding fixed-width">
           <template slot-scope="scope">
             <el-button
               v-hasPermi="['sys:menu:update']"
@@ -60,7 +60,7 @@
       </el-table>
     </div>
     <div class="drawer">
-      <el-drawer :title="title" :visible.sync="open" direction="rtl" size="700px">
+      <el-drawer custom-class="drawer" :append-to-body="true" :title="title" :visible.sync="open" direction="rtl" size="700px">
         <div class="drawer-content">
           <el-form
             ref="menuForm"

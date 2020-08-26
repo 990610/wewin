@@ -24,7 +24,7 @@ module.exports = {
    * In most cases please use '/' !!!
    * Detail: https://cli.vuejs.org/config/#publicpath
    */
-  publicPath: '/',
+  publicPath: './',
   outputDir: 'dist',
   assetsDir: 'static',
   // ESLint 校验
@@ -49,7 +49,9 @@ module.exports = {
       }
     }
   },
+  // transpileDependencies: ['element-ui', 'vuex'],
   chainWebpack(config) {
+    // config.entry('polyfill').add('@babel/polyfill')
     // it can improve the speed of the first screen, it is recommended to turn on preload
     config.plugin('preload').tap(() => [
       {

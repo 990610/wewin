@@ -1,3 +1,5 @@
+// 时间格式化模块
+import moment from 'moment'
 /**
  *防抖动
  * @param {Function} func
@@ -51,10 +53,13 @@ export function replacePath(template, context) {
   if (!context) return template
   return template.replace(/{(.*?)}/g, (match, key) => context[key.trim()] || '')
 }
-// 时间格式化
+// 时间格式化 未兼容IE
 export function dateFormat(date, fmt) {
+  console.log(date)
   let ret = ''
   date = new Date(date)
+  console.log('--')
+  console.log(date)
   const opt = {
     'y+': date.getFullYear().toString(), // 年
     'M+': (date.getMonth() + 1).toString(), // 月
@@ -64,6 +69,7 @@ export function dateFormat(date, fmt) {
     's+': date.getSeconds().toString() // 秒
     // 有其他格式化字符需求可以继续添加，必须转化成字符串
   }
+  console.log(opt)
   for (const k in opt) {
     ret = new RegExp('(' + k + ')').exec(fmt)
     if (ret) {
@@ -75,6 +81,12 @@ export function dateFormat(date, fmt) {
   }
   return fmt
 }
+
+// 时间格式化兼容ie
+export function dateFormatIE(value, fmt) {
+  return moment(value).format(fmt || 'YYYY-MM-DD HH:mm:ss')
+}
+
 // base64 2次加密
 export function encode(str) {
   // 对字符串进行编码
@@ -84,4 +96,13 @@ export function encode(str) {
   base64 = encodeURI(base64)
   base64 = btoa(base64)
   return base64
+}
+// json转get参数
+export function ToPathStr(val) {
+  let str = ''
+  for (const key in val) {
+    str += key + '=' + (val[key] + '') + '&'
+  }
+  str = str.substr(0, str.length - 1)
+  return str
 }

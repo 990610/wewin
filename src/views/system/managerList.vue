@@ -1,7 +1,7 @@
 <!--系统设置-管理员列表-->
 <template>
   <div id="systemManagerList" class="app-container">
-    <el-form :inline="true" class="f-query">
+    <el-form :inline="true" class="f-query clearfix">
       <el-form-item label="用户名：">
         <el-input
           v-model="queryForm.userName"
@@ -54,7 +54,9 @@
       </el-form-item>
     </el-form>
     <div class="table">
+      <table-total :selected-num="multipleSelection.length" :clear="clearMul" />
       <el-table
+        ref="table"
         v-loading="loading"
         :data="managerList"
         height="100%"
@@ -62,6 +64,11 @@
         @selection-change="handleSelectionChange"
       >
         <el-table-column type="selection" width="55" />
+        <el-table-column prop="index" type="index" label="序号" width="50">
+          <template scope="scope">
+            <span>{{ (pagination.pageNo - 1) * pagination.pageSize + scope.$index + 1 }}</span>
+          </template>
+        </el-table-column>
         <el-table-column prop="userName" label="用户名" />
         <el-table-column prop="realName" label="姓名" />
         <el-table-column prop="sex" label="性别">
@@ -115,7 +122,7 @@
       </div>
     </div>
     <div class="drawer">
-      <el-drawer :title="title" :visible.sync="open" direction="rtl" size="700px" :before-close="drawerClose">
+      <el-drawer custom-class="drawer" :append-to-body="true" :title="title" :visible.sync="open" direction="rtl" size="700px" :before-close="drawerClose">
         <div class="drawer-content">
           <el-form ref="roleForm" :model="form" size="small" :rules="rules" label-width="100px" label-position="right">
             <el-form-item label="用户名" prop="userName">
@@ -193,13 +200,17 @@
 import * as that from '@/api/system/SysUserController'
 import { sysDeptList } from '@/api/system/SysDeptController'
 import { sysRoleListAll } from '@/api/system/SysRoleController'
-import { dateFormat, encode } from '@/utils/index'
+import { encode, dateFormatIE } from '@/utils/index'
+import tableTotal from '@/components/tabelTatol/index'
 export default {
   name: 'ManagerList',
   filters: {
-    timeFormate: function(value) {
-      return dateFormat(value, 'yyyy-MM-dd hh:mm:ss')
+    timeFormate: (value) => {
+      return dateFormatIE(value)
     }
+  },
+  components: {
+    tableTotal
   },
   data() {
     return {
@@ -451,6 +462,9 @@ export default {
     handleSelectionChange(val) {
       this.multipleSelection = val
     },
+    clearMul() {
+      this.$refs.table.clearSelection()
+    },
     // 弹出框下拉树节点选择
     deptListTreeCurrentChangeHandle(event) {
       this.form.deptId = event.deptId
@@ -484,7 +498,7 @@ export default {
 #systemManagerList {
   height: 100%;
   .table{
-    height: calc(100% - 96px);
+    height: calc(100% - 141px);
 
   }
   .el-select{

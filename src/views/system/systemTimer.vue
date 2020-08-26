@@ -80,7 +80,7 @@
       </div>
     </div>
     <div class="drawer">
-      <el-drawer :title="title" :visible.sync="open" direction="rtl" size="700px" :before-close="drawerClose">
+      <el-drawer custom-class="drawer" :append-to-body="true" :title="title" :visible.sync="open" direction="rtl" size="700px" :before-close="drawerClose">
         <div class="drawer-content">
           <el-form ref="roleForm" :model="form" size="small" :rules="rules" label-width="100px" label-position="right">
             <el-form-item label="任务Id" prop="jobId">
@@ -169,12 +169,12 @@
 
 <script>
 import * as that from '@/api/system/JobController'
-import { dateFormat } from '@/utils/index'
+import { dateFormatIE } from '@/utils/index'
 export default {
   name: 'SystemTimer',
   filters: {
     timeFormate: function(value) {
-      return dateFormat(value, 'yyyy-MM-dd hh:mm:ss')
+      return dateFormatIE(value)
     }
   },
   data() {

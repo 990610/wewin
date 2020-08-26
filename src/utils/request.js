@@ -2,6 +2,7 @@ import axios from 'axios'
 import { Message } from 'element-ui'
 import store from '@/store'
 import { getToken, removeToken } from '@/utils/auth'
+import { ToPathStr } from '@/utils/index'
 import router from '../router'
 import md5 from 'js-md5'
 
@@ -11,20 +12,17 @@ const service = axios.create({
 })
 service.interceptors.request.use(
   config => {
-    console.log(config)
     if (store.getters.token) {
       config.headers['token'] = getToken()
     }
+    // 接口请求验签
     config.headers['signature'] = ''
     if (config.data) {
       config.headers['signature'] = md5(md5(JSON.stringify(config.data)))
     } else if (config.hasOwnProperty('params') && config.params) {
-      config.headers['signature'] = md5(md5(JSON.stringify(config.params)))
+      // console.log(ToPathStr(config.params))
+      config.headers['signature'] = md5(md5(ToPathStr(config.params)))
     }
-    // const time = new Date().getTime()
-    // config.params['time'] = time
-    //
-
     return config
   },
   error => {
@@ -68,6 +66,6 @@ service.interceptors.response.use(
 )
 
 export default service
-// export var backendIP = process.env.VUE_APP_BASE_API
-export var backendIP = 'http://192.168.11.164:8088'
+export var backendIP = process.env.VUE_APP_BASE_API
+// export var backendIP = 'http://123.207.85.44:8085'
 export var mockIP = 'http://service.wewin.com.cn:8071/api/5f34e300c4557651c8ad2034/pc'// 模拟IP地址

@@ -255,14 +255,8 @@ export default {
           padding: 0 5px;
           display: inline-block;
           line-height: 40px;
+          cursor: pointer;
         }
-				// .el-icon-caret-bottom {
-				// 	cursor: pointer;
-				// 	position: absolute;
-				// 	right: -20px;
-				// 	top: 25px;
-				// 	font-size: 12px;
-				// }
 			}
 		}
 	}

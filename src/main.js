@@ -1,3 +1,7 @@
+// import '@babel/polyfill'
+// 在main.js的头部
+import 'core-js/stable'
+import 'regenerator-runtime/runtime'
 import Vue from 'vue'
 // 默认重置css样式，统一各个浏览器样式
 import 'normalize.css/normalize.css' // A modern alternative to CSS resets
@@ -11,6 +15,7 @@ import permission from './directive/permission'
 import '@/assets/icons' // icon
 import '@/permission' // permission control
 import { message } from '@/utils/resetMessage'
+
 Vue.prototype.$message = message
 Vue.prototype.msgSuccess = function(msg) {
   this.$message({ showClose: true, message: msg, type: 'success' })

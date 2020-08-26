@@ -1,6 +1,6 @@
 // 引入axios封装文件
 import request, { backendIP, mockIP } from '@/utils/request'
-import { replacePath } from '@/utils/index'
+// import { replacePath } from '@/utils/index'
 
 var IP = ''
 // mockIP = backendIP// 切换全局后台IP地址

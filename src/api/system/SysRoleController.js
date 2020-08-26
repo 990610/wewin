@@ -1,7 +1,7 @@
 /* eslint-disable no-constant-condition */
 // 引入axios封装文件
 import request, { mockIP, backendIP } from '@/utils/request'
-import { replacePath } from '@/utils/index'
+// import { replacePath } from '@/utils/index'
 var IP = ''
 // mockIP = backendIP // 切换全局后台IP地址
 // backendIP = mockIP;//切换全局模拟IP地址
@@ -19,11 +19,10 @@ export function sysRoleDelete(data) {
 // 角色管理 - 角色信息
 export function sysRoleInfoRoleId(data) {
   IP = false ? mockIP : backendIP
-  const url = replacePath('/makeid-boot/sys/role/info/{roleId}', data)
   return request({
-    url: IP + url,
+    url: IP + '/makeid-boot/sys/role/info',
     method: 'get',
-    data: data
+    params: data
   })
 }
 

@@ -19,7 +19,9 @@
       </el-form-item>
     </el-form>
     <div class="table">
+      <table-total :selected-num="multipleSelection.length" :clear="clearMul" />
       <el-table
+        ref="table"
         v-loading="loading"
         :data="roleList"
         height="100%"
@@ -27,6 +29,11 @@
         @selection-change="handleSelectionChange"
       >
         <el-table-column type="selection" width="55" />
+        <el-table-column prop="index" type="index" label="序号" width="50">
+          <template scope="scope">
+            <span>{{ (pagination.pageNo - 1) * pagination.pageSize + scope.$index + 1 }}</span>
+          </template>
+        </el-table-column>
         <el-table-column prop="roleId" label="角色编码" />
         <el-table-column prop="roleName" label="角色名称" />
         <el-table-column prop="createTime" label="创建时间" width="200">
@@ -35,7 +42,7 @@
           </template>
         </el-table-column>
         <el-table-column prop="remark" label="备注" width="400" :show-overflow-tooltip="true" />
-        <el-table-column label="操作" align="center" width="300" class-name="small-padding fixed-width">
+        <el-table-column label="操作" align="center" width="250" fixed="right" class-name="small-padding fixed-width">
           <template slot-scope="scope">
             <el-button
               v-hasPermi="['sys:role:update']"
@@ -68,7 +75,7 @@
       </div>
     </div>
     <div class="drawer">
-      <el-drawer :title="title" :visible.sync="open" direction="rtl" size="700px" :before-close="drawerClose">
+      <el-drawer custom-class="drawer" :append-to-body="true" :title="title" :visible.sync="open" direction="rtl" size="700px" :before-close="drawerClose">
         <div class="drawer-content">
           <el-form ref="roleForm" :model="form" size="small" :rules="rules" label-width="100px" label-position="right">
             <el-form-item label="角色名称" prop="roleName">
@@ -102,14 +109,17 @@
 <script>
 import * as that from '@/api/system/SysRoleController'
 import { sysMenuList } from '@/api/system/SysMenuController'
-import { dateFormat } from '@/utils/index'
-
+import { dateFormatIE } from '@/utils/index'
+import tableTotal from '@/components/tabelTatol/index'
 export default {
   name: 'SystemRole',
   filters: {
     timeFormate: function(value) {
-      return dateFormat(value, 'yyyy-MM-dd hh:mm:ss')
+      return dateFormatIE(value)
     }
+  },
+  components: {
+    tableTotal
   },
   data() {
     return {
@@ -318,8 +328,10 @@ export default {
     // table 批量选择获取
     handleSelectionChange(val) {
       this.multipleSelection = val
+    },
+    clearMul() {
+      this.$refs.table.clearSelection()
     }
-
   }
 }
 </script>
@@ -333,7 +345,7 @@ export default {
 #systemRole {
   height: 100%;
   .table{
-    height: calc(100% - 96px);
+    height: calc(100% - 141px);
 
   }
 }

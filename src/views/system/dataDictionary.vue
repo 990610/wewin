@@ -65,7 +65,7 @@
       </div>
     </div>
     <div class="drawer">
-      <el-drawer :title="title" :visible.sync="open" direction="rtl" size="700px" :before-close="drawerClose">
+      <el-drawer custom-class="drawer" :append-to-body="true" :title="title" :visible.sync="open" direction="rtl" size="700px" :before-close="drawerClose">
         <div class="drawer-content">
           <el-form ref="roleForm" :model="form" size="small" :rules="rules" label-width="100px" label-position="right">
             <el-form-item label="字典Id" prop="id">

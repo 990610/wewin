@@ -61,12 +61,12 @@
 
 <script>
 import * as that from '@/api/system/SysLogController'
-import { dateFormat } from '@/utils/index'
+import { dateFormatIE } from '@/utils/index'
 export default {
   name: 'SystemLog',
   filters: {
     timeFormate: function(value) {
-      return dateFormat(value, 'yyyy-MM-dd hh:mm:ss')
+      return dateFormatIE(value)
     }
   },
   data() {

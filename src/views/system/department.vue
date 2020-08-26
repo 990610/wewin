@@ -1,50 +1,72 @@
 <!--系统设置-部门管理-->
 <template>
   <div id="departmanet" class="app-container">
-    <el-form :inline="true" class="f-query">
+    <el-form :inline="true" class="f-query clearfix">
       <el-form-item class="btns" style="float:left;">
         <el-button v-hasPermi="['sys:dept:save']" type="primary" icon="el-icon-plus" size="mini" @click="handleAdd">新增部门</el-button>
         <el-button v-show="multipleSelection.length > 0" v-hasPermi="['sys:dept:delete']" type="danger" icon="el-icon-delete" size="mini" @click="deleteMore">批量删除</el-button>
       </el-form-item>
     </el-form>
-    <div class="table">
-      <el-table
-        v-loading="loading"
-        :data="deptList"
-        height="100%"
-        border
-        row-key="deptId"
-        :default-expand-all="false"
-        :tree-props="{children: 'childDepts', hasChildren: 'hasChildren'}"
-        @selection-change="handleSelectionChange"
-      >
-        <el-table-column type="selection" width="55" />
-        <el-table-column prop="deptId" label="部门Id" />
-        <el-table-column prop="name" label="部门名称" />
-        <el-table-column prop="parentName" label="上级部门" />
-        <el-table-column prop="orderNum" label="排序" />
-        <el-table-column label="操作" align="center" width="250" fixed="right" class-name="small-padding fixed-width">
-          <template slot-scope="scope">
-            <el-button
-              v-hasPermi="['sys:dept:update']"
-              size="mini"
-              type="text"
-              icon="el-icon-edit"
-              @click="handleUpdate(scope.row)"
-            >编辑</el-button>
-            <el-button
-              v-hasPermi="['sys:dept:delete']"
-              size="mini"
-              type="text"
-              icon="el-icon-delete"
-              @click="handleDelete(scope.row)"
-            >删除</el-button>
-          </template>
-        </el-table-column>
-      </el-table>
+    <div class="content clearfix">
+      <div class="content-left">
+        <el-input
+          v-model="panleFilterText"
+          placeholder="输入关键字进行过滤"
+          style="margin-bottom:10px;"
+        />
+        <el-tree
+          ref="panleDeptTree"
+          class="depttree"
+          :data="deptList"
+          :props="deptListProps"
+          node-key="deptId"
+          :default-expand-all="true"
+          :highlight-current="true"
+          :expand-on-click-node="false"
+          :filter-node-method="filterNode"
+          @current-change="PanleDeptListTreeCurrentChangeHandle"
+        />
+      </div>
+      <div class="table">
+        <el-table
+          ref="table"
+          v-loading="loading"
+          :data="deptList"
+          height="100%"
+          border
+          row-key="deptId"
+          :tree-props="{children: 'childDepts', hasChildren: 'hasChildren'}"
+          @selection-change="handleSelectionChange"
+        >
+          <el-table-column type="selection" width="55" />
+          <el-table-column prop="deptId" label="部门Id" />
+          <el-table-column prop="name" label="部门名称" />
+          <el-table-column prop="parentName" label="上级部门" />
+          <el-table-column prop="orderNum" label="排序" />
+          <el-table-column label="操作" align="center" width="250" fixed="right" class-name="small-padding fixed-width">
+            <template slot-scope="scope">
+              <el-button
+                v-hasPermi="['sys:dept:update']"
+                size="mini"
+                type="text"
+                icon="el-icon-edit"
+                @click="handleUpdate(scope.row)"
+              >编辑</el-button>
+              <el-button
+                v-hasPermi="['sys:dept:delete']"
+                size="mini"
+                type="text"
+                icon="el-icon-delete"
+                @click="handleDelete(scope.row)"
+              >删除</el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+      </div>
     </div>
+
     <div class="drawer">
-      <el-drawer :title="title" :visible.sync="open" direction="rtl" size="700px" :before-close="drawerClose">
+      <el-drawer custom-class="drawer" :append-to-body="true" :title="title" :visible.sync="open" direction="rtl" size="700px" :before-close="drawerClose">
         <div class="drawer-content">
           <el-form ref="roleForm" :model="form" size="small" :rules="rules" label-width="100px" label-position="right">
             <el-form-item label="部门名称" prop="name">
@@ -107,6 +129,8 @@ export default {
         label: 'name',
         children: 'childDepts'
       },
+      // 面板机构树选择
+      panleFilterText: '',
       // 下拉树过滤文字
       filterText: '',
       // 弹出层标题
@@ -140,10 +164,17 @@ export default {
   watch: {
     filterText(val) {
       this.$refs.deptTree.filter(val)
+    },
+    panleFilterText(val) {
+      this.$refs.panleDeptTree.filter(val)
     }
   },
   created() {
     this.getDeptList()
+    that.sysDeptList({ deptName: '物联网' }).then(res => {
+      console.log(res)
+    })
+      .catch(error => { console.log(error) })
   },
   methods: {
     // 表单重置
@@ -279,6 +310,7 @@ export default {
       if (!value) return true
       return data.name.indexOf(value) !== -1
     }
+
   }
 }
 </script>
@@ -294,10 +326,27 @@ export default {
 }
 #departmanet {
   height: 100%;
-  .table{
-    height: calc(100% - 96px);
-
+  .content{
+    display: flex;
+    width: 100%;
+     height: calc(100% - 96px);
+    .content-left{
+      min-width: 250px;
+      // width: 20%;
+      height: 100%;
+      overflow: auto;
+      // background: skyblue;
+      margin-right: 10px;
+      border: 1px solid #EBEEF5;
+      border-radius: 5px;;
+    }
+    .table{
+      flex: 1 1 auto;
+      width: 80%;
+      height: 100%
+    }
   }
+
   .el-select{
     width: 100%;
   }

@@ -30,7 +30,7 @@
       >
         <el-table-column type="selection" width="55" />
         <el-table-column prop="index" type="index" label="序号" width="50">
-          <template scope="scope">
+          <template slot-scope="scope">
             <span>{{ (pagination.pageNo - 1) * pagination.pageSize + scope.$index + 1 }}</span>
           </template>
         </el-table-column>

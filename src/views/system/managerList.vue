@@ -19,7 +19,7 @@
         />
       </el-form-item>
       <el-form-item label="部门：">
-        <el-popover ref="deptListPopoverW" width="150px" class="search-popover" placement="bottom-start" trigger="click">
+        <el-popover ref="deptListPopoverW" width="150px" popper-class="search-popover" placement="bottom-start" trigger="click">
           <el-input
             v-model="filterText"
             placeholder="输入关键字进行过滤"
@@ -65,7 +65,7 @@
       >
         <el-table-column type="selection" width="55" />
         <el-table-column prop="index" type="index" label="序号" width="50">
-          <template scope="scope">
+          <template slot-scope="scope">
             <span>{{ (pagination.pageNo - 1) * pagination.pageSize + scope.$index + 1 }}</span>
           </template>
         </el-table-column>
@@ -494,6 +494,10 @@ export default {
       max-height: 320px;
       overflow: auto;
     }
+}
+.search-popover{
+  max-width: 200px;
+  overflow-x: auto;
 }
 #systemManagerList {
   height: 100%;

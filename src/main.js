@@ -1,7 +1,7 @@
 // import '@babel/polyfill'
 // 在main.js的头部
-import 'core-js/stable'
-import 'regenerator-runtime/runtime'
+// import 'core-js/stable'
+// import 'regenerator-runtime/runtime'
 import Vue from 'vue'
 // 默认重置css样式，统一各个浏览器样式
 import 'normalize.css/normalize.css' // A modern alternative to CSS resets

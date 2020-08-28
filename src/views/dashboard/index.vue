@@ -35,7 +35,7 @@ export default {
 <style lang="scss" scoped>
 .dashboard {
   &-text {
-    font-size: 30px;
+    font-size: 50px;
     line-height: 46px;
   }
 }

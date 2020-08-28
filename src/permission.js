@@ -43,23 +43,13 @@ router.beforeEach(async(to, from, next) => {
         })
           .catch(err => {
             console.log(err)
-            store.dispatch('user/logout').then(() => {
-              Message.error(err)
-              next({ path: '/' })
-            }).catch(function(error) { console.log(error) })
+            // store.dispatch('user/logout').then(() => {
+            //   // Message.error(err)
+            //   next({ path: '/' })
+            // }).catch(function(error) { console.log(error) })
           })
       } else {
-        // try {
-        // get user info
-        // await store.dispatch('user/getInfo')
         next()
-        // } catch (error) {
-        //   // remove token and go to login page to re-login
-        //   await store.dispatch('user/resetToken')
-        //   Message.error(error || 'Has Error')
-        //   next(`/login?redirect=${to.path}`)
-        //   NProgress.done()
-        // }
       }
     }
   } else {

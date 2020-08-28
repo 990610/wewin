@@ -177,3 +177,76 @@ div:focus {
         background: #ccdffa;
     }
   }
+// 曲剧通用Form表单查询样式
+.f-query {
+  .btns {
+    float: right;
+
+    .el-button {
+      min-width: 70px;
+      border: none !important;
+      border-radius: 100px;
+    }
+
+    //重置按钮
+    .reset-btn {
+      border: none !important;
+      border-radius: 100px;
+      color: #3383ff !important;
+      // padding: 9px 15px;
+      background: #d8e7fc;
+    }
+
+    .reset-btn:active {
+      background: #ccdffa;
+    }
+
+    //查询按钮
+    .query-btn,
+    //导出按钮
+    .add-btn {
+      border-radius: 100px;
+      border: none !important;
+    }
+
+    .add-btn {
+      background: #f29b76 !important;
+    }
+
+    .query-btn:active {
+      background: #409EFF !important;
+    }
+
+    //导出按钮
+    .add-btn:active {
+      background: #f29b76 !important;
+    }
+  }
+
+  .el-form-item__label {
+    padding: 0px 3px;
+  }
+
+  .el-input {
+    width: 140px;
+    font-size: 12px;
+  }
+  // form-item内容样式
+  .el-form-item__content {
+    margin-right: 5px;
+  }
+  //时间选择器样式修改
+  .el-date-editor {
+    width: 200px;
+    .el-input__inner {
+      height: 32px;
+      line-height: 32px;
+    }
+  }
+  .el-select{
+     .el-input__inner {
+      height: 32px;
+      line-height: 32px;
+    }
+  }
+}

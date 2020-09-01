@@ -1,4 +1,10 @@
 <!--表格选择统计组件-->
+<!--
+  input:   selectedNum:Number 选择的数量；
+          clear:Functon 清空选择函数
+  slot :可自定义插入数据
+-->
+
 <template>
   <div class="table-total">
     <i class="el-icon-info" />

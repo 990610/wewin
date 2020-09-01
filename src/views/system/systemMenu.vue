@@ -9,7 +9,7 @@
           icon="el-icon-plus"
           size="mini"
           style="border-radius:100px;"
-          @click="handleAdd"
+          @click="handleAdd(0)"
         >新增</el-button>
       </el-form-item>
     </el-form>
@@ -219,6 +219,7 @@ export default {
         type: 0,
         parentId: 0,
         path: '',
+        name: '',
         component: '',
         redirect: '',
         icon: '',
@@ -290,11 +291,16 @@ export default {
       this.reset()
       this.open = true
       this.title = '新增'
-      if (row.menuId) {
-        this.form.type = 1
+      console.log(row)
+      if (!row) {
+        this.form.type = 0
+        this.form.component = 'Layout'
+        this.form.redirect = 'noRedirect'
+      } else {
+        this.form.type = (row.menuId && row.parentId === 0 ? 1 : 2)
         this.form.parentTitle = row.title
         this.form.parentId = row.menuId
-        this.open = true
+        // this.open = true
         setTimeout(() => {
           this.menuListTreeSetCurrentNode()
         }, 0)

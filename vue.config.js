@@ -33,6 +33,14 @@ module.exports = {
     }
     // disableHostCheck: true
   },
+  css: {
+    loaderOptions: {
+      // 全局引入scss方法 https://cli.vuejs.org/zh/guide/css.html
+      scss: {
+        prependData: `@import "~@/assets/styles/variables.scss";`
+      }
+    }
+  },
   configureWebpack: {
     // provide the app's title in webpack's name field, so that
     // it can be accessed in index.html to inject the correct title.

@@ -1,7 +1,14 @@
+/**
+  该文件主要用来配置主题颜色，该文件设置的颜色变量可以全局使用 无须引用该文件
+  全局注册方法在vue.config.js的css部分
+  想要整体修改主题颜色 还需要在element-variables.scss 做调整
+**/
+// 主题蓝
+$themeColor:#409EFF;
 // sidebar 右侧导航栏颜色配置
 $menuText:#333333;
-$menuActiveText:#409EFF;
-$subMenuActiveText:#409EFF; //https://github.com/ElemeFE/element/issues/12951
+$menuActiveText:$themeColor;
+$subMenuActiveText:$themeColor; //https://github.com/ElemeFE/element/issues/12951
 
 $menuBg:#ffffff;
 $menuHover:#ffffff;
@@ -11,9 +18,7 @@ $subMenuHover:#ffffff;
 
 $sideBarWidth: 210px;
 //顶部导航栏的颜色控制
-$navBackgroudColor:#409EFF;
-
-
+$navBackgroudColor:$themeColor;
 // the :export directive is the magic sauce for webpack
 // https://www.bluematador.com/blog/how-to-share-variables-between-js-and-sass
 :export {

@@ -24,7 +24,6 @@
           :highlight-current="true"
           :expand-on-click-node="false"
           :filter-node-method="filterNode"
-          @current-change="PanleDeptListTreeCurrentChangeHandle"
         />
       </div>
       <div class="table">
@@ -329,7 +328,7 @@ export default {
   .content{
     display: flex;
     width: 100%;
-     height: calc(100% - 96px);
+     height: calc(100% - 62px);
     .content-left{
       min-width: 250px;
       // width: 20%;

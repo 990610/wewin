@@ -34,6 +34,11 @@ import resize from './mixins/resize'
 export default {
   mixins: [resize],
   props: {
+    type: {
+      type: String,
+      // 默认为圆环图
+      default: 'annulus'
+    },
     title: {
       type: String,
       default: '标题'
@@ -53,7 +58,7 @@ export default {
     colors: {
       type: Array,
       default: () => {
-        return ['#d8e7fc', '#3383ff', '#FFCD7E']
+        return ['#d8e7fc', '#3383ff', '#FFCD7E', '#87CEFA', '#4682B4', '#4682B4']
       }
     },
     data: {
@@ -77,6 +82,7 @@ export default {
   watch: {
     data: {
       handler(newValue, oldValue) {
+        this.initLegData()
         this.initChart()
       },
       deep: true
@@ -102,6 +108,49 @@ export default {
       this.chart.on('click', param => {
         this.$emit('echartsClick', param)
       })
+      const series = [{
+        name: this.title,
+        type: 'pie',
+        // 是否展示成南丁格尔图，通过半径区分数据大小。
+        // 可选择两种模式：'radius' 扇区圆心角展现数据的百分比，半径展现数据的大小。
+        // 'area' 所有扇区圆心角相同，仅通过半径展现数据大小。
+        // roseType: 'radius',
+        // radius: ['45%', '60%'],
+        radius: this.type === 'pie' ? '60%' : ['45%', '60%'],
+        // 圆中心的坐标
+        // center: ['50%', '45%'],
+        color: this.colors,
+        data: this.data,
+        // 绘图时的动画
+        animationEasing: 'cubicInOut',
+        animationDuration: 1500,
+        // 是否启用防止标签重叠策略，默认开启，在标签拥挤重叠的情况下会挪动各个标签的位置，防止标签间的重叠。
+        avoidLabelOverlap: false,
+        // 圆环伸出去的标签
+        label: {
+          show: true
+          // 使用带%效果显示
+          // normal: {
+          // 	show: true,
+          // 	position: "inside",
+          // 	formatter: `{d}` + "%"
+          // },
+          // 鼠标放在圆环上效果
+          // emphasis: {
+          // 	show: true,
+          // 	textStyle: {
+          // 		fontSize: "15",
+          // 		fontWeight: "bold"
+          // 	}
+          // }
+        },
+        // 圆环伸出去的标签的线
+        labelLine: {
+          normal: {
+            // show: false
+          }
+        }
+      }]
       this.chart.setOption({
         title: {
           text: this.title
@@ -120,50 +169,7 @@ export default {
           data: this.legData,
           orient: 'horizontal' // horizontal vertical
         },
-        series: [
-          {
-            name: this.title,
-            type: 'pie',
-            // 是否展示成南丁格尔图，通过半径区分数据大小。
-            // 可选择两种模式：'radius' 扇区圆心角展现数据的百分比，半径展现数据的大小。
-            // 'area' 所有扇区圆心角相同，仅通过半径展现数据大小。
-            // roseType: 'radius',
-            radius: ['45%', '60%'],
-            // 圆中心的坐标
-            // center: ['50%', '45%'],
-            color: this.colors,
-            data: this.data,
-            // 绘图时的动画
-            animationEasing: 'cubicInOut',
-            animationDuration: 1500,
-            // 是否启用防止标签重叠策略，默认开启，在标签拥挤重叠的情况下会挪动各个标签的位置，防止标签间的重叠。
-            avoidLabelOverlap: false,
-            // 圆环伸出去的标签
-            label: {
-              show: true
-              // 使用带%效果显示
-              // normal: {
-              // 	show: true,
-              // 	position: "inside",
-              // 	formatter: `{d}` + "%"
-              // },
-              // 鼠标放在圆环上效果
-              // emphasis: {
-              // 	show: true,
-              // 	textStyle: {
-              // 		fontSize: "15",
-              // 		fontWeight: "bold"
-              // 	}
-              // }
-            },
-            // 圆环伸出去的标签的线
-            labelLine: {
-              normal: {
-                // show: false
-              }
-            }
-          }
-        ]
+        series: series
       })
     },
     initLegData() {

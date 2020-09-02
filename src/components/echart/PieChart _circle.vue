@@ -45,12 +45,12 @@ export default {
     },
     height: {
       type: String,
-      default: '300px'
+      default: '100%'
     },
     colors: {
       type: Array,
       default: () => {
-        return ['#d8e7fc', '#3383ff', '#FFCD7E', '#D8E7FC', '#9EA6AD']
+        return ['#d8e7fc', '#3383ff', '#FFCD7E', '#87CEFA', '#4682B4', '#4682B4']
       }
     },
     data: {

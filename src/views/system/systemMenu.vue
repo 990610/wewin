@@ -67,7 +67,7 @@
             :model="form"
             size="small"
             :rules="rules"
-            label-width="100px"
+            label-width="140px"
             label-position="right"
           >
             <el-form-item label="菜单类型" prop>
@@ -140,9 +140,28 @@
               <el-form-item label="排序" prop="orderNum">
                 <el-input-number v-model="form.orderNum" :min="0" :max="100" />
               </el-form-item>
-              <el-form-item label="是否缓存" prop="noCache">
-                <el-switch v-model="form.noCache" active-color="#409EFF" inactive-color="#BFBFBF" />
-              </el-form-item>
+              <el-row>
+                <el-col :span="12">
+                  <el-form-item label="是否切换刷新" prop="noCache">
+                    <el-switch v-model="form.noCache" active-color="#409EFF" inactive-color="#BFBFBF" />
+                  </el-form-item>
+                </el-col>
+                <el-col :span="12">
+                  <el-form-item label="是否显示根路由" prop="noCache">
+                    <el-switch v-model="form.alwaysShow" active-color="#409EFF" inactive-color="#BFBFBF" />
+                  </el-form-item>
+                </el-col>
+                <el-col :span="12">
+                  <el-form-item label="是显示到面包屑" prop="noCache">
+                    <el-switch v-model="form.breadcrumb" active-color="#409EFF" inactive-color="#BFBFBF" />
+                  </el-form-item>
+                </el-col>
+                <el-col :span="12">
+                  <el-form-item label="是否固定顶部导航栏" prop="noCache">
+                    <el-switch v-model="form.affix" active-color="#409EFF" inactive-color="#BFBFBF" />
+                  </el-form-item>
+                </el-col>
+              </el-row>
             </div>
             <div v-show="form.type == 2">
               <el-form-item label="按钮/权限" prop="title">
@@ -225,6 +244,9 @@ export default {
         icon: '',
         orderNum: '',
         noCache: false,
+        alwaysShow: false,
+        breadcrumb: true,
+        affix: false,
         parentTitle: ''
       },
       // 表单校验
@@ -313,7 +335,10 @@ export default {
       sysMenuInfoMenuId({ menuId: row.menuId }).then((res) => {
         this.open = true
         this.form = res
-        this.form.noCache = !!this.form.noCache
+        this.form.noCache = !this.form.noCache
+        this.form.alwaysShow = !this.form.alwaysShow
+        this.form.breadcrumb = !this.form.breadcrumb
+        this.form.affix = !this.form.affix
         console.log(this.form)
         setTimeout(() => {
           if (this.form.parentId !== 0) {
@@ -332,7 +357,10 @@ export default {
     submitForm(forName) {
       this.$refs[forName].validate((valid) => {
         if (valid) {
-          this.form.noCache = this.form.noCache ? 1 : 0
+          this.form.noCache = this.form.noCache ? 0 : 1
+          this.form.alwaysShow = this.form.alwaysShow ? 0 : 1
+          this.form.breadcrumb = this.form.breadcrumb ? 0 : 1
+          this.form.affix = this.form.affix ? 0 : 1
           if (this.title === '新增') {
             console.log('新增')
             console.log(this.form)
@@ -343,7 +371,6 @@ export default {
             })
           } else if (this.title === '编辑') {
             console.log('编辑')
-            // this.form.noCache = this.form.noCache ? 1 : 0
             console.log(this.form)
             sysMenuUpdate(this.form).then((res) => {
               this.msgSuccess('修改成功')

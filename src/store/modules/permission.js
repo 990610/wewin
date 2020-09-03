@@ -56,6 +56,7 @@ function filterAsyncRouter(asyncRouterMap) {
   })
 }
 function formatMenu(data) {
+  console.log(data)
   const res = []
   for (const item of data) {
     const temp = {
@@ -63,19 +64,21 @@ function formatMenu(data) {
       path: item.path,
       component: item.component,
       redirect: item.redirect,
-      // alwaysShow: item.alwaysShow !== 0,
+      alwaysShow: !item.alwaysShow,
       meta: {
         title: item.title,
         icon: item.icon,
-        naCache: item.noCache !== 0
+        noCache: !item.noCache,
+        breadcrumb: !item.breadcrumb,
+        affix: !item.affix
       }
     }
     if (item.children && item.children.length > 0) {
-      temp.alwaysShow = true
       temp.children = formatMenu(item.children)
     }
     res.push(temp)
   }
+  console.log(res)
   return res
 }
 

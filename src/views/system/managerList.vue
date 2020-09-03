@@ -269,7 +269,7 @@ export default {
         email: [
           { pattern: /^\w+@\w+(\.)\w+$/, message: '请输入正确的邮箱', trigger: 'blur' }
         ],
-        phone: [
+        mobile: [
           { pattern: /^1[0-9]\d{9}$/, message: '请输入正确的手机号', trigger: 'blur' }
         ]
       },

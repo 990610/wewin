@@ -2,7 +2,7 @@
 <template>
   <div id="systemLog" class="app-container">
     <el-form :inline="true" class="f-query queryForm">
-      <el-form-item label="操作人姓名：">
+      <el-form-item label="操作用户名：">
         <el-input v-model="queryForm.userName" size="small" placeholder="操作人姓名" />
       </el-form-item>
       <el-form-item label="开始时间：">

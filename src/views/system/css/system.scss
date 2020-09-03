@@ -18,6 +18,8 @@ $defalt-color:#e8e8e8;
     box-sizing: border-box;
     padding: 20px 15px;
     border: 1px solid $defalt-color;
+    max-height: calc(100vh - 108px);
+    overflow: scroll;
 
     .meun-select {
       width: 75%;

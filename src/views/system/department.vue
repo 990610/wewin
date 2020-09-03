@@ -257,7 +257,7 @@ export default {
         }
       )
         .then(() => {
-          that.sysDeptDelete([row.userId]).then(res => {
+          that.sysDeptDelete([row.deptId]).then(res => {
             this.msgSuccess('删除成功')
             this.getDeptList()
           })

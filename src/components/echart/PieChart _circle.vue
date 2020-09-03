@@ -232,11 +232,12 @@ export default {
           },
           formatter: name => {
             const data = trafficWay
+            // eslint-disable-next-line no-unused-vars
             let total = 0
             let target
             for (let i = 0, l = data.length; i < l; i++) {
               total += data[i].value
-              if (data[i].name == name) {
+              if (data[i].name === name) {
                 target = data[i].value
               }
             }

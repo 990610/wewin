@@ -6,7 +6,7 @@
 -->
 
 <template>
-  <div id="tableTotal">
+  <div id="tableSelecte">
     <div class="table-total">
       <i class="el-icon-info" />
       <span>已选择</span>
@@ -15,18 +15,22 @@
       <el-button type="text" @click="clear">清空</el-button>
       <div class="rightBtn">
         <el-button icon="el-icon-refresh" type="text" @click="fresh">刷新</el-button>
-        <!-- <el-button icon="el-icon-setting" type="text" @click="fresh">自定义列</el-button> -->
+        <el-button icon="el-icon-setting" type="text" @click="show">自定义列</el-button>
       </div>
     </div>
   </div>
 </template>
 <script>
 export default {
-  name: 'TableTotal',
+  name: 'TableSelecte',
   props: {
     selectedNum: {
       type: Number,
       default: 0
+    },
+    tableList: {
+      type: Array,
+      default: () => { return [] }
     },
     clear: {
       type: Function,
@@ -39,6 +43,16 @@ export default {
   },
   data() {
     return {
+    }
+  },
+  computed: {
+    tableData() {
+      return this.tableList
+    }
+  },
+  methods: {
+    show() {
+      console.log(this.tableData)
     }
   }
 }

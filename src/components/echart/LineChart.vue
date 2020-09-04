@@ -1,6 +1,6 @@
 <!--
 	备注：普通折线图
-	便利修改：根据需求修改series参数做个性化处理
+	便利修改：根据需求修改series参数做个性化处理 根据输入的线条数据需要手动修改series
 	put: {
 		title:'标题',
 		className:'样式',
@@ -9,8 +9,8 @@
 		colors:'',
     每条折线数据
 		data:{
-       expectedData:[1,4,3,2,5,9,3],
-       actualData:[1,10,3,8,5,3,1],
+       lineOne:[1,4,3,2,5,9,3],
+       lineTwo:[1,10,3,8,5,3,1],
     },
     X轴数据 类型
     xdata:["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
@@ -48,7 +48,7 @@ export default {
     },
     height: {
       type: String,
-      default: '300px'
+      default: '100%'
     },
     autoResize: {
       type: Boolean,
@@ -60,8 +60,8 @@ export default {
       default: () => {
         return {
           // 每一个字段就表示一条线的数据
-          expectedData: [1, 4, 3, 2, 5, 9, 3],
-          actualData: [1, 10, 3, 8, 5, 3, 1]
+          lineOne: [1, 4, 3, 2, 5, 9, 3],
+          lineTwo: [1, 10, 3, 8, 5, 3, 1]
         }
       }
     },
@@ -105,14 +105,14 @@ export default {
       })
       this.setOptions(this.data)
     },
-    setOptions({ expectedData, actualData } = {}) {
+    setOptions({ lineOne, lineTwo } = {}) {
       this.chart.setOption({
         title: {
           text: this.title
         },
         grid: {
           left: 10,
-          right: 40,
+          right: 100,
           bottom: 20,
           top: 50,
           containLabel: true
@@ -142,11 +142,11 @@ export default {
           }
         },
         legend: {
-          data: ['expected', 'actual']
+          data: ['lineOne', 'lineTwo']
         },
         series: [
           {
-            name: 'expected',
+            name: 'lineOne',
             // 设置每个点的形状 默认：emptyCircle 空心圆 ；'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow', 'none'
             symbol: 'emptyCircle',
             // 设置每个点的大小
@@ -189,6 +189,9 @@ export default {
                     // label:{},
                     // itemStyle:{}
                   }
+                },
+                areaStyle: {
+                  color: '#FF005A'
                 }
               }
             },
@@ -215,11 +218,12 @@ export default {
                   borderWidth: 1,
                   lineStyle: {
                     type: 'solid',
-                    color: '#3383FF',
+                    color: '#FF005A',
                     width: 1
                   },
                   label: {
-                    formatter: '{a|平均值}',
+                    position: 'end',
+                    formatter: '{a|lineOne平均值}',
                     textStyle: {
                       fontSize: 12
                     },
@@ -229,18 +233,20 @@ export default {
                       }
                     }
                   }
+
                 }
+
               }
             },
             // 是否圆滑
             smooth: true,
             type: 'line',
-            data: expectedData,
+            data: lineOne,
             animationDuration: 2000,
             animationEasing: 'cubicInOut'
           },
           {
-            name: 'actual',
+            name: 'lineTwo',
             smooth: true,
             type: 'line',
             itemStyle: {
@@ -252,11 +258,11 @@ export default {
                 },
                 // 包含面积 区域填充样式。
                 areaStyle: {
-                  color: '#f3f8ff'
+                  color: '#3888fa'
                 }
               }
             },
-            data: actualData,
+            data: lineTwo,
             animationDuration: 2000,
             animationEasing: 'cubicInOut'
           }

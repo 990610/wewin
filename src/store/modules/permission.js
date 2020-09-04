@@ -64,13 +64,13 @@ function formatMenu(data) {
       path: item.path,
       component: item.component,
       redirect: item.redirect,
-      alwaysShow: !item.alwaysShow,
+      alwaysShow: !!item.alwaysShow,
       meta: {
         title: item.title,
         icon: item.icon,
         noCache: !item.noCache,
         breadcrumb: !item.breadcrumb,
-        affix: !item.affix
+        affix: !!item.affix
       }
     }
     if (item.children && item.children.length > 0) {

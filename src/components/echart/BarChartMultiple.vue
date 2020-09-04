@@ -57,7 +57,9 @@ export default {
       default: () => {
         const obj = {
           xdata: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-          ydata: [120, 200, 150, 80, 70, 110, 130]
+          ydataOne: [120, 200, 150, 80, 70, 110, 130],
+          ydataTwo: [80, 60, 150, 180, 170, 100, 160]
+
         }
         return obj
       }
@@ -96,15 +98,20 @@ export default {
         this.$emit('echartsClick', param)
       })
       this.chart.setOption({
+        // 颜色设置
+        color: ['#003366', '#006699', '#4cabce', '#e5323e'],
         title: {
           text: this.title
         },
         tooltip: {
           trigger: 'axis',
-          formatter: '{a}:  <br/>{b} : {c}',
+          // formatter: '{a}:  <br/>{b} : {c}',
           axisPointer: { // 坐标轴指示器，坐标轴触发有效
             type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
           }
+        },
+        legend: {
+          data: ['barOne', 'barTwo']
         },
         // 网格位置调整
         grid: {
@@ -119,15 +126,6 @@ export default {
           // 类型选择 category:类型 value：值
           type: 'category',
           data: this.barData.xdata,
-          // 第二种data
-          // data:[{
-          //   value:'周一',
-          //   textStyle:{
-          //     fontSize:20,
-          //     color:'orange'
-          //   }
-          // },'周二', '周三', '周四', '周五', '周六', '周日'],
-          // 坐标刻度控制对象
           axisTick: {
             // 类目轴中在 boundaryGap 为 true 的时候有效，可以保证刻度线和标签对齐
             alignWithLabel: true,
@@ -148,28 +146,10 @@ export default {
             inside: false,
             // 刻度标签旋转的角度，-90 -- 90。
             rotate: 0,
-            // 刻度标签文字颜色，支持回调函数
-            // color:function (value,index) {
-            //     return 'red'
-            // },
             fontSize: 12,
             align: 'center',
             // 垂直对齐方式
             verticalAlign: 'top',
-            // 刻度标签的内容格式器，支持字符串模板和回调函数两种形式。
-            // 1：简易模板
-            // formatter:'{value} kg',
-            // 2: 回调函数
-            // formatter:function (value,index) {
-            //    // 格式化成月/日，只在第一个刻度显示年份
-            //     return '{a|' + value  + '}-' + index;
-            // },
-            // 颜色 可以直接使用 '#123234', 'red', 'rgba(0,23,11,0.3)'
-            // backgroundColor:{
-            //   image:'xxx/xxx.png',
-            //  width:xx,
-            //  height:xx
-            // }
             // formatter:['{a|haha}'],
             // 文字样式自定义
             rich: {
@@ -196,26 +176,14 @@ export default {
               // { color , width , type , shadowBlur , shadowColor , shadowOffsetX , shadowOffsetY , opacity }
             }
 
-          },
-          // 坐标轴指示器配置项。
-          axisPointer: {
-            show: true,
-            type: 'shadow'
           }
         }],
         yAxis: [{
           type: 'value',
-          // min max interval 用于控制数值刻度
-          // min: function (value) {
-          //       return 0;
-          // },
-          max: function(value) {
-            return value.max + 50
-          },
           // 强制设置坐标轴分割间隔。
-          // interval: 40,
+          // interval:10,
           // 坐标轴的分割段数
-          // splitNumber: 5,
+          // splitNumber:10,
           axisTick: {
             show: false
           },
@@ -224,13 +192,14 @@ export default {
             show: true,
             interval: 'auto',
             lineStyle: {
-              // color: 'red'
+              color: 'red'
             }
           }
         }],
         series: [{
-          name: this.title,
+          name: 'barOne',
           type: 'bar',
+          barGap: 0,
           // 柱状图颜色
           // color:this.color,
           itemStyle: {
@@ -238,22 +207,52 @@ export default {
               // 柱状图颜色
               color: this.color,
               // 柱状条圆角 上左 上右 下左 下右
-              barBorderRadius: [8, 8, 0, 0],
+              // barBorderRadius: [8, 8, 0, 0],
               // 是否在柱状图顶部显示数据
               label: {
                 show: true, // 开启显示
-                position: 'top', // 在上方显示（top）  ""  top  bottom
+                position: '', // 在上方显示（top）  ""  top  bottom
                 textStyle: {
                   // 数值样式
-                  color: this.color
+                  color: '#fff'
                 }
               }
             }
           },
+          // 数据堆叠
           // stack: 'vistors',
           barWidth: '30%', // barMaxWidth
-          data: this.barData.ydata,
+          data: this.barData.ydataOne,
+
           animationEasing: 'cubicInOut',
+          animationDuration: 1500
+        },
+        // 重叠数据 一个柱状图多个数据
+        {
+          name: 'barTwo',
+          type: 'bar',
+          // stack: 'vistors',
+          barWidth: '30%',
+          data: this.barData.ydataTwo,
+          itemStyle: {
+            normal: {
+              // 柱状图颜色
+              color: '#00CED1',
+              // 柱状条圆角 上左 上右 下左 下右
+              // barBorderRadius: [8, 8, 0, 0],
+              // 是否在柱状图顶部显示数据
+              label: {
+                show: true, // 开启显示
+                position: '', // 在上方显示（top）  ""  top  bottom
+                textStyle: {
+                  // 数值样式
+                  color: '#fff'
+                }
+              }
+            }
+          },
+          animationEasing: 'cubicInOut',
+          // animationDelay: 1500,
           animationDuration: 1500
         }
         ]

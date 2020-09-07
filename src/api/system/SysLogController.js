@@ -7,7 +7,7 @@ export function sysLogList(data) {
   // eslint-disable-next-line no-constant-condition
   IP = false ? mockIP : backendIP
   return request({
-    url: IP + '/makeid-boot/sys/log/list',
+    url: IP + '/sys/log/list',
     method: 'post',
     data: data
   })

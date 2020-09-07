@@ -10,7 +10,7 @@ var IP = ''
 export function jobDeleteJobId(data) {
   IP = false ? mockIP : backendIP
   return request({
-    url: IP + '/makeid-boot/job/delete',
+    url: IP + '/job/delete',
     method: 'delete',
     params: data
   })
@@ -20,7 +20,7 @@ export function jobDeleteJobId(data) {
 export function jobInfoJobId(data) {
   IP = false ? mockIP : backendIP
   return request({
-    url: IP + '/makeid-boot/job/info',
+    url: IP + '/job/info',
     method: 'get',
     params: data
   })
@@ -30,7 +30,7 @@ export function jobInfoJobId(data) {
 export function jobList(data) {
   IP = false ? mockIP : backendIP
   return request({
-    url: IP + '/makeid-boot/job/list',
+    url: IP + '/job/list',
     method: 'post',
     data: data
   })
@@ -40,7 +40,7 @@ export function jobList(data) {
 export function jobSave(data) {
   IP = false ? mockIP : backendIP
   return request({
-    url: IP + '/makeid-boot/job/save',
+    url: IP + '/job/save',
     method: 'post',
     data: data
   })
@@ -50,7 +50,7 @@ export function jobSave(data) {
 export function jobStart(data) {
   IP = false ? mockIP : backendIP
   return request({
-    url: IP + '/makeid-boot/job/start',
+    url: IP + '/job/start',
     method: 'get',
     params: data
   })
@@ -60,7 +60,7 @@ export function jobStart(data) {
 export function jobStop(data) {
   IP = false ? mockIP : backendIP
   return request({
-    url: IP + '/makeid-boot/job/stop',
+    url: IP + '/job/stop',
     method: 'get',
     params: data
   })
@@ -70,7 +70,7 @@ export function jobStop(data) {
 export function jobUpdate(data) {
   IP = false ? mockIP : backendIP
   return request({
-    url: IP + '/makeid-boot/job/update',
+    url: IP + '/job/update',
     method: 'patch',
     data: data
   })
@@ -79,7 +79,7 @@ export function jobUpdate(data) {
 export function sysScheduleLogList(data) {
   IP = false ? mockIP : backendIP
   return request({
-    url: IP + '/makeid-boot/sys/scheduleLog/list',
+    url: IP + '/sys/scheduleLog/list',
     method: 'post',
     data: data
   })

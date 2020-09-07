@@ -10,7 +10,7 @@ var IP = ''
 export function sysDictDelete(data) {
   IP = false ? mockIP : backendIP
   return request({
-    url: IP + '/makeid-boot/sys/dict/delete',
+    url: IP + '/sys/dict/delete',
     method: 'delete',
     data: data
   })
@@ -19,9 +19,9 @@ export function sysDictDelete(data) {
 // 数据字典 - 字典详情
 export function sysDictInfoId(data) {
   IP = false ? mockIP : backendIP
-  // const url = replacePath('/makeid-boot/sys/dict/info/{id}', data)
+  // const url = replacePath('/sys/dict/info/{id}', data)
   return request({
-    url: IP + '/makeid-boot/sys/dict/info',
+    url: IP + '/sys/dict/info',
     method: 'get',
     params: data
   })
@@ -31,7 +31,7 @@ export function sysDictInfoId(data) {
 export function sysDictList(data) {
   IP = false ? mockIP : backendIP
   return request({
-    url: IP + '/makeid-boot/sys/dict/list',
+    url: IP + '/sys/dict/list',
     method: 'post',
     data: data
   })
@@ -41,7 +41,7 @@ export function sysDictList(data) {
 export function sysDictSave(data) {
   IP = false ? mockIP : backendIP
   return request({
-    url: IP + '/makeid-boot/sys/dict/save',
+    url: IP + '/sys/dict/save',
     method: 'post',
     data: data
   })
@@ -51,7 +51,7 @@ export function sysDictSave(data) {
 export function sysDictUpdate(data) {
   IP = false ? mockIP : backendIP
   return request({
-    url: IP + '/makeid-boot/sys/dict/update',
+    url: IP + '/sys/dict/update',
     method: 'patch',
     data: data
   })

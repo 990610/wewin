@@ -175,7 +175,7 @@ export default {
       this.loginForm.uuid = randomString(16)
       this.codeUrl =
 				process.env.VUE_APP_BASE_API +
-				'/makeid-boot/captcha.jpg?uuid=' +
+				'/captcha.jpg?uuid=' +
 				this.loginForm.uuid
     }
   }

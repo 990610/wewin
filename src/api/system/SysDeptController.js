@@ -10,7 +10,7 @@ var IP = ''
 export function sysDeptDelete(data) {
   IP = false ? mockIP : backendIP
   return request({
-    url: IP + '/makeid-boot/sys/dept/delete',
+    url: IP + '/sys/dept/delete',
     method: 'delete',
     data: data
   })
@@ -20,7 +20,7 @@ export function sysDeptDelete(data) {
 export function sysDeptInfoDeptId(data) {
   IP = false ? mockIP : backendIP
   return request({
-    url: IP + '/makeid-boot/sys/dept/info',
+    url: IP + '/sys/dept/info',
     method: 'get',
     params: data
   })
@@ -31,7 +31,7 @@ export function sysDeptInfoDeptId(data) {
 export function sysDeptList(data) {
   IP = false ? mockIP : backendIP
   return request({
-    url: IP + '/makeid-boot/sys/dept/list',
+    url: IP + '/sys/dept/list',
     method: 'get',
     params: data
   })
@@ -41,7 +41,7 @@ export function sysDeptList(data) {
 export function sysDeptSave(data) {
   IP = false ? mockIP : backendIP
   return request({
-    url: IP + '/makeid-boot/sys/dept/save',
+    url: IP + '/sys/dept/save',
     method: 'post',
     data: data
   })
@@ -51,7 +51,7 @@ export function sysDeptSave(data) {
 export function sysDeptUpdate(data) {
   IP = false ? mockIP : backendIP
   return request({
-    url: IP + '/makeid-boot/sys/dept/update',
+    url: IP + '/sys/dept/update',
     method: 'patch',
     data: data
   })

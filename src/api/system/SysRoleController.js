@@ -10,7 +10,7 @@ var IP = ''
 export function sysRoleDelete(data) {
   IP = false ? mockIP : backendIP
   return request({
-    url: IP + '/makeid-boot/sys/role/delete',
+    url: IP + '/sys/role/delete',
     method: 'delete',
     data: data
   })
@@ -20,7 +20,7 @@ export function sysRoleDelete(data) {
 export function sysRoleInfoRoleId(data) {
   IP = false ? mockIP : backendIP
   return request({
-    url: IP + '/makeid-boot/sys/role/info',
+    url: IP + '/sys/role/info',
     method: 'get',
     params: data
   })
@@ -30,7 +30,7 @@ export function sysRoleInfoRoleId(data) {
 export function sysRoleList(data) {
   IP = false ? mockIP : backendIP
   return request({
-    url: IP + '/makeid-boot/sys/role/list',
+    url: IP + '/sys/role/list',
     method: 'post',
     data: data
   })
@@ -39,7 +39,7 @@ export function sysRoleList(data) {
 export function sysRoleListAll(data) {
   IP = false ? mockIP : backendIP
   return request({
-    url: IP + '/makeid-boot/sys/role/listAll',
+    url: IP + '/sys/role/listAll',
     method: 'get',
     data: data
   })
@@ -49,7 +49,7 @@ export function sysRoleListAll(data) {
 export function sysRoleSave(data) {
   IP = false ? mockIP : backendIP
   return request({
-    url: IP + '/makeid-boot/sys/role/save',
+    url: IP + '/sys/role/save',
     method: 'post',
     data: data
   })
@@ -59,7 +59,7 @@ export function sysRoleSave(data) {
 export function sysRoleUpdate(data) {
   IP = false ? mockIP : backendIP
   return request({
-    url: IP + '/makeid-boot/sys/role/update',
+    url: IP + '/sys/role/update',
     method: 'patch',
     data: data
   })

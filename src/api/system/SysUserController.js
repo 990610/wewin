@@ -8,7 +8,7 @@ var IP = ''
 export function sysUserAdd(data) {
   IP = false ? mockIP : backendIP
   return request({
-    url: IP + '/makeid-boot/sys/user/add',
+    url: IP + '/sys/user/add',
     method: 'post',
     data: data
   })
@@ -18,7 +18,7 @@ export function sysUserAdd(data) {
 export function sysUserDelete(data) {
   IP = false ? mockIP : backendIP
   return request({
-    url: IP + '/makeid-boot/sys/user/delete',
+    url: IP + '/sys/user/delete',
     method: 'delete',
     data: data
   })
@@ -28,7 +28,7 @@ export function sysUserDelete(data) {
 export function sysUserEdit(data) {
   IP = false ? mockIP : backendIP
   return request({
-    url: IP + '/makeid-boot/sys/user/edit',
+    url: IP + '/sys/user/edit',
     method: 'put',
     data: data
   })
@@ -38,7 +38,7 @@ export function sysUserEdit(data) {
 export function sysUserPagelist(data) {
   IP = false ? mockIP : backendIP
   return request({
-    url: IP + '/makeid-boot/sys/user/pagelist',
+    url: IP + '/sys/user/pagelist',
     method: 'post',
     data: data
   })
@@ -48,7 +48,7 @@ export function sysUserPagelist(data) {
 export function sysUserPassword(data) {
   IP = false ? mockIP : backendIP
   return request({
-    url: IP + '/makeid-boot/sys/user/password',
+    url: IP + '/sys/user/password',
     method: 'post',
     data: data
   })
@@ -58,7 +58,7 @@ export function sysUserPassword(data) {
 export function sysUserQueryByIdUserId(data) {
   IP = false ? mockIP : backendIP
   return request({
-    url: IP + '/makeid-boot/sys/user/queryById',
+    url: IP + '/sys/user/queryById',
     method: 'get',
     params: data
   })
@@ -68,7 +68,7 @@ export function sysUserQueryByIdUserId(data) {
 export function sysUserQueryUserInfo() {
   IP = false ? mockIP : backendIP
   return request({
-    url: IP + '/makeid-boot/sys/user/queryUserInfo',
+    url: IP + '/sys/user/queryUserInfo',
     method: 'get'
   })
 }

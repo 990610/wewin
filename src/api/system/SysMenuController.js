@@ -9,7 +9,7 @@ var IP = ''
 // 系统菜单 - 删除菜单
 export function sysMenuDeleteMenuId(data) {
   IP = false ? mockIP : backendIP
-  const url = replacePath('/makeid-boot/sys/menu/delete/{menuId}', data)
+  const url = replacePath('/sys/menu/delete/{menuId}', data)
   return request({
     url: IP + url,
     method: 'delete',
@@ -21,7 +21,7 @@ export function sysMenuDeleteMenuId(data) {
 export function sysMenuInfoMenuId(data) {
   IP = false ? mockIP : backendIP
   return request({
-    url: IP + '/makeid-boot/sys/menu/info',
+    url: IP + '/sys/menu/info',
     method: 'get',
     params: data
   })
@@ -31,7 +31,7 @@ export function sysMenuInfoMenuId(data) {
 export function sysMenuList() {
   IP = false ? mockIP : backendIP
   return request({
-    url: IP + '/makeid-boot/sys/menu/list',
+    url: IP + '/sys/menu/list',
     method: 'get'
   })
 }
@@ -40,7 +40,7 @@ export function sysMenuList() {
 export function sysMenuNav() {
   IP = false ? mockIP : backendIP
   return request({
-    url: IP + '/makeid-boot/sys/menu/nav',
+    url: IP + '/sys/menu/nav',
     method: 'get'
   })
 }
@@ -49,7 +49,7 @@ export function sysMenuNav() {
 export function sysMenuSave(data) {
   IP = false ? mockIP : backendIP
   return request({
-    url: IP + '/makeid-boot/sys/menu/save',
+    url: IP + '/sys/menu/save',
     method: 'post',
     data: data
   })
@@ -59,7 +59,7 @@ export function sysMenuSave(data) {
 export function sysMenuUpdate(data) {
   IP = false ? mockIP : backendIP
   return request({
-    url: IP + '/makeid-boot/sys/menu/update',
+    url: IP + '/sys/menu/update',
     method: 'patch',
     data: data
   })

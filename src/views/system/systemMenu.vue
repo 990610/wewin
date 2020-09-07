@@ -335,10 +335,10 @@ export default {
       sysMenuInfoMenuId({ menuId: row.menuId }).then((res) => {
         this.open = true
         this.form = res
-        this.form.noCache = !this.form.noCache
-        this.form.alwaysShow = !this.form.alwaysShow
-        this.form.breadcrumb = !this.form.breadcrumb
-        this.form.affix = !this.form.affix
+        this.form.noCache = !!this.form.noCache
+        this.form.alwaysShow = !!this.form.alwaysShow
+        this.form.breadcrumb = !!this.form.breadcrumb
+        this.form.affix = !!this.form.affix
         console.log(this.form)
         setTimeout(() => {
           if (this.form.parentId !== 0) {
@@ -357,10 +357,10 @@ export default {
     submitForm(forName) {
       this.$refs[forName].validate((valid) => {
         if (valid) {
-          this.form.noCache = this.form.noCache ? 0 : 1
-          this.form.alwaysShow = this.form.alwaysShow ? 0 : 1
-          this.form.breadcrumb = this.form.breadcrumb ? 0 : 1
-          this.form.affix = this.form.affix ? 0 : 1
+          this.form.noCache = this.form.noCache ? 1 : 0
+          this.form.alwaysShow = this.form.alwaysShow ? 1 : 0
+          this.form.breadcrumb = this.form.breadcrumb ? 1 : 0
+          this.form.affix = this.form.affix ? 1 : 0
           if (this.title === '新增') {
             console.log('新增')
             console.log(this.form)

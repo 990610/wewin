@@ -14,8 +14,22 @@
       <slot />
       <el-button type="text" @click="clear">清空</el-button>
       <div class="rightBtn">
-        <el-button icon="el-icon-refresh" type="text" @click="fresh">刷新</el-button>
-        <el-button icon="el-icon-setting" type="text" @click="show">自定义列</el-button>
+        <el-button style="margin-right:10px" icon="el-icon-refresh" type="text" @click="fresh">刷新</el-button>
+        <el-popover
+          placement="bottom"
+          title="选择展示列"
+          width="200"
+          trigger="click"
+          @after-leave="lineSelecte"
+        >
+          <div>
+            <el-checkbox-group v-model="defineLine">
+              <el-checkbox v-for="item in subTableLine" :key="item.prop" :checked="true" :label="item.label" />
+            </el-checkbox-group>
+          </div>
+          <el-button slot="reference" icon="el-icon-setting" type="text">自定义列</el-button>
+        </el-popover>
+
       </div>
     </div>
   </div>
@@ -28,7 +42,7 @@ export default {
       type: Number,
       default: 0
     },
-    tableList: {
+    tableLine: {
       type: Array,
       default: () => { return [] }
     },
@@ -43,6 +57,8 @@ export default {
   },
   data() {
     return {
+      defineLine: [],
+      subTableLine: this.tableLine
     }
   },
   computed: {
@@ -53,6 +69,13 @@ export default {
   methods: {
     show() {
       console.log(this.tableData)
+    },
+    lineSelecte() {
+      if (this.defineLine.length === 0) {
+        this.msgWarning('可展示列不能为空')
+        return
+      }
+      this.$emit('line', this.defineLine)
     }
   }
 }
@@ -81,6 +104,7 @@ $color: #409EFF;
     }
     .rightBtn{
       float: right;
+
     }
 }
 </style>

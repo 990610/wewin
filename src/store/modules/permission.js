@@ -68,8 +68,8 @@ function formatMenu(data) {
       meta: {
         title: item.title,
         icon: item.icon,
-        noCache: !item.noCache,
-        breadcrumb: !item.breadcrumb,
+        noCache: !!item.noCache,
+        breadcrumb: !!item.breadcrumb,
         affix: !!item.affix
       }
     }

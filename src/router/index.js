@@ -11,11 +11,12 @@ import Layout from '@/components/layout'
  *                                // 只有一个时，会将那个子路由当做根路由显示在侧边栏--如引导页面
  *                                // 若你想不管路由下面的 children 声明的个数都显示你的根路由
  *                                // 你可以设置 alwaysShow: true，这样它就会忽略之前定义的规则，一直显示根路由
+ *                                // 你可以设置 alwaysShow：false，只有一个子路由时，会将其合并，显示一级菜单栏如首页
   meta: {
     roles: ['admin', 'editor'] //设置该路由进入的权限，支持多个权限叠加
     title: 'title' //设置该路由在侧边栏和面包屑中展示的名字
     icon: 'svg-name' //设置该路由的图标
-    noCache: true //如果设置为true，则不会被 <keep-alive> 缓存(默认 false) 路由名称必须和页面名称一样
+    noCache: true //如果设置为true，则不会被 <keep-alive> 缓存(默认 false)，每次切换便会刷新页面 路由名称必须和页面名称一样
     breadcrumb: false // 如果设置为false，则不会在breadcrumb面包屑中显示
   }
 */
@@ -51,7 +52,7 @@ export const constantRoutes = [
       path: 'dashboard',
       name: 'dashboard',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: '首页', icon: 'dashboard', affix: true, noCache: true }
+      meta: { title: '首页', icon: 'index', affix: true, noCache: true }
     }]
   }
   // 404 page must be placed at the end !!!

@@ -152,7 +152,7 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="12">
-                  <el-form-item label="是显示到面包屑" prop="noCache">
+                  <el-form-item label="是否显示到面包屑" prop="noCache">
                     <el-switch v-model="form.breadcrumb" active-color="#409EFF" inactive-color="#BFBFBF" />
                   </el-form-item>
                 </el-col>

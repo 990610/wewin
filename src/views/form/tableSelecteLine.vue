@@ -114,7 +114,10 @@ export default {
         console.log(line.includes(value.label))
         return line.includes(value.label)
       })
-      console.log(this.tableData)
+      this.$nextTick(() => {
+        this.$refs.table.doLayout()
+      })
+      // console.log(this.tableData)
     },
     // 刷新table
     fresh() {

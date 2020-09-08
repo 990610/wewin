@@ -78,7 +78,6 @@
 </template>
 
 <script>
-// import { validUsername } from '@/utils/validate'
 import { randomString, encode } from '@/utils/index.js'
 
 export default {

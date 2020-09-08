@@ -1,10 +1,11 @@
 <!--表格选择统计组件-->
 <!--
   input:   selectedNum:Number 选择的数量；
-          clear:Functon 清空选择函数
+           tableLine: Array 表格可展示项
+           clear: Functon 清空选择函数
+           fresh: Function 刷新table
   slot :可自定义插入数据
 -->
-
 <template>
   <div id="tableSelecte">
     <div class="table-total">
@@ -21,6 +22,7 @@
           width="200"
           trigger="click"
           @after-leave="lineSelecte"
+          @show="porverShow"
         >
           <div>
             <el-checkbox-group v-model="defineLine">
@@ -29,7 +31,6 @@
           </div>
           <el-button slot="reference" icon="el-icon-setting" type="text">自定义列</el-button>
         </el-popover>
-
       </div>
     </div>
   </div>
@@ -38,18 +39,22 @@
 export default {
   name: 'TableSelecte',
   props: {
+    // 表格已选择数量 通常为 multipleSelection.length
     selectedNum: {
       type: Number,
       default: 0
     },
+    // 表格展示项 格式 [{label:'',prop:'',width:''}]
     tableLine: {
       type: Array,
       default: () => { return [] }
     },
+    // 表格清空函数
     clear: {
       type: Function,
       default: function() {}
     },
+    // 表格刷新函数
     fresh: {
       type: Function,
       default: function() {}
@@ -58,6 +63,7 @@ export default {
   data() {
     return {
       defineLine: [],
+      preDefinLine: [],
       subTableLine: this.tableLine
     }
   },
@@ -67,12 +73,13 @@ export default {
     }
   },
   methods: {
-    show() {
-      console.log(this.tableData)
+    porverShow() {
+      this.preDefinLine = this.defineLine
     },
     lineSelecte() {
       if (this.defineLine.length === 0) {
         this.msgWarning('可展示列不能为空')
+        this.defineLine = this.preDefinLine
         return
       }
       this.$emit('line', this.defineLine)

@@ -1,4 +1,4 @@
-<!--系统设置-定时任务-->
+<!--系统设置-数据字典-->
 <template>
   <div id="dataDictionary" class="app-container">
     <el-form :inline="true" class="f-query">
@@ -14,6 +14,17 @@
         <el-button class="reset-btn" type="primary" icon="el-icon-refresh-left" size="mini" @click="resetQuery">重置</el-button>
         <el-button v-hasPermi="['sys:dict:list']" type="primary" icon="el-icon-search" size="mini" @click="handleQuery">查询</el-button>
         <el-button v-hasPermi="['sys:dict:save']" type="primary" icon="el-icon-plus" size="mini" @click="handleAdd">新增字典</el-button>
+        <el-button v-hasPermi="['sys:dict:save']" type="warning" icon="el-icon-plus" size="mini" @click="handleExport">模板导出</el-button>
+        <el-upload
+          class="upload-demo"
+          :action="url"
+          :headers="headers"
+          :file-list="fileList"
+          name="file"
+          :on-success="uploadSuccess"
+        >
+          <el-button v-hasPermi="['sys:dict:save']" type="warning" icon="el-icon-plus" size="mini" @click="handleUpload">字典上传</el-button>
+        </el-upload>
         <el-button v-show="multipleSelection.length > 0" v-hasPermi="['sys:manage:delete']" type="danger" icon="el-icon-delete" size="mini" @click="deleteMore">批量删除</el-button>
       </el-form-item>
     </el-form>
@@ -99,6 +110,8 @@
 
 <script>
 import * as that from '@/api/system/SysDictController'
+import { downloadFile } from '@/utils/index'
+import { getToken } from '@/utils/auth'
 export default {
   name: 'DataDictionary',
   data() {
@@ -152,7 +165,12 @@ export default {
         total: 0
       },
       // table 选择
-      multipleSelection: []
+      multipleSelection: [],
+      url: process.env.VUE_APP_BASE_API + '/sys/dict/upload',
+      headers: {
+        token: getToken()
+      },
+      fileList: []
     }
   },
   watch: {
@@ -282,6 +300,29 @@ export default {
         })
         .catch(function() {})
     },
+    handleExport() {
+      that.sysDictDownload().then(res => {
+        console.log(res)
+        if (res) {
+          downloadFile(res, '数据字典导出模板')
+        } else {
+          this.msgWarning('数据有误')
+        }
+      })
+        .catch(error => { console.log(error) })
+    },
+    handleUpload() {},
+    uploadSuccess(response, file, fileList) {
+      if (response.code === 200) {
+        this.msgSuccess('上传成功')
+      } else {
+        this.msgWarning(response.message)
+      }
+      this.fileList = []
+      console.log(response)
+      console.log(file)
+      console.log(fileList)
+    },
     // 分页大小选择
     handleSizeChange(val) {
       this.pagination.pageSize = val
@@ -339,6 +380,13 @@ export default {
   }
   .el-select{
     width: 100%;
+  }
+  .upload-demo{
+    float: right;
+    margin-left: 10px;
+    .el-upload-list__item:first-child{
+      margin-top: -3px;
+    }
   }
 }
 </style>

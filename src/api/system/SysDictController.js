@@ -56,4 +56,14 @@ export function sysDictUpdate(data) {
     data: data
   })
 }
+// 数据字典 - 修改字典信息
+export function sysDictDownload(data) {
+  IP = false ? mockIP : backendIP
+  return request({
+    url: IP + '/sys/dict/download',
+    method: 'get',
+    data: data,
+    responseType: 'blob'
+  })
+}
 

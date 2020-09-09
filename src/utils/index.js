@@ -106,3 +106,17 @@ export function ToPathStr(val) {
   str = str.substr(0, str.length - 1)
   return str
 }
+// 文件下载 数据+文件名
+export function downloadFile(data, name) {
+  console.log(name)
+  if (!data) {
+    return
+  }
+  const url = window.URL.createObjectURL(new Blob([data]))
+  const link = document.createElement('a')
+  link.style.display = 'none'
+  link.href = url
+  link.setAttribute('download', name + '.xlsx')
+  document.body.appendChild(link)
+  link.click()
+};

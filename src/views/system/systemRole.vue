@@ -238,7 +238,7 @@ export default {
     submitForm(forName) {
       this.$refs[forName].validate((valid) => {
         if (valid) {
-          const menuIdList = this.$refs.menuTree.getCheckedKeys()
+          const menuIdList = this.$refs.menuTree.getCheckedKeys().concat(this.$refs.menuTree.getHalfCheckedKeys())
           const item = {
             remark: this.form.remark,
             roleId: this.form.roleId,

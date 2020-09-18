@@ -43,10 +43,10 @@ router.beforeEach(async(to, from, next) => {
         })
           .catch(err => {
             console.log(err)
-            // store.dispatch('user/logout').then(() => {
-            //   // Message.error(err)
-            //   next({ path: '/' })
-            // }).catch(function(error) { console.log(error) })
+            store.dispatch('user/logout').then(() => {
+              // Message.error(err)
+              next({ path: '/' })
+            }).catch(function(error) { console.log(error) })
           })
       } else {
         next()

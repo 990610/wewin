@@ -11,7 +11,7 @@ const permission = {
     SET_ROUTES: (state, routes) => {
       state.addRoutes = routes
       state.routes = constantRoutes.concat(routes)
-      console.log(state.routes)
+      // console.log(state.routes)
     },
     SET_PERMISSIONS: (state, permissions) => {
       state.permissions = permissions
@@ -39,7 +39,6 @@ const permission = {
 
 // 遍历后台传来的路由字符串，转换为组件对象
 function filterAsyncRouter(asyncRouterMap) {
-  console.log(1)
   return asyncRouterMap.filter(route => {
     if (route.component) {
       // Layout组件特殊处理
@@ -56,7 +55,7 @@ function filterAsyncRouter(asyncRouterMap) {
   })
 }
 function formatMenu(data) {
-  console.log(data)
+  // console.log(data)
   const res = []
   for (const item of data) {
     const temp = {
@@ -78,7 +77,7 @@ function formatMenu(data) {
     }
     res.push(temp)
   }
-  console.log(res)
+  // console.log(res)
   return res
 }
 

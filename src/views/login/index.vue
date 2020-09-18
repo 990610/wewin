@@ -170,7 +170,6 @@ export default {
       })
     },
     getCode() {
-      console.log(1)
       this.loginForm.uuid = randomString(16)
       this.codeUrl =
 				process.env.VUE_APP_BASE_API +

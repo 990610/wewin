@@ -56,7 +56,7 @@ export function sysDictUpdate(data) {
     data: data
   })
 }
-// 数据字典 - 修改字典信息
+// 数据字典 - 下载模板
 export function sysDictDownload(data) {
   IP = false ? mockIP : backendIP
   return request({

@@ -12,7 +12,7 @@
         <el-input
           v-model="panleFilterText"
           placeholder="输入关键字进行过滤"
-          style="margin-bottom:10px;"
+          style="margin-bottom:10px;padding:6px"
         />
         <el-tree
           ref="panleDeptTree"

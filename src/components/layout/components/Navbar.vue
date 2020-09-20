@@ -66,10 +66,10 @@
               </el-form-item>
             </el-col>
             <el-col :span="20">
-              <el-form-item label="确认密码：" prop="rePassword">
+              <el-form-item label="确认新密码：" prop="rePassword">
                 <el-input
                   v-model="dialog.form.rePassword"
-                  placeholder="请输入确认密码"
+                  placeholder="请确认新密码"
                   autocomplete="off"
                   type="password"
                 />
@@ -132,7 +132,7 @@ export default {
           rePassword: [
             {
               required: true,
-              message: '请输入确认密码',
+              message: '请确认新密码',
               trigger: 'blur'
             }
           ]
@@ -170,7 +170,7 @@ export default {
         })
       } else {
         this.$message({
-          message: '确认密码与新密码输入不一致',
+          message: '两次输入的密码不一样！',
           type: 'warning'
         })
         this.dialog.form.rePassword = ' '

@@ -210,13 +210,13 @@ div:focus {
     .reset-btn {
       border: none !important;
       border-radius: 100px;
-      color: #3383ff !important;
+      color: $themeColor;
       // padding: 9px 15px;
-      background: #d8e7fc;
+      background: $themeTransparentColor;
     }
 
     .reset-btn:active {
-      background: #ccdffa;
+      background: $themeTransparentColor;
     }
 
     //查询按钮

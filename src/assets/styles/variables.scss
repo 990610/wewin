@@ -4,7 +4,11 @@
   想要整体修改主题颜色 还需要在element-variables.scss 做调整
 **/
 // 主题蓝
-$themeColor:#409EFF;
+$themeColor:rgb(0,133,208);
+//主题透明层色
+$themeTransparentColor:rgba(0,133,208,0.1);
+//header的字体颜色
+$headerColor:#fff;
 // sidebar 右侧导航栏颜色配置
 $menuText:#333333;
 $menuActiveText:$themeColor;

@@ -88,13 +88,13 @@ export default {
 }
 </script>
 <style lang='scss' scoped>
-$color: #409EFF;
+$color:$themeColor;
 .table-total{
     height: 40px;
     width: 100%;
     border-radius: 5px;
-    background: #E6F7FF;
-    border:  1px solid #91D5FF;
+    background: $themeTransparentColor;
+    border:  1px solid $color;
     box-sizing: border-box;
     padding: 0 20px;
     line-height: 40px;
@@ -111,7 +111,6 @@ $color: #409EFF;
     }
     .rightBtn{
       float: right;
-
     }
 }
 </style>

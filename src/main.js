@@ -16,6 +16,16 @@ import permission from './directive/permission'
 import '@/assets/icons' // icon
 import '@/permission' // permission control
 import { message } from '@/utils/resetMessage'
+//element ui 全局设置
+ElementUI.Table.props.showOverflowTooltip={
+  default:true,
+  type:Boolean
+};
+ElementUI.TableColumn.props.showOverflowTooltip={
+  default:true,
+  type:Boolean
+};
+console.log(ElementUI);
 
 Vue.prototype.$message = message
 Vue.prototype.msgSuccess = function(msg) {

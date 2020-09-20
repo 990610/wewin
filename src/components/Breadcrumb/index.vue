@@ -71,7 +71,7 @@ export default {
   margin-left: 8px;
 
   .no-redirect {
-    color: #ffffff;
+    color: $headerColor;
     cursor: text;
   }
   a:hove{

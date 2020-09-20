@@ -251,7 +251,7 @@ export default {
           vertical-align: top;
           height: 40px;
           font-size: 16px;
-          color: #ffffff;
+          color: $headerColor;
           padding: 0 5px;
           display: inline-block;
           line-height: 40px;

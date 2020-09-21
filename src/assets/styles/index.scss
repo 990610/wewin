@@ -6,7 +6,7 @@
 
 // 全局去除滚动条，用于去除table内滚动条样式 未兼容：Chrome有效
 ::-webkit-scrollbar {
-    width: 5px;
+    width: 10px;
     /*滚动条宽度*/
     height: 10px;
     /*滚动条高度*/

@@ -42,7 +42,7 @@
           </template>
         </el-table-column>
         <el-table-column prop="remark" label="备注" width="400" :show-overflow-tooltip="true" />
-        <el-table-column label="操作" align="center" width="250" fixed="right">
+        <el-table-column label="操作" align="center" width="250">
           <template slot-scope="scope">
             <el-button
               v-hasPermi="['sys:role:update']"

@@ -1,7 +1,6 @@
 import { login, logout, getInfo } from '@/api/login/login'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import { resetRouter } from '@/router'
-
 const getDefaultState = () => {
   return {
     token: getToken(),

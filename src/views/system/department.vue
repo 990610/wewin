@@ -42,7 +42,7 @@
           <el-table-column prop="name" label="部门名称" />
           <el-table-column prop="parentName" label="上级部门" />
           <el-table-column prop="orderNum" label="排序" />
-          <el-table-column label="操作" align="center" width="250" fixed="right">
+          <el-table-column label="操作" align="center" width="250">
             <template slot-scope="scope">
               <el-button
                 v-hasPermi="['sys:dept:update']"

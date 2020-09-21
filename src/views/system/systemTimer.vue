@@ -24,6 +24,7 @@
         :data="jobList"
         height="100%"
         border
+        class="table-fixed"
       >
         <el-table-column prop="beanName" label="bean的名称" />
         <el-table-column prop="params" label="参数" />
@@ -34,7 +35,7 @@
             {{ scope.row.status ? '暂停':'正常' }}
           </template>
         </el-table-column>
-        <el-table-column label="操作" align="center" width="350" fixed="right">
+        <el-table-column label="操作" align="center" width="350">
           <template slot-scope="scope">
             <el-button
               v-hasPermi="['sys:timer:update']"

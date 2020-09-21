@@ -148,8 +148,13 @@ export default {
       this.$store.dispatch('app/toggleSideBar')
     },
     async logout() {
+      // 清除tagsView，如果需要下次登录回到对应页，需要删除此代码
+      await this.$store.dispatch('tagsView/delAllVisitedViews', this.$route)
       await this.$store.dispatch('user/logout')
-      this.$router.push(`/login?redirect=${this.$route.fullPath}`)
+      // 退出登录，下次登录回到首页
+      this.$router.push(`/login`)
+      // 退出登录，下次登录回到对应页
+      // this.$router.push(`/login?redirect=${this.$route.fullPath}`)
     },
     changePassword() {
       this.dialog.show = true

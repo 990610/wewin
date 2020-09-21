@@ -43,7 +43,7 @@
         <el-table-column prop="value" label="字典值" />
         <el-table-column prop="type" label="字典类型" />
         <el-table-column prop="remark" label="备注" />
-        <el-table-column label="操作" align="center" width="250" fixed="right" class-name="small-padding fixed-width">
+        <el-table-column label="操作" align="center" width="250" fixed="right">
           <template slot-scope="scope">
             <el-button
               v-hasPermi="['sys:dict:update']"

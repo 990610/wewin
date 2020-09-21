@@ -19,6 +19,7 @@
     </el-form>
     <div class="table">
       <el-table
+        ref="table"
         v-loading="loading"
         :data="jobList"
         height="100%"
@@ -33,7 +34,7 @@
             {{ scope.row.status ? '暂停':'正常' }}
           </template>
         </el-table-column>
-        <el-table-column label="操作" align="center" width="250" fixed="right" class-name="small-padding fixed-width">
+        <el-table-column label="操作" align="center" width="350" fixed="right">
           <template slot-scope="scope">
             <el-button
               v-hasPermi="['sys:timer:update']"
@@ -273,6 +274,10 @@ export default {
         this.pagination.pageNo = res.current
         this.pagination.pageSize = res.size
         this.jobList = res.records
+        this.$nextTick(() => {
+          this.$refs.table.doLayout()
+          console.log(1)
+        })
       })
         .catch(error => { console.log(error) })
     },

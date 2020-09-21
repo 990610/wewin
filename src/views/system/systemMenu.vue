@@ -32,7 +32,7 @@
         <el-table-column prop="component" label="组件" :show-overflow-tooltip="true" />
         <el-table-column prop="path" label="路径" :show-overflow-tooltip="true" />
         <el-table-column prop="orderNum" label="排序" width="100" />
-        <el-table-column label="操作" align="center" width="250" fixed="right" class-name="small-padding fixed-width">
+        <el-table-column label="操作" align="center" width="250" fixed="right">
           <template slot-scope="scope">
             <el-button
               v-hasPermi="['sys:menu:update']"

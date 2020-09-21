@@ -6,7 +6,7 @@
   <div id="baseTable" class="app-container">
     <h3>基本table与分页</h3>
     <div class="tableOne">
-      <table-total :selected-num="multipleSelection.length" :clear="clearMul" />
+      <table-total :selected-num="multipleSelection.length" :clear="clearMul" :fresh="getTableData" />
       <el-table
         ref="table"
         v-loading="loading"

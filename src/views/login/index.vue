@@ -203,6 +203,7 @@ $light_gray: #242425;
 	.el-input {
 		display: inline-block;
 		height: 47px;
+    line-height: 47px;
 		width: 85%;
 		input {
 			background: #ffffff;
@@ -212,6 +213,7 @@ $light_gray: #242425;
 			padding: 12px 5px 12px 15px;
 			color: $light_gray;
 			height: 47px;
+      line-height: 47px;
 			caret-color: $cursor;
 
 			&:-webkit-autofill {
@@ -230,6 +232,7 @@ $light_gray: #242425;
 	.login-code {
 		width: 200px;
 		height: 52px;
+    line-height: 52px;
 		float: right;
 		background: #eee;
 		img {

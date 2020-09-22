@@ -19,7 +19,7 @@
         />
       </el-form-item>
       <el-form-item label="部门：">
-        <el-popover ref="deptListPopoverW" width="150px" popper-class="search-popover" placement="bottom-start" trigger="click">
+        <el-popover ref="deptListPopoverW" v-model="showPop" width="150px" popper-class="search-popover" placement="bottom-start" trigger="click">
           <el-input
             v-model="filterText"
             placeholder="输入关键字进行过滤"
@@ -144,8 +144,8 @@
             <el-form-item label="邮箱" prop="email">
               <el-input v-model="form.email" placeholder="请输入邮箱" maxlength="20" />
             </el-form-item>
-            <el-form-item label="部门" prop="dept">
-              <el-popover ref="deptListPopover" width="408" placement="bottom-start" trigger="click">
+            <el-form-item ref="deptName" label="部门" prop="deptName">
+              <el-popover ref="deptListPopover" v-model="showDraPop" width="408" placement="bottom-start" trigger="click">
                 <el-input
                   v-model="filterText"
                   placeholder="输入关键字进行过滤"
@@ -243,6 +243,7 @@ export default {
         deptId: '',
         deptName: ''
       },
+      showPop: false,
       // 表单参数
       form: {
         userName: '',
@@ -266,6 +267,9 @@ export default {
         roleIdList: [
           { required: true, message: '角色不能为空', trigger: 'blur' }
         ],
+        deptName: [
+          { required: true, message: '部门不能为空', trigger: 'change' }
+        ],
         email: [
           { pattern: /^\w+@\w+(\.)\w+$/, message: '请输入正确的邮箱', trigger: 'blur' }
         ],
@@ -273,6 +277,7 @@ export default {
           { pattern: /^1[0-9]\d{9}$/, message: '请输入正确的手机号', trigger: 'blur' }
         ]
       },
+      showDraPop: false,
       // 分页
       pagination: {
         pageNo: 1,
@@ -353,6 +358,7 @@ export default {
       setTimeout(() => {
         this.reset()
       }, 0)
+      this.$refs.deptName.clearValidate()
     },
     // 修改按钮操作
     handleUpdate(row) {
@@ -470,11 +476,13 @@ export default {
       this.form.deptId = event.deptId
       this.form.deptName = event.name
       this.filterText = ''
+      this.showDraPop = false
     },
     deptListTreeQueryChange(event) {
       this.queryForm.deptId = event.deptId
       this.queryForm.deptName = event.name
       this.filterText = ''
+      this.showPop = false
     },
     // 下拉树节点过滤
     filterNode(value, data) {

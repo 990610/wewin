@@ -25,7 +25,7 @@ ElementUI.TableColumn.props.showOverflowTooltip = {
   default: true,
   type: Boolean
 }
-console.log(ElementUI)
+// console.log(ElementUI)
 
 Vue.prototype.$message = message
 Vue.prototype.msgSuccess = function(msg) {

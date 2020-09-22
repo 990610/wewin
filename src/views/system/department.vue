@@ -24,10 +24,12 @@
           :highlight-current="true"
           :expand-on-click-node="false"
           :filter-node-method="filterNode"
+          @node-click="nodeClick"
         />
       </div>
       <div class="table">
         <el-table
+          v-if="shotable"
           ref="table"
           v-loading="loading"
           :data="deptList"
@@ -35,12 +37,14 @@
           border
           row-key="deptId"
           :tree-props="{children: 'childDepts', hasChildren: 'hasChildren'}"
+          :expand-row-keys="expandRow"
+          highlight-current-row
           @selection-change="handleSelectionChange"
         >
           <el-table-column type="selection" width="55" />
           <el-table-column prop="deptId" label="部门Id" />
           <el-table-column prop="name" label="部门名称" />
-          <el-table-column prop="parentName" label="上级部门" />
+          <!-- <el-table-column prop="parentName" label="上级部门" /> -->
           <el-table-column prop="orderNum" label="排序" />
           <el-table-column label="操作" align="center" width="250">
             <template slot-scope="scope">
@@ -71,8 +75,8 @@
             <el-form-item label="部门名称" prop="name">
               <el-input v-model="form.name" placeholder="请输入用户名" maxlength="20" />
             </el-form-item>
-            <el-form-item label="上级部门" prop="dept">
-              <el-popover ref="deptListPopover" width="408" placement="bottom-start" trigger="click">
+            <el-form-item ref="parentName" label="上级部门" prop="parentName">
+              <el-popover ref="deptListPopover" v-model="showPop" width="408" placement="bottom-start" trigger="click">
                 <el-input
                   v-model="filterText"
                   placeholder="输入关键字进行过滤"
@@ -121,7 +125,7 @@ export default {
     return {
       // 遮罩层
       loading: true,
-      // 菜单表格树数据
+      // 部门表格树数据
       deptList: [],
       // 下拉树配置
       deptListProps: {
@@ -151,13 +155,19 @@ export default {
         name: [
           { required: true, message: '部门名称不能为空', trigger: 'blur' }
         ],
-
+        parentName: [
+          { required: true, message: '上级部门不能为空', trigger: 'change' }
+        ],
         orderNum: [
           { required: true, message: '排序不能为空', trigger: 'blur' }
         ]
       },
+      showPop: false,
       // table 选择
-      multipleSelection: []
+      multipleSelection: [],
+      expandRow: [],
+      shotable: true,
+      rowMsg: {}
     }
   },
   watch: {
@@ -200,6 +210,7 @@ export default {
       this.title = '新增'
       setTimeout(() => {
         this.reset()
+        this.$refs.parentName.resetField()
       }, 0)
     },
     // 修改按钮操作
@@ -216,7 +227,6 @@ export default {
     },
     // 部门树设置当前选中节点
     deptTreeSetCurrentNode() {
-      console.log(this.form.parentId)
       this.$refs.deptTree.setCurrentKey(this.form.parentId)
       this.form.parentName = (this.$refs.deptTree.getCurrentNode() || {})['name']
     },
@@ -303,11 +313,45 @@ export default {
       this.form.parentId = event.deptId
       this.form.parentName = event.name
       this.filterText = ''
+      this.showPop = false
     },
     // 下拉树节点过滤
     filterNode(value, data) {
       if (!value) return true
       return data.name.indexOf(value) !== -1
+    },
+    // 节点选择
+    nodeClick(obj, node, el) {
+      this.shotable = false
+      this.expandRow = []
+      this.getIndex(this.deptList, obj.deptId)
+      this.expandRowHandle(node)
+    },
+    expandRowHandle(item) {
+      // this.expandRow.push(item.parent.data.deptId.toString())
+      this.expandRow.push(item.data.deptId.toString())
+      if (item.parent.data.deptId) {
+        this.expandRowHandle(item.parent)
+      } else {
+        this.$nextTick(() => {
+          this.shotable = true
+          setTimeout(() => {
+            this.$refs.table.setCurrentRow(this.rowMsg)
+          }, 0)
+        })
+      }
+    },
+    getIndex(item, id) {
+      for (const temp of item) {
+        if (temp.deptId === id) {
+          this.rowMsg = temp
+          return
+        } else {
+          if (temp.childDepts.length > 0) {
+            this.getIndex(temp.childDepts, id)
+          }
+        }
+      }
     }
 
   }

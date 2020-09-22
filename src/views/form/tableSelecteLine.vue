@@ -7,30 +7,28 @@
         ref="table"
         :data="tableData"
         height="100%"
+        style="width:100%"
         border
       >
         <el-table-column type="selection" width="55" />
-        <el-table-column prop="index" type="index" label="序号" width="50">
+        <el-table-column prop="index" fixed="left" type="index" label="序号" width="50">
           <template slot-scope="scope">
             <span>{{ (pagination.pageNo - 1) * pagination.pageSize + scope.$index + 1 }}</span>
           </template>
         </el-table-column>
-        <el-table-column v-for="item in tableLineSelecte" :key="item.prop" :label="item.label" :prop="item.prop" />
+        <el-table-column v-for="item in tableLineSelecte" :key="item.prop" :width="item.width" :label="item.label" :prop="item.prop" />
         <el-table-column
           label="操作"
           align="center"
           width="250"
-          fixed="right"
         >
           <template slot-scope="scope">
             <!-- 权限控制 依页面而定 -->
-            <!-- v-hasPermi="['sys::update']" -->
             <el-button
               size="mini"
               type="text"
               icon="el-icon-edit"
             >编辑</el-button>
-            <!-- v-hasPermi="['sys::delete']" -->
             <el-popconfirm
               title="确定删除吗？"
               icon="el-icon-info"
@@ -103,19 +101,20 @@ export default {
   mounted() {
     this.tableLineSelecte = this.tableLine
   },
+  beforeUpdate() {
+    this.$nextTick(() => {
+      console.log(1)
+      this.$refs.table.doLayout()
+    })
+  },
   methods: {
 
     /** ***********************************************************/
     // 引入组件需要使用的方法
     // 获取组件返回的line
     getLine(line) {
-      console.log(line)
       this.tableLineSelecte = this.tableLine.filter(value => {
-        console.log(line.includes(value.label))
         return line.includes(value.label)
-      })
-      this.$nextTick(() => {
-        this.$refs.table.doLayout()
       })
       // console.log(this.tableData)
     },

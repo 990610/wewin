@@ -82,7 +82,7 @@
                 <el-input v-model="form.title" placeholder="请输入菜单名称" />
               </el-form-item>
               <el-form-item v-if="form.type === 1" label="上级菜单" prop="parentId">
-                <el-popover ref="menuListPopover" placement="bottom-start" trigger="click">
+                <el-popover ref="menuListPopover" width="361" placement="bottom-start" trigger="click">
                   <el-tree
                     ref="menuListTree"
                     :data="menuList"
@@ -117,7 +117,7 @@
               <el-form-item label="菜单图标" prop="icon">
                 <el-popover
                   placement="bottom-start"
-                  width="460"
+                  width="361"
                   trigger="click"
                   @show="$refs['iconSelect'].reset()"
                 >
@@ -420,7 +420,6 @@ export default {
 <style lang="scss">
 @import "./css/system.scss";
 .el-popover {
-	width: 408px !important;
 	max-height: 200px;
 	overflow: auto;
 }

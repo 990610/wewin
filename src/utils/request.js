@@ -1,10 +1,10 @@
 import axios from 'axios'
-import { Message } from 'element-ui'
 import store from '@/store'
 import { getToken, removeToken } from '@/utils/auth'
 import { ToPathStr } from '@/utils/index'
 import router from '../router'
 import md5 from 'js-md5'
+import { message } from '@/utils/resetMessage'
 
 const service = axios.create({
   // baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
@@ -36,7 +36,7 @@ service.interceptors.response.use(
     if (res.code === 200) {
       return res.result
     } else if (res.code === 500) {
-      Message({
+      message({
         message: res.message || 'Error',
         type: 'error',
         duration: 5 * 1000
@@ -45,7 +45,7 @@ service.interceptors.response.use(
     } else if (res.code === 401) {
       removeToken()
       router.push('/login')
-      Message({
+      message({
         message: res.message,
         type: 'error',
         duration: 5000
@@ -56,7 +56,7 @@ service.interceptors.response.use(
   },
   error => {
     console.log('err' + error) // for debug
-    Message({
+    message({
       message: error.message,
       type: 'error',
       duration: 5 * 1000

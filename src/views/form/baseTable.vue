@@ -177,8 +177,18 @@ export default {
   methods: {
     // 获取表格数据
     // 在请求前和请求后 改变loading 为表格添加加载效果
-    getTableData() {
-    // 分页赋值数据
+    getTableData(e) {
+      console.log(e)
+      this.managerList = []
+      for (let index = 0; index < 8; index++) {
+        this.managerList.push({
+          userName: '01' + Math.random() * 100,
+          realName: '小明',
+          sex: '0',
+          phone: '123456789'
+        })
+      }
+      // 分页赋值数据
       this.pagination.total = 13
       this.pagination.pageNo = 1
       this.pagination.pageSize = 10

@@ -1,7 +1,8 @@
 <!--基础图表-->
 <template>
   <div id="myecharts" class="app-container">
-    <h3>基础饼图 传入参数可选：title:'xxxx', type:'pie/annulus(默认)', data:[{name:xx,value:xx}], colors:['#d8e7fc']</h3>
+    <h3>基础饼图 传入参数可选：title:'xxxx', type:'pie/annulus(默认)', data:[{name:xx,value:xx}], colors:['#d8e7fc']
+      <el-button type="primary" @click="changeData">修改数据</el-button></h3>
     <el-row :gutter="20">
       <el-col :span="8">
         <div class="echarts-one">
@@ -91,7 +92,32 @@ export default {
       }
     }
   },
-  methods: {}
+  methods: {
+    changeData() {
+      this.pieOneData = [
+        {
+          name: '第一',
+          value: 40
+        },
+        {
+          name: '第二',
+          value: 30
+        },
+        {
+          name: '第三',
+          value: 70
+        },
+        {
+          name: '第四',
+          value: 40
+        },
+        {
+          name: '第五',
+          value: 60
+        }
+      ]
+    }
+  }
 }
 </script>
 <style lang='scss' scoped>

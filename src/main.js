@@ -26,7 +26,7 @@ ElementUI.TableColumn.props.showOverflowTooltip = {
   type: Boolean
 }
 // console.log(ElementUI)
-
+Vue.use(ElementUI)
 Vue.prototype.$message = message
 Vue.prototype.msgSuccess = function(msg) {
   this.$message({ showClose: true, message: msg, type: 'success' })
@@ -35,7 +35,7 @@ Vue.prototype.msgWarning = function(msg) {
   this.$message({ showClose: true, message: msg, type: 'warning', duration: 2000 })
 }
 Vue.config.productionTip = false
-Vue.use(ElementUI)
+
 Vue.use(permission)
 new Vue({
   el: '#app',

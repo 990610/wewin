@@ -337,11 +337,6 @@ export default {
 </script>
 <style lang="scss">
 @import './css/system.scss';
-.el-popover {
-    width: 408px !important;
-    max-height: 200px;
-    overflow: auto;
-}
 #systemRole {
   height: 100%;
   .table{

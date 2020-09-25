@@ -9,7 +9,7 @@
       label-position="left"
     >
       <div class="title-container">
-        <h3 class="title">Login xForm</h3>
+        <h3 class="title">Login Form</h3>
       </div>
       <el-form-item prop="username">
         <span class="svg-container">
@@ -202,18 +202,16 @@ $light_gray: #242425;
 .login-container {
 	.el-input {
 		display: inline-block;
-		height: 47px;
-    line-height: 47px;
+		height: 100%;
+    // line-height: 47px;
 		width: 85%;
 		input {
 			background: #ffffff;
 			border: 0px;
 			-webkit-appearance: none;
 			border-radius: 0px;
-			padding: 12px 5px 12px 15px;
+			padding: 0px 5px 0px 15px;
 			color: $light_gray;
-			height: 47px;
-      line-height: 47px;
 			caret-color: $cursor;
 
 			&:-webkit-autofill {
@@ -232,7 +230,7 @@ $light_gray: #242425;
 	.login-code {
 		width: 200px;
 		height: 52px;
-    line-height: 52px;
+    // line-height: 52px;
 		float: right;
 		background: #eee;
 		img {

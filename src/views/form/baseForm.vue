@@ -322,6 +322,7 @@ export default {
     },
     // 提交
     submitForm(formName) {
+      // this.msgSuccess('提交')
       this.$refs[formName].validate((valid) => {
         if (valid) {
           alert('submit!')
@@ -335,6 +336,8 @@ export default {
     resetForm(formName) {
       this.$refs[formName].resetFields()
       this.baseForm.treeSelect = null
+
+      // this.msgSuccess('成功')
       // 也是重置data数据的方法 但是不会移除检验 如果没用treeSelecte 推荐使用上面
       // this.baseForm = this.$options.data().baseForm
     }

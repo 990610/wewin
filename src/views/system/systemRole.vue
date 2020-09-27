@@ -19,7 +19,7 @@
       </el-form-item>
     </el-form>
     <div class="table">
-      <table-total :selected-num="multipleSelection.length" :clear="clearMul" />
+      <!-- <table-total :selected-num="multipleSelection.length" :clear="clearMul" /> -->
       <el-table
         ref="table"
         v-loading="loading"
@@ -110,7 +110,7 @@
 import * as that from '@/api/system/SysRoleController'
 import { sysMenuList } from '@/api/system/SysMenuController'
 import { dateFormatIE } from '@/utils/index'
-import tableTotal from '@/components/tabelTatol/index'
+// import tableTotal from '@/components/tabelTatol/index'
 export default {
   name: 'SystemRole',
   filters: {
@@ -119,7 +119,6 @@ export default {
     }
   },
   components: {
-    tableTotal
   },
   data() {
     return {
@@ -340,7 +339,7 @@ export default {
 #systemRole {
   height: 100%;
   .table{
-    height: calc(100% - 151px);
+    height: calc(100% - 111px);
 
   }
 }

@@ -54,7 +54,7 @@
       </el-form-item>
     </el-form>
     <div class="table">
-      <table-total :selected-num="multipleSelection.length" :clear="clearMul" />
+      <!-- <table-total :selected-num="multipleSelection.length" :clear="clearMul" /> -->
       <el-table
         ref="table"
         v-loading="loading"
@@ -201,7 +201,7 @@ import * as that from '@/api/system/SysUserController'
 import { sysDeptList } from '@/api/system/SysDeptController'
 import { sysRoleListAll } from '@/api/system/SysRoleController'
 import { encode, dateFormatIE } from '@/utils/index'
-import tableTotal from '@/components/tabelTatol/index'
+// import tableTotal from '@/components/tabelTatol/index'
 export default {
   name: 'ManagerList',
   filters: {
@@ -210,7 +210,7 @@ export default {
     }
   },
   components: {
-    tableTotal
+    // tableTotal
   },
   data() {
     return {
@@ -510,7 +510,7 @@ export default {
 #systemManagerList {
   height: 100%;
   .table{
-    height: calc(100% - 141px);
+    height: calc(100% - 111px);
 
   }
   .el-select{

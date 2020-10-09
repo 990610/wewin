@@ -225,8 +225,7 @@ export default {
       if (row.parentId === 0) {
         this.rules.parentName[0].required = false
         this.form.parentName = ''
-        this.form.parentId = ''
-        console.log(this.form.parentName)
+        this.form.parentId = 0
       } else {
         this.rules.parentName[0].required = true
       }

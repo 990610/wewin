@@ -4,7 +4,7 @@
     <el-form :inline="true" class="f-query clearfix">
       <el-form-item class="btns" style="float:left;">
         <el-button v-hasPermi="['sys:dept:save']" type="primary" icon="el-icon-plus" size="mini" @click="handleAdd">新增部门</el-button>
-        <el-button v-show="multipleSelection.length > 0" v-hasPermi="['sys:dept:delete']" type="danger" icon="el-icon-delete" size="mini" @click="deleteMore">批量删除</el-button>
+        <!-- <el-button v-show="multipleSelection.length > 0" v-hasPermi="['sys:dept:delete']" type="danger" icon="el-icon-delete" size="mini" @click="deleteMore">批量删除</el-button> -->
       </el-form-item>
     </el-form>
     <div class="content clearfix">
@@ -41,7 +41,7 @@
           highlight-current-row
           @selection-change="handleSelectionChange"
         >
-          <el-table-column type="selection" width="55" />
+          <!-- <el-table-column type="selection" width="55" /> -->
           <el-table-column prop="deptId" label="部门Id" />
           <el-table-column prop="name" label="部门名称" />
           <!-- <el-table-column prop="parentName" label="上级部门" /> -->
@@ -71,7 +71,7 @@
     <div class="drawer">
       <el-drawer custom-class="drawer" :append-to-body="true" :title="title" :visible.sync="open" direction="rtl" size="700px" :before-close="drawerClose">
         <div class="drawer-content">
-          <el-form ref="roleForm" :model="form" size="small" :rules="rules" label-width="100px" label-position="right">
+          <el-form ref="departForm" :model="form" size="small" :rules="rules" label-width="100px" label-position="right">
             <el-form-item label="部门名称" prop="name">
               <el-input v-model="form.name" placeholder="请输入用户名" maxlength="20" />
             </el-form-item>
@@ -109,7 +109,7 @@
           </el-form>
           <div class="demo-drawer__footer" style="text-align:right;">
             <el-button size="medium" type="default" @click="cancel">取 消</el-button>
-            <el-button size="medium" type="primary" @click="submitForm('roleForm')">确 认</el-button>
+            <el-button size="medium" type="primary" @click="submitForm('departForm')">确 认</el-button>
           </div>
         </div>
       </el-drawer>
@@ -208,6 +208,7 @@ export default {
     handleAdd(row) {
       this.open = true
       this.title = '新增'
+      this.rules.parentName[0].required = true
       setTimeout(() => {
         this.reset()
         this.$refs.parentName.resetField()
@@ -221,6 +222,14 @@ export default {
       this.form.parentId = row.parentId
       this.form.name = row.name
       this.form.orderNum = row.orderNum
+      if (row.parentId === 0) {
+        this.rules.parentName[0].required = false
+        this.form.parentName = ''
+        this.form.parentId = ''
+        console.log(this.form.parentName)
+      } else {
+        this.rules.parentName[0].required = true
+      }
       setTimeout(() => {
         this.deptTreeSetCurrentNode()
       }, 0)
@@ -228,10 +237,18 @@ export default {
     // 部门树设置当前选中节点
     deptTreeSetCurrentNode() {
       this.$refs.deptTree.setCurrentKey(this.form.parentId)
-      this.form.parentName = (this.$refs.deptTree.getCurrentNode() || {})['name']
+      if (this.form.parentId) {
+        this.form.parentName = (this.$refs.deptTree.getCurrentNode() || {})['name']
+      } else {
+        this.$refs.parentName.clearValidate()
+      }
     },
     // 提交按钮
     submitForm(forName) {
+      if (this.form.parentName === this.form.name) {
+        this.msgWarning('父级部门不能为本身!')
+        return
+      }
       this.$refs[forName].validate((valid) => {
         if (valid) {
           delete (this.form['deptName'])
@@ -328,9 +345,9 @@ export default {
       this.expandRowHandle(node)
     },
     expandRowHandle(item) {
-      // this.expandRow.push(item.parent.data.deptId.toString())
       this.expandRow.push(item.data.deptId.toString())
       if (item.parent.data.deptId) {
+        // this.expandRow.push(item.parent.data.deptId.toString())
         this.expandRowHandle(item.parent)
       } else {
         this.$nextTick(() => {

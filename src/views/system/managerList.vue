@@ -391,7 +391,7 @@ export default {
               this.msgSuccess('新增成功')
               this.getManagerList(1)
             })
-              .catch(error => { console.log(error) })
+              .catch(error => { this.form.password = ''; console.log(error) })
           } else if (this.title === '编辑') {
             that.sysUserEdit(this.form).then(res => {
               this.open = false

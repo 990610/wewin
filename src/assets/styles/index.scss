@@ -182,21 +182,35 @@ div:focus {
             border-left: 5px solid #78aef9;
         }
     }
-    //关闭按钮样式重写
-    .close-btn {
-        width: 70px;
+    .el-select{
+      width: 100%;
+    }
+    .el-date-editor.el-input{
+      width: 100%;
+    }
+    .el-button{
+       min-width: 70px;
         border: none !important;
         border-radius: 100px;
         // color: #3383ff !important;
         padding: 9px 15px;
-        background: #d8e7fc;
+    }
+    //关闭按钮样式重写
+    .close-btn {
+        color: $themeColor !important;
+        padding: 9px 15px;
+        background: #d8e7fc !important;
     }
     .close-btn:active {
-        background: #ccdffa;
+        background: #ccdffa !important;
+    }
+    .el-dialog__footer{
+      text-align: center;
     }
   }
 // 通用Form表单查询样式
 .f-query {
+  .btns-l,
   .btns {
     float: right;
 
@@ -239,6 +253,9 @@ div:focus {
     .add-btn:active {
       background: #f29b76 !important;
     }
+  }
+  .btns-l{
+    float: none;
   }
 
   .el-form-item__label {

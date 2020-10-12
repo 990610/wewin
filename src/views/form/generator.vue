@@ -131,7 +131,8 @@ export default {
   methods: {
     // 查询
     handleQuery() {
-      this.getDataList(1)
+      // this.getDataList(1)
+      this.$router.replace({ path: '/form/baseForm' })
     },
     // 重置查询
     resetQuery() {

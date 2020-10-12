@@ -10,6 +10,7 @@
       <el-table
         ref="table"
         v-loading="loading"
+        v-adaptive
         :data="managerList"
         height="100%"
         border
@@ -220,9 +221,9 @@ height: 100%;
 // 一般table都需要一个高度，使得数据量过多时能够在table内部滚动，
 // 高度计算方法 总高度减去顶部元素高度和分页高度和内部padding
 // 具体可以调试
-  .tableOne{
-      height: calc(100% - 134px);
-  }
+  // .tableOne{
+      // height: calc(100% - 134px);
+  // }
   h3{
     margin: 15px 0;
   }

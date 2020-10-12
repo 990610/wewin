@@ -3,39 +3,15 @@
     <div class="f-query">
       <el-form :inline="true" :model="queryForm">
         <el-form-item label="参数名：">
-          <el-input
-            v-model="queryForm.key"
-            placeholder="请输入"
-            size="small"
-            clearable
-          />
+          <el-input v-model="queryForm.key" placeholder="请输入" size="small" clearable />
         </el-form-item>
         <el-form-item class="btns-l">
-          <el-button
-            size="mini"
-            type="primary"
-            @click="handleQuery"
-          >查询</el-button>
-          <el-button
-            class="reset-btn"
-            size="mini"
-            type="primary"
-            @click="resetQuery"
-          >重置</el-button>
+          <el-button size="mini" type="primary" @click="handleQuery">查询</el-button>
+          <el-button class="reset-btn" size="mini" type="primary" @click="resetQuery">重置</el-button>
         </el-form-item>
         <el-form-item class="btns">
-          <el-button
-            type="primary"
-            size="mini"
-            @click="addOrUpdateHandle()"
-          >新增</el-button>
-          <el-button
-            v-show="dataListSelections.length > 0"
-            v-hasPermi="['sys:sysdict:delete']"
-            type="danger"
-            size="mini"
-            @click="deleteHandle()"
-          >批量删除</el-button>
+          <el-button type="primary" size="mini" @click="addOrUpdateHandle()">新增</el-button>
+          <el-button v-show="dataListSelections.length > 0" v-hasPermi="['sys:sysdict:delete']" type="danger" size="mini" @click="deleteHandle()">批量删除</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -48,26 +24,22 @@
         @selection-change="selectionChangeHandle"
       >
         <el-table-column type="selection" width="50" />
-        <el-table-column prop="id" label="ID" />
+        <el-table-column prop="id" label="" />
         <el-table-column prop="name" label="字典名称" />
         <el-table-column prop="type" label="字典类型" />
         <el-table-column prop="code" label="字典码" />
         <el-table-column prop="value" label="字典值" />
         <el-table-column prop="orderNum" label="排序" />
         <el-table-column prop="remark" label="备注" />
-        <el-table-column prop="delFlag" label="删除标记" />
-        <el-table-column fixed="right" width="150" label="操作">
+        <el-table-column prop="delFlag" label="删除标记  -1：已删除  0：正常" />
+        <el-table-column
+          fixed="right"
+          width="150"
+          label="操作"
+        >
           <template slot-scope="scope">
-            <el-button
-              type="text"
-              size="small"
-              @click="addOrUpdateHandle(scope.row.id)"
-            >修改</el-button>
-            <el-button
-              type="text"
-              size="small"
-              @click="deleteHandle(scope.row.id)"
-            >删除</el-button>
+            <el-button type="text" size="small" @click="addOrUpdateHandle(scope.row.id)">修改</el-button>
+            <el-button type="text" size="small" @click="deleteHandle(scope.row.id)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -85,11 +57,7 @@
       />
     </div>
     <!-- 弹窗, 新增 / 修改 -->
-    <add-or-update
-      v-if="addOrUpdateVisible"
-      ref="addOrUpdate"
-      @refreshDataList="getDataList"
-    />
+    <add-or-update v-if="addOrUpdateVisible" ref="addOrUpdate" @refreshDataList="getDataList" />
   </div>
 </template>
 
@@ -107,10 +75,7 @@ export default {
       queryForm: {
         key: ''
       },
-      dataList: [{
-        id: '1',
-        name: 'xx'
-      }],
+      dataList: [],
       loading: false,
       // 分页
       pagination: {
@@ -138,14 +103,14 @@ export default {
     // 获取数据列表
     getDataList(pageNo) {
       this.loading = true
-      let item = {}
-      item = {
+      const item = {
         pageNo: pageNo || this.pagination.pageNo,
         pageSize: this.pagination.pageSize,
         param: {
           key: this.queryForm.key
         }
       }
+      console.log(item)
       // that.*******(item).then(res =>{
       //   this.loading = false
       //   this.pagination.total = res.total
@@ -153,7 +118,7 @@ export default {
       //   this.pagination.pageSize = res.size
       //   this.dataList = res.records
       // })
-      //   .catch(error => { console.log(error) })
+      //   .catch(error => { this.loading = false; console.log(error) })
     },
     // 分页大小选择
     handleSizeChange(val) {
@@ -178,32 +143,29 @@ export default {
     },
     // 删除
     deleteHandle(id) {
-      var ids = id ? [id] : this.dataListSelections.map((item) => { return item.id })
-      this.$confirm(
-        `确定对[${ids.join(',')}]进行[${id ? '删除' : '批量删除'}]操作?`,
-        '提示',
-        {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }
-      )
-        .then(() => {
-          this.$message.error('请自行编写删除函数')
-          // that.*****().then(res =>{
-          //   this.msgSuccess('删除成功')
-          //   this.getDataList(1)
-          // })
-          //   .catch(error => { console.log(error) }
-        })
+      var ids = id ? [id] : this.dataListSelections.map(item => {
+        return item.id
+      })
+      this.$confirm(`确定对[${ids.join(',')}]进行[${id ? '删除' : '批量删除'}]操作?`, '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$message.error('请自行编写删除函数')
+        // that.*****().then(res =>{
+        //   this.msgSuccess('删除成功')
+        //   this.getDataList(1)
+        // })
+        //   .catch(error => { console.log(error) }
+      })
         .catch(function() {})
     }
   }
 }
 </script>
 <style lang="scss" scoped>
-/* table 高度调整 */
-.table {
-	height: calc(100vh - 255px);
-}
+  /* table 高度调整 */
+  .table{
+    height: calc(100vh - 255px);
+  }
 </style>

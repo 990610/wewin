@@ -11,10 +11,10 @@
         />
       </el-form-item>
       <el-form-item class="btns">
-        <el-button class="reset-btn" type="primary" icon="el-icon-refresh-left" size="mini" @click="resetQuery">重置</el-button>
         <el-button v-hasPermi="['sys:dict:list']" type="primary" icon="el-icon-search" size="mini" @click="handleQuery">查询</el-button>
+        <el-button class="reset-btn" type="primary" icon="el-icon-refresh-left" size="mini" @click="resetQuery">重置</el-button>
         <el-button v-hasPermi="['sys:dict:save']" type="primary" icon="el-icon-plus" size="mini" @click="handleAdd">新增字典</el-button>
-        <el-button v-hasPermi="['sys:dict:save']" type="warning" icon="el-icon-plus" size="mini" @click="handleExport">模板导出</el-button>
+        <el-button v-hasPermi="['sys:dict:down']" type="warning" icon="el-icon-download" size="mini" @click="handleExport">模板导出</el-button>
         <el-upload
           class="upload-demo"
           :action="url"
@@ -23,7 +23,7 @@
           name="file"
           :on-success="uploadSuccess"
         >
-          <el-button v-hasPermi="['sys:dict:save']" type="warning" icon="el-icon-plus" size="mini" @click="handleUpload">字典上传</el-button>
+          <el-button v-hasPermi="['sys:dict:upload']" type="warning" icon="el-icon-upload2" size="mini" @click="handleUpload">字典上传</el-button>
         </el-upload>
         <el-button v-show="multipleSelection.length > 0" v-hasPermi="['sys:manage:delete']" type="danger" icon="el-icon-delete" size="mini" @click="deleteMore">批量删除</el-button>
       </el-form-item>

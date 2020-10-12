@@ -1,10 +1,11 @@
 <!--可自定义列表格-->
 <template>
-  <div id="tableSelecteLine">
+  <div id="tableSelecteLine" class="app-container">
     <table-selecte :table-line="tableLine" @line="getLine" />
     <div class="table">
       <el-table
         ref="table"
+        v-adaptive
         :data="tableData"
         height="100%"
         style="width:100%"
@@ -151,8 +152,8 @@ export default {
 </script>
 <style lang='scss' scoped>
 #tableSelecteLine{
-  .table{
-    height: 800px;
-  }
+  // .table{
+  //   height: 800px;
+  // }
 }
 </style>

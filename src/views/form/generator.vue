@@ -5,6 +5,39 @@
         <el-form-item label="参数名：">
           <el-input v-model="queryForm.key" placeholder="请输入" size="small" clearable />
         </el-form-item>
+        <el-form-item label="参数名：">
+          <el-input v-model="queryForm.key" placeholder="请输入" size="small" clearable />
+        </el-form-item>
+        <el-form-item label="参数名：">
+          <el-input v-model="queryForm.key" placeholder="请输入" size="small" clearable />
+        </el-form-item>
+        <el-form-item label="参数名：">
+          <el-input v-model="queryForm.key" placeholder="请输入" size="small" clearable />
+        </el-form-item>
+        <el-form-item label="参数名：">
+          <el-input v-model="queryForm.key" placeholder="请输入" size="small" clearable />
+        </el-form-item>
+        <el-form-item label="参数名：">
+          <el-input v-model="queryForm.key" placeholder="请输入" size="small" clearable />
+        </el-form-item>
+        <el-form-item label="参数名：">
+          <el-input v-model="queryForm.key" placeholder="请输入" size="small" clearable />
+        </el-form-item>
+        <el-form-item label="参数名：">
+          <el-input v-model="queryForm.key" placeholder="请输入" size="small" clearable />
+        </el-form-item>
+        <el-form-item label="参数名：">
+          <el-input v-model="queryForm.key" placeholder="请输入" size="small" clearable />
+        </el-form-item>
+        <el-form-item label="参数名：">
+          <el-input v-model="queryForm.key" placeholder="请输入" size="small" clearable />
+        </el-form-item>
+        <el-form-item label="参数名：">
+          <el-input v-model="queryForm.key" placeholder="请输入" size="small" clearable />
+        </el-form-item>
+        <el-form-item label="参数名：">
+          <el-input v-model="queryForm.key" placeholder="请输入" size="small" clearable />
+        </el-form-item>
         <el-form-item class="btns-l">
           <el-button size="mini" type="primary" @click="handleQuery">查询</el-button>
           <el-button class="reset-btn" size="mini" type="primary" @click="resetQuery">重置</el-button>
@@ -18,13 +51,14 @@
     <div class="table">
       <el-table
         v-loading="loading"
+        v-adaptive
         :data="dataList"
         border
         height="100%"
         @selection-change="selectionChangeHandle"
       >
         <el-table-column type="selection" width="50" />
-        <el-table-column prop="id" label="" />
+        <el-table-column prop="id" label="id" />
         <el-table-column prop="name" label="字典名称" />
         <el-table-column prop="type" label="字典类型" />
         <el-table-column prop="code" label="字典码" />
@@ -75,7 +109,11 @@ export default {
       queryForm: {
         key: ''
       },
-      dataList: [],
+      dataList: [
+        {
+          id: 1
+        }
+      ],
       loading: false,
       // 分页
       pagination: {
@@ -87,8 +125,8 @@ export default {
       addOrUpdateVisible: false
     }
   },
-  activated() {
-    this.getDataList(1)
+  mounted() {
+    // this.getDataList(1)
   },
   methods: {
     // 查询
@@ -165,7 +203,7 @@ export default {
 </script>
 <style lang="scss" scoped>
   /* table 高度调整 */
-  .table{
-    height: calc(100vh - 255px);
-  }
+  // .table{
+  //   height: calc(100vh - 255px);
+  // }
 </style>

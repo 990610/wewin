@@ -9,6 +9,7 @@ import App from './App'
 import store from './store'
 import router from './router'
 import permission from './directive/permission'
+import adaptive from './directive/el-table'
 import '@/assets/icons' // icon
 import '@/permission' // permission control
 import { message } from '@/utils/resetMessage'
@@ -33,6 +34,7 @@ Vue.prototype.msgWarning = function(msg) {
 Vue.config.productionTip = false
 
 Vue.use(permission)
+Vue.use(adaptive)
 new Vue({
   el: '#app',
   router,

@@ -27,45 +27,45 @@
           @node-click="nodeClick"
         />
       </div>
-      <div class="table">
-        <el-table
-          v-if="shotable"
-          ref="table"
-          v-loading="loading"
-          :data="deptList"
-          height="100%"
-          border
-          row-key="deptId"
-          :tree-props="{children: 'childDepts', hasChildren: 'hasChildren'}"
-          :expand-row-keys="expandRow"
-          highlight-current-row
-          @selection-change="handleSelectionChange"
-        >
-          <!-- <el-table-column type="selection" width="55" /> -->
-          <el-table-column prop="deptId" label="部门Id" />
-          <el-table-column prop="name" label="部门名称" />
-          <!-- <el-table-column prop="parentName" label="上级部门" /> -->
-          <el-table-column prop="orderNum" label="排序" />
-          <el-table-column label="操作" align="center" width="250">
-            <template slot-scope="scope">
-              <el-button
-                v-hasPermi="['sys:dept:update']"
-                size="mini"
-                type="text"
-                icon="el-icon-edit"
-                @click="handleUpdate(scope.row)"
-              >编辑</el-button>
-              <el-button
-                v-hasPermi="['sys:dept:delete']"
-                size="mini"
-                type="text"
-                icon="el-icon-delete"
-                @click="handleDelete(scope.row)"
-              >删除</el-button>
-            </template>
-          </el-table-column>
-        </el-table>
-      </div>
+      <!-- <div class="table"> -->
+      <el-table
+        v-if="shotable"
+        ref="table"
+        v-loading="loading"
+        :data="deptList"
+        height="100%"
+        border
+        row-key="deptId"
+        :tree-props="{children: 'childDepts', hasChildren: 'hasChildren'}"
+        :expand-row-keys="expandRow"
+        highlight-current-row
+        @selection-change="handleSelectionChange"
+      >
+        <!-- <el-table-column type="selection" width="55" /> -->
+        <el-table-column prop="deptId" label="部门Id" />
+        <el-table-column prop="name" label="部门名称" />
+        <!-- <el-table-column prop="parentName" label="上级部门" /> -->
+        <el-table-column prop="orderNum" label="排序" />
+        <el-table-column label="操作" align="center" width="250">
+          <template slot-scope="scope">
+            <el-button
+              v-hasPermi="['sys:dept:update']"
+              size="mini"
+              type="text"
+              icon="el-icon-edit"
+              @click="handleUpdate(scope.row)"
+            >编辑</el-button>
+            <el-button
+              v-hasPermi="['sys:dept:delete']"
+              size="mini"
+              type="text"
+              icon="el-icon-delete"
+              @click="handleDelete(scope.row)"
+            >删除</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+      <!-- </div> -->
     </div>
 
     <div class="drawer">
@@ -387,6 +387,7 @@ export default {
   height: 100%;
   .content{
     display: flex;
+    position: relative;
     width: 100%;
      height: calc(100% - 62px);
     .content-left{
@@ -399,11 +400,10 @@ export default {
       border: 1px solid #EBEEF5;
       border-radius: 5px;;
     }
-    .table{
-      flex: 1 1 auto;
-      width: 80%;
-      height: 100%
-    }
+    // .table{
+    //   width: 80%;
+    //   height: 100%
+    // }
   }
 
   .el-select{

@@ -309,7 +309,7 @@ export default {
   },
   methods: {
     // 时间获取函数
-    getTime(e) {
+    async getTime(e) {
       console.log(e)
     },
     // 下拉树数选择函数

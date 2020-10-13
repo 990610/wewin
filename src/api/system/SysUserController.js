@@ -72,4 +72,13 @@ export function sysUserQueryUserInfo() {
     method: 'get'
   })
 }
+// 用户管理 - 重置密码
+export function sysUserResetPwd(data) {
+  IP = false ? mockIP : backendIP
+  return request({
+    url: IP + '/sys/user/resetPwd',
+    method: 'get',
+    params: data
+  })
+}
 

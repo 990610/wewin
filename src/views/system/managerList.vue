@@ -99,6 +99,13 @@
               @click="handleUpdate(scope.row)"
             >编辑</el-button>
             <el-button
+              v-hasPermi="['sys:manage:reset']"
+              size="mini"
+              type="text"
+              icon="el-icon-refresh-right"
+              @click="handleRestPassword(scope.row)"
+            >重置密码</el-button>
+            <el-button
               v-hasPermi="['sys:manage:delete']"
               size="mini"
               type="text"
@@ -448,6 +455,19 @@ export default {
             .catch(error => { console.log(error) })
         })
         .catch(function() {})
+    },
+    // 重置密码
+    handleRestPassword(row) {
+      this.$confirm('是否重置用户名为' + row.userName + '密码', '警告', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        that.sysUserResetPwd({ userId: row.userId }).then(res => {
+          this.msgSuccess('重置成功')
+        })
+          .catch(error => { console.log(error) })
+      }).catch(() => {})
     },
     // 分页大小选择
     handleSizeChange(val) {

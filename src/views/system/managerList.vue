@@ -47,10 +47,10 @@
           clearable
         /></el-form-item>
       <el-form-item class="btns">
-        <el-button v-hasPermi="['sys:manage:list']" type="primary" icon="el-icon-search" size="mini" @click="handleQuery">查询</el-button>
+        <el-button v-hasPermi="['sys:user:list']" type="primary" icon="el-icon-search" size="mini" @click="handleQuery">查询</el-button>
         <el-button class="reset-btn" type="primary" icon="el-icon-refresh-left" size="mini" @click="resetQuery">重置</el-button>
-        <el-button v-hasPermi="['sys:manage:save']" type="primary" icon="el-icon-plus" size="mini" @click="handleAdd">新增用户</el-button>
-        <el-button v-show="multipleSelection.length > 0" v-hasPermi="['sys:manage:delete']" type="danger" icon="el-icon-delete" size="mini" @click="deleteMore">批量删除</el-button>
+        <el-button v-hasPermi="['sys:user:save']" type="primary" icon="el-icon-plus" size="mini" @click="handleAdd">新增用户</el-button>
+        <el-button v-show="multipleSelection.length > 0" v-hasPermi="['sys:user:delete']" type="danger" icon="el-icon-delete" size="mini" @click="deleteMore">批量删除</el-button>
       </el-form-item>
     </el-form>
     <div class="table">
@@ -92,21 +92,21 @@
         <el-table-column label="操作" align="center" width="250">
           <template slot-scope="scope">
             <el-button
-              v-hasPermi="['sys:manage:update']"
+              v-hasPermi="['sys:user:update']"
               size="mini"
               type="text"
               icon="el-icon-edit"
               @click="handleUpdate(scope.row)"
             >编辑</el-button>
             <el-button
-              v-hasPermi="['sys:manage:reset']"
+              v-hasPermi="['sys:user:reset']"
               size="mini"
               type="text"
               icon="el-icon-refresh-right"
               @click="handleRestPassword(scope.row)"
             >重置密码</el-button>
             <el-button
-              v-hasPermi="['sys:manage:delete']"
+              v-hasPermi="['sys:user:delete']"
               size="mini"
               type="text"
               icon="el-icon-delete"

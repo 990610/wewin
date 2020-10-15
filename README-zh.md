@@ -31,3 +31,5 @@ npm run build
 npm run build:stage
 ```
 
+## 版本
+版本：1.0.1 (发布日期：20201013)

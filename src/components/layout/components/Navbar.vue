@@ -40,7 +40,7 @@
         <el-form
           ref="dialog.form"
           :model="dialog.form"
-          label-width="100px"
+          label-width="110px"
           :rules="dialog.rules"
           size="small"
         >
@@ -66,10 +66,10 @@
               </el-form-item>
             </el-col>
             <el-col :span="20">
-              <el-form-item label="确认新密码：" prop="rePassword">
+              <el-form-item label="确认密码：" prop="rePassword">
                 <el-input
                   v-model="dialog.form.rePassword"
-                  placeholder="请确认新密码"
+                  placeholder="请输入新密码"
                   autocomplete="off"
                   type="password"
                 />

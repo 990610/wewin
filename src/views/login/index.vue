@@ -56,7 +56,7 @@
           v-model="loginForm.captcha"
           placeholder="验证码"
           type="text"
-          tabindex="1"
+          tabindex="3"
           auto-complete="off"
           style="width:45%;background-color:#fff;margin-left:10px;"
           maxlength="5"

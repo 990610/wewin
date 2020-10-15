@@ -50,7 +50,7 @@
         <el-button v-hasPermi="['sys:user:list']" type="primary" icon="el-icon-search" size="mini" @click="handleQuery">查询</el-button>
         <el-button class="reset-btn" type="primary" icon="el-icon-refresh-left" size="mini" @click="resetQuery">重置</el-button>
         <el-button v-hasPermi="['sys:user:save']" type="primary" icon="el-icon-plus" size="mini" @click="handleAdd">新增用户</el-button>
-        <el-button v-show="multipleSelection.length > 0" v-hasPermi="['sys:user:delete']" type="danger" icon="el-icon-delete" size="mini" @click="deleteMore">批量删除</el-button>
+        <!-- <el-button v-show="multipleSelection.length > 0" v-hasPermi="['sys:user:delete']" type="danger" icon="el-icon-delete" size="mini" @click="deleteMore">批量删除</el-button> -->
       </el-form-item>
     </el-form>
     <div class="table">
@@ -61,9 +61,9 @@
         :data="managerList"
         height="100%"
         border
-        @selection-change="handleSelectionChange"
       >
-        <el-table-column type="selection" width="55" />
+        <!-- @selection-change="handleSelectionChange" -->
+        <!-- <el-table-column type="selection" width="55" /> -->
         <el-table-column prop="index" type="index" label="序号" width="50">
           <template slot-scope="scope">
             <span>{{ (pagination.pageNo - 1) * pagination.pageSize + scope.$index + 1 }}</span>
@@ -131,7 +131,7 @@
     <div class="drawer">
       <el-drawer custom-class="drawer" :append-to-body="true" :title="title" :visible.sync="open" direction="rtl" size="700px" :before-close="drawerClose">
         <div class="drawer-content">
-          <el-form ref="roleForm" :model="form" size="small" :rules="rules" label-width="100px" label-position="right">
+          <el-form ref="drawerForm" :model="form" size="small" :rules="rules" label-width="100px" label-position="right">
             <el-form-item label="用户名" prop="userName">
               <el-input v-model="form.userName" placeholder="请输入用户名" maxlength="20" />
             </el-form-item>
@@ -195,7 +195,7 @@
           </el-form>
           <div class="demo-drawer__footer" style="text-align:right;">
             <el-button size="medium" type="default" @click="cancel">取 消</el-button>
-            <el-button size="medium" type="primary" @click="submitForm('roleForm')">确 认</el-button>
+            <el-button size="medium" type="primary" @click="submitForm('drawerForm')">确 认</el-button>
           </div>
         </div>
       </el-drawer>
@@ -357,22 +357,22 @@ export default {
     reset() {
       this.form = this.$options.data().form
       // this.$refs.menuTree.setCheckedKeys([])
+      setTimeout(() => {
+        this.$refs.drawerForm.clearValidate()
+      }, 0)
     },
     // 新增按钮操作
     handleAdd(row) {
       this.open = true
       this.title = '新增'
-      setTimeout(() => {
-        this.reset()
-      }, 0)
-      this.$refs.deptName.clearValidate()
+      this.reset()
     },
     // 修改按钮操作
     handleUpdate(row) {
       this.title = '编辑'
       this.open = true
-      this.reset()
-      delete (this.form['password'])
+      // this.reset()
+      this.form.password = undefined
       this.form.userName = row.userName
       this.form.realName = row.realName
       this.form.sex = row.sex + ''

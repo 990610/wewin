@@ -25,7 +25,7 @@
         >
           <el-button v-hasPermi="['sys:dict:upload']" type="warning" icon="el-icon-upload2" size="mini" @click="handleUpload">字典上传</el-button>
         </el-upload>
-        <el-button v-show="multipleSelection.length > 0" v-hasPermi="['sys:manage:delete']" type="danger" icon="el-icon-delete" size="mini" @click="deleteMore">批量删除</el-button>
+        <!-- <el-button v-show="multipleSelection.length > 0" v-hasPermi="['sys:manage:delete']" type="danger" icon="el-icon-delete" size="mini" @click="deleteMore">批量删除</el-button> -->
       </el-form-item>
     </el-form>
     <div class="table">
@@ -34,9 +34,9 @@
         :data="dataList"
         height="100%"
         border
-        @selection-change="handleSelectionChange"
       >
-        <el-table-column type="selection" width="55" />
+        <!-- @selection-change="handleSelectionChange" -->
+        <!-- <el-table-column type="selection" width="55" /> -->
         <el-table-column prop="id" label="字典ID" />
         <el-table-column prop="code" label="字典码" />
         <el-table-column prop="name" label="字典名称" />
@@ -78,7 +78,7 @@
     <div class="drawer">
       <el-drawer custom-class="drawer" :append-to-body="true" :title="title" :visible.sync="open" direction="rtl" size="700px" :before-close="drawerClose">
         <div class="drawer-content">
-          <el-form ref="roleForm" :model="form" size="small" :rules="rules" label-width="100px" label-position="right">
+          <el-form ref="drawerForm" :model="form" size="small" :rules="rules" label-width="100px" label-position="right">
             <el-form-item label="字典Id" prop="id">
               <el-input v-model="form.id" disabled />
             </el-form-item>
@@ -100,7 +100,7 @@
           </el-form>
           <div class="demo-drawer__footer" style="text-align:right;">
             <el-button size="medium" type="default" @click="cancel">取 消</el-button>
-            <el-button size="medium" type="primary" @click="submitForm('roleForm')">确 认</el-button>
+            <el-button size="medium" type="primary" @click="submitForm('drawerForm')">确 认</el-button>
           </div>
         </div>
       </el-drawer>
@@ -216,6 +216,9 @@ export default {
     // 表单重置
     reset() {
       this.form = this.$options.data().form
+      setTimeout(() => {
+        this.$refs.drawerForm.clearValidate()
+      }, 0)
     },
     // 新增按钮操作
     handleAdd(row) {

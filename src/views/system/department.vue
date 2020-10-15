@@ -71,7 +71,7 @@
     <div class="drawer">
       <el-drawer custom-class="drawer" :append-to-body="true" :title="title" :visible.sync="open" direction="rtl" size="700px" :before-close="drawerClose">
         <div class="drawer-content">
-          <el-form ref="departForm" :model="form" size="small" :rules="rules" label-width="100px" label-position="right">
+          <el-form ref="drawerForm" :model="form" size="small" :rules="rules" label-width="100px" label-position="right">
             <el-form-item label="部门名称" prop="name">
               <el-input v-model="form.name" placeholder="请输入用户名" maxlength="20" />
             </el-form-item>
@@ -109,7 +109,7 @@
           </el-form>
           <div class="demo-drawer__footer" style="text-align:right;">
             <el-button size="medium" type="default" @click="cancel">取 消</el-button>
-            <el-button size="medium" type="primary" @click="submitForm('departForm')">确 认</el-button>
+            <el-button size="medium" type="primary" @click="submitForm('drawerForm')">确 认</el-button>
           </div>
         </div>
       </el-drawer>
@@ -189,6 +189,9 @@ export default {
     // 表单重置
     reset() {
       this.form = this.$options.data().form
+      setTimeout(() => {
+        this.$refs.drawerForm.clearValidate()
+      }, 0)
     },
     getDeptList() {
       that.sysDeptList().then(res => {
@@ -209,10 +212,7 @@ export default {
       this.open = true
       this.title = '新增'
       this.rules.parentName[0].required = true
-      setTimeout(() => {
-        this.reset()
-        this.$refs.parentName.resetField()
-      }, 0)
+      this.reset()
     },
     // 修改按钮操作
     handleUpdate(row) {
@@ -244,22 +244,27 @@ export default {
     },
     // 提交按钮
     submitForm(forName) {
-      if (this.form.parentName === this.form.name) {
-        this.msgWarning('父级部门不能为本身!')
-        return
-      }
       this.$refs[forName].validate((valid) => {
         if (valid) {
-          delete (this.form['deptName'])
+          if (this.form.deptId === this.form.parentId) {
+            this.msgWarning('父级部门不能为本身!')
+            return
+          }
+          const item = {
+            deptId: this.form.deptId,
+            name: this.form.name,
+            parentId: this.form.parentId,
+            orderNum: this.form.orderNum
+          }
           if (this.title === '新增') {
-            that.sysDeptSave(this.form).then(res => {
+            that.sysDeptSave(item).then(res => {
               this.open = false
               this.msgSuccess('新增成功')
               this.getDeptList()
             })
               .catch(error => { console.log(error) })
           } else if (this.title === '编辑') {
-            that.sysDeptUpdate(this.form).then(res => {
+            that.sysDeptUpdate(item).then(res => {
               this.open = false
               this.msgSuccess('编辑成功')
               this.getDeptList()

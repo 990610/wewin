@@ -63,7 +63,7 @@
       <el-drawer custom-class="drawer" :append-to-body="true" :title="title" :visible.sync="open" direction="rtl" size="700px">
         <div class="drawer-content">
           <el-form
-            ref="menuForm"
+            ref="drawerForm"
             :model="form"
             size="small"
             :rules="rules"
@@ -198,7 +198,7 @@
           </el-form>
           <div class="demo-drawer__footer" style="text-align:right;">
             <el-button size="medium" type="default" @click="cancel">取 消</el-button>
-            <el-button size="medium" type="primary" @click="submitForm('menuForm')">确 认</el-button>
+            <el-button size="medium" type="primary" @click="submitForm('drawerForm')">确 认</el-button>
           </div>
         </div>
       </el-drawer>
@@ -280,6 +280,9 @@ export default {
     // 表单重置
     reset() {
       this.form = this.$options.data().form
+      setTimeout(() => {
+        this.$refs.drawerForm.clearValidate()
+      }, 0)
     },
     /** 查询菜单列表 */
     getMenuList() {
@@ -310,9 +313,9 @@ export default {
     },
     /** 新增按钮操作 */
     handleAdd(row) {
-      this.reset()
       this.open = true
       this.title = '新增'
+      this.reset()
       console.log(row)
       if (!row) {
         this.form.type = 0
@@ -331,7 +334,7 @@ export default {
     /** 修改按钮操作 */
     handleUpdate(row) {
       this.title = '编辑'
-      this.reset()
+      // this.reset()
       sysMenuInfoMenuId({ menuId: row.menuId }).then((res) => {
         this.open = true
         this.form = res

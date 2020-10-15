@@ -12,8 +12,8 @@
       </el-form-item>
       <el-form-item class="btns">
         <el-button class="reset-btn" type="primary" icon="el-icon-refresh-left" size="mini" @click="resetQuery">重置</el-button>
-        <el-button v-hasPermi="['sys:timer:list']" type="primary" icon="el-icon-search" size="mini" @click="handleQuery">查询</el-button>
-        <el-button v-hasPermi="['sys:timer:save']" type="primary" icon="el-icon-plus" size="mini" @click="handleAdd">新增定时任务</el-button>
+        <el-button v-hasPermi="['sys:schedule:list']" type="primary" icon="el-icon-search" size="mini" @click="handleQuery">查询</el-button>
+        <el-button v-hasPermi="['sys:schedule:save']" type="primary" icon="el-icon-plus" size="mini" @click="handleAdd">新增定时任务</el-button>
         <el-button v-hasPermi="['sys:log:list']" class="add-btn" type="primary" icon="el-icon-date" size="mini" @click="openLog">日志列表</el-button>
       </el-form-item>
     </el-form>
@@ -38,28 +38,28 @@
         <el-table-column label="操作" align="center" width="350">
           <template slot-scope="scope">
             <el-button
-              v-hasPermi="['sys:timer:update']"
+              v-hasPermi="['sys:schedule:update']"
               size="mini"
               type="text"
               icon="el-icon-edit"
               @click="handleUpdate(scope.row)"
             >编辑</el-button>
             <el-button
-              v-hasPermi="['sys:timer:update']"
+              v-hasPermi="['sys:schedule:update']"
               size="mini"
               type="text"
               icon="el-icon-edit"
               @click="handleStart(scope.row)"
             >启动</el-button>
             <el-button
-              v-hasPermi="['sys:timer:update']"
+              v-hasPermi="['sys:schedule:update']"
               size="mini"
               type="text"
               icon="el-icon-edit"
               @click="handleStop(scope.row)"
             >停止</el-button>
             <el-button
-              v-hasPermi="['sys:timer:delete']"
+              v-hasPermi="['sys:schedule:delete']"
               size="mini"
               type="text"
               icon="el-icon-delete"
@@ -84,7 +84,7 @@
     <div class="drawer">
       <el-drawer custom-class="drawer" :append-to-body="true" :title="title" :visible.sync="open" direction="rtl" size="700px" :before-close="drawerClose">
         <div class="drawer-content">
-          <el-form ref="roleForm" :model="form" size="small" :rules="rules" label-width="100px" label-position="right">
+          <el-form ref="drawerForm" :model="form" size="small" :rules="rules" label-width="100px" label-position="right">
             <el-form-item label="任务Id" prop="jobId">
               <el-input v-model="form.jobId" disabled />
             </el-form-item>
@@ -107,7 +107,7 @@
           </el-form>
           <div class="demo-drawer__footer" style="text-align:right;">
             <el-button size="medium" type="default" @click="cancel">取 消</el-button>
-            <el-button size="medium" type="primary" @click="submitForm('roleForm')">确 认</el-button>
+            <el-button size="medium" type="primary" @click="submitForm('drawerForm')">确 认</el-button>
           </div>
         </div>
       </el-drawer>
@@ -246,8 +246,6 @@ export default {
     }
   },
   created() {
-    const a = {}
-    console.log(!!a)
     this.getJobList()
   },
   methods: {
@@ -289,6 +287,9 @@ export default {
     // 表单重置
     reset() {
       this.form = this.$options.data().form
+      setTimeout(() => {
+        this.$refs.drawerForm.clearValidate()
+      }, 0)
     },
     // 新增按钮操作
     handleAdd(row) {

@@ -105,13 +105,13 @@
               icon="el-icon-refresh-right"
               @click="handleRestPassword(scope.row)"
             >重置密码</el-button>
-            <el-button
+            <!-- <el-button
               v-hasPermi="['sys:user:delete']"
               size="mini"
               type="text"
               icon="el-icon-delete"
               @click="handleDelete(scope.row)"
-            >删除</el-button>
+            >删除</el-button> -->
           </template>
         </el-table-column>
       </el-table>
@@ -139,7 +139,7 @@
               <el-input v-model="form.realName" placeholder="请输入真实姓名" maxlength="20" />
             </el-form-item>
             <el-form-item v-if="title === '新增'" label="密码" prop="password">
-              <el-input v-model="form.password" type="password" auto-complete="new-password" placeholder="请输入密码" maxlength="20" />
+              <el-input v-model="form.password" type="password" auto-complete="new-password" placeholder="请输入密码" maxlength="16" />
             </el-form-item>
             <el-form-item label="性别" prop="sex">
               <el-radio v-model="form.sex" label="0">男</el-radio>
@@ -270,9 +270,10 @@ export default {
         ],
         password: [
           { required: true, message: '密码不能为空', trigger: 'blur' }
+
         ],
         roleIdList: [
-          { required: true, message: '角色不能为空', trigger: 'blur' }
+          { required: true, message: '角色不能为空', trigger: 'change' }
         ],
         deptName: [
           { required: true, message: '部门不能为空', trigger: 'change' }
@@ -382,6 +383,7 @@ export default {
       this.form.userId = row.userId
       this.form.deptId = row.deptId
       this.form.deptName = row.deptName
+      this.form.roleIdList = []
       for (const item of row.roles) {
         this.form.roleIdList.push(item.roleId)
       }
@@ -390,17 +392,18 @@ export default {
     submitForm(forName) {
       this.$refs[forName].validate((valid) => {
         if (valid) {
-          delete (this.form['deptName'])
+          const item = JSON.parse(JSON.stringify(this.form))
+          item.deptName = undefined
           if (this.title === '新增') {
-            this.form.password = encode(this.form.password)
-            that.sysUserAdd(this.form).then(res => {
+            item.password = encode(this.form.password)
+            that.sysUserAdd(item).then(res => {
               this.open = false
               this.msgSuccess('新增成功')
               this.getManagerList(1)
             })
               .catch(error => { this.form.password = ''; console.log(error) })
           } else if (this.title === '编辑') {
-            that.sysUserEdit(this.form).then(res => {
+            that.sysUserEdit(item).then(res => {
               this.open = false
               this.msgSuccess('编辑成功')
               this.getManagerList()

@@ -372,7 +372,7 @@ export default {
     handleUpdate(row) {
       this.title = '编辑'
       this.open = true
-      // this.reset()
+      this.reset()
       this.form.password = undefined
       this.form.userName = row.userName
       this.form.realName = row.realName

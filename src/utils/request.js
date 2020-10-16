@@ -56,6 +56,10 @@ service.interceptors.response.use(
   },
   error => {
     console.log('err' + error) // for debug
+    var msg = ''
+    if (error.message === 'Network Error') {
+      msg = '网络错误'
+    }
     message({
       message: error.message,
       type: 'error',

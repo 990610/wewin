@@ -243,7 +243,7 @@ export default {
         redirect: '',
         icon: '',
         orderNum: '',
-        noCache: false,
+        noCache: true,
         alwaysShow: false,
         breadcrumb: true,
         affix: false,
@@ -334,7 +334,7 @@ export default {
     /** 修改按钮操作 */
     handleUpdate(row) {
       this.title = '编辑'
-      // this.reset()
+      this.reset()
       sysMenuInfoMenuId({ menuId: row.menuId }).then((res) => {
         this.open = true
         this.form = res
@@ -409,13 +409,14 @@ export default {
       })
     },
     typeChange(e) {
-      console.log(e)
       if (e === 2) {
         this.form.parentId = this.form.menuId
         this.form.parentTitle = this.form.title
-        // this.form.title = ''
+        this.form.redirect = undefined
       }
-      console.log(this.form)
+      if (e === 1) {
+        this.form.redirect = undefined
+      }
     }
   }
 }

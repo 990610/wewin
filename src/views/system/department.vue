@@ -218,6 +218,7 @@ export default {
     handleUpdate(row) {
       this.title = '编辑'
       this.open = true
+      this.reset()
       this.form.deptId = row.deptId
       this.form.parentId = row.parentId
       this.form.name = row.name

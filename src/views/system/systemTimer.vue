@@ -261,9 +261,9 @@ export default {
     // 查询角色列表
     getJobList(pageNo) {
       this.loading = true
-      let item = {}
-      item = {
-        pageNo: pageNo || this.pagination.pageNo,
+      this.pagination.pageNo = pageNo || this.pagination.pageNo
+      const item = {
+        pageNo: this.pagination.pageNo,
         pageSize: this.pagination.pageSize,
         param: this.queryForm.param
       }
@@ -273,10 +273,6 @@ export default {
         this.pagination.pageNo = res.current
         this.pagination.pageSize = res.size
         this.jobList = res.records
-        this.$nextTick(() => {
-          this.$refs.table.doLayout()
-          console.log(1)
-        })
       })
         .catch(error => { console.log(error) })
     },

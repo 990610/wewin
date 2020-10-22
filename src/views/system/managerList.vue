@@ -18,7 +18,7 @@
           size="small"
         />
       </el-form-item>
-      <el-form-item label="部门：">
+      <!-- <el-form-item label="部门：">
         <el-popover ref="deptListPopoverW" v-model="showPop" width="150px" popper-class="search-popover" placement="bottom-start" trigger="click">
           <el-input
             v-model="filterText"
@@ -45,7 +45,11 @@
           placeholder="请选择部门"
           size="small"
           clearable
-        /></el-form-item>
+        />
+      </el-form-item> -->
+      <el-form-item label="部门：" class="treeSelect">
+        <dept-select :deptid.sync="queryForm.deptId" />
+      </el-form-item>
       <el-form-item class="btns">
         <el-button v-hasPermi="['sys:user:list']" type="primary" icon="el-icon-search" size="mini" @click="handleQuery">查询</el-button>
         <el-button class="reset-btn" type="primary" icon="el-icon-refresh-left" size="mini" @click="resetQuery">重置</el-button>
@@ -57,6 +61,7 @@
       <!-- <table-total :selected-num="multipleSelection.length" :clear="clearMul" /> -->
       <el-table
         ref="table"
+        v-adaptive
         v-loading="loading"
         :data="managerList"
         height="100%"
@@ -208,6 +213,7 @@ import * as that from '@/api/system/SysUserController'
 import { sysDeptList } from '@/api/system/SysDeptController'
 import { sysRoleListAll } from '@/api/system/SysRoleController'
 import { encode, dateFormatIE } from '@/utils/index'
+import deptSelect from '@/components/deptSelect/index'
 // import tableTotal from '@/components/tabelTatol/index'
 export default {
   name: 'ManagerList',
@@ -218,6 +224,7 @@ export default {
   },
   components: {
     // tableTotal
+    deptSelect
   },
   data() {
     return {
@@ -247,7 +254,7 @@ export default {
       queryForm: {
         userName: '',
         realName: '',
-        deptId: '',
+        deptId: null,
         deptName: ''
       },
       showPop: false,
@@ -331,9 +338,9 @@ export default {
     // 查询角色列表
     getManagerList(pageNo) {
       this.loading = true
-      let item = {}
-      item = {
-        pageNo: pageNo || this.pagination.pageNo,
+      this.pagination.pageNo = pageNo || this.pagination.pageNo
+      const item = {
+        pageNo: this.pagination.pageNo,
         pageSize: this.pagination.pageSize,
         param: {
           deptId: this.queryForm.deptId,
@@ -531,11 +538,6 @@ export default {
   overflow-x: auto;
 }
 #systemManagerList {
-  height: 100%;
-  .table{
-    height: calc(100% - 111px);
-
-  }
   .el-select{
     width: 100%;
   }

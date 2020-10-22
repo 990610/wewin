@@ -13,15 +13,16 @@ import adaptive from './directive/el-table'
 import '@/assets/icons' // icon
 import '@/permission' // permission control
 import { message } from '@/utils/resetMessage'
-// element ui 全局设置
-ElementUI.Table.props.showOverflowTooltip = {
-  default: true,
-  type: Boolean
-}
-ElementUI.TableColumn.props.showOverflowTooltip = {
-  default: true,
-  type: Boolean
-}
+import fileters from '@/utils/fileters'
+// element ui 全局设置 表格内容不换行实现提示
+// ElementUI.Table.props.showOverflowTooltip = {
+//   default: true,
+//   type: Boolean
+// }
+// ElementUI.TableColumn.props.showOverflowTooltip = {
+//   default: true,
+//   type: Boolean
+// }
 // console.log(ElementUI)
 Vue.use(ElementUI)
 Vue.prototype.$message = message
@@ -32,7 +33,13 @@ Vue.prototype.msgWarning = function(msg) {
   this.$message({ showClose: true, message: msg, type: 'warning', duration: 2000 })
 }
 Vue.config.productionTip = false
-
+console.log(fileters)
+// 注册过滤器
+for (const key in fileters) {
+  if (fileters.hasOwnProperty(key)) {
+    Vue.filter(key, fileters[key])
+  }
+}
 Vue.use(permission)
 Vue.use(adaptive)
 new Vue({

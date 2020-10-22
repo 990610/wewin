@@ -210,6 +210,10 @@ div:focus {
   }
 // 通用Form表单查询样式
 .f-query {
+   margin-bottom: 10px;
+  .el-form-item{
+    margin-bottom: 10px;
+  }
   .btns-l,
   .btns {
     float: right;
@@ -297,9 +301,10 @@ div:focus {
   }
   .vue-treeselect{
     // display:inline-block;
-    width: 200px;
+    
     height: 32px;
     // line-height: 32px;
+    width: 200px;
     .vue-treeselect__multi-value-item{
       background-color: #d6d3d396;
       color: #000;

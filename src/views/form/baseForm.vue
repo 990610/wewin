@@ -6,7 +6,7 @@
 <template>
   <div class="app-container">
     <h3>常规页面顶部查询Form表单</h3>
-    <div class="form f-query">
+    <div class="form f-query clearfix">
       <el-form ref="roleForm" :model="baseForm" :inline="true" :rules="rules">
         <el-form-item label="普通输入框：" prop="userName">
           <el-input
@@ -66,8 +66,8 @@
           />
         </el-form-item>
         <!-- 使用tree-select 下拉树选择框：自定义了CSS  文档地址：https://www.vue-treeselect.cn/#basic-features -->
-        <el-form-item label="下拉树选择框：" class="treeSelect">
-          <treeselect v-model="baseForm.treeSelect" :multiple="true" :options="treeOptions" @select="treeSelect" @close="closeTreeSelect" />
+        <el-form-item label="下拉树选择框：" style="width:400px;">
+          <treeselect v-model="baseForm.treeSelect" :options="treeOptions" @deselect="deselect" @select="treeSelect" @close="closeTreeSelect" />
         </el-form-item>
         <!-- 单项选择 在设置初值时无效过客可能是初值的格式不对number 或者 String 调试 -->
         <el-form-item label="单项选择框：" prop="radio">
@@ -76,6 +76,9 @@
             <el-radio :label="6">备选项</el-radio>
             <el-radio :label="9">备选项</el-radio>
           </el-radio-group>
+        </el-form-item>
+        <el-form-item label="部门选择框：" class="treeSelect">
+          <dept-select :multiple="true" :deptid.sync="deptId" @resutl="getMsg" />
         </el-form-item>
         <el-form-item class="btns">
           <el-button class="reset-btn" type="primary" icon="el-icon-refresh-left" size="mini" @click="resetForm('roleForm')">重置</el-button>
@@ -206,12 +209,14 @@
 <script>
 // import the component
 import Treeselect from '@riophae/vue-treeselect'
+import deptSelect from '@/components/deptSelect/index'
 // import the styles
 import '@riophae/vue-treeselect/dist/vue-treeselect.css'
 export default {
   name: 'BaseForm',
   components: {
-    Treeselect
+    Treeselect,
+    deptSelect
   },
   data() {
     // 表单验证函数
@@ -234,6 +239,7 @@ export default {
       }, 50)
     }
     return {
+      deptId: [1],
       baseForm: {
         userName: '',
         userNameEmail: '',
@@ -307,6 +313,11 @@ export default {
       dialogShow: false
     }
   },
+  watch: {
+    deptId(newValue, oldValue) {
+      console.log(newValue)
+    }
+  },
   methods: {
     // 时间获取函数
     async getTime(e) {
@@ -340,6 +351,13 @@ export default {
       // this.msgSuccess('成功')
       // 也是重置data数据的方法 但是不会移除检验 如果没用treeSelecte 推荐使用上面
       // this.baseForm = this.$options.data().baseForm
+    },
+    getMsg(msg) {
+      console.log(msg)
+      console.log(this.deptId)
+    },
+    deselect(node, instanceId) {
+      console.log(node, instanceId)
     }
   }
   /** *************************************常用编辑弹出框2*n排版*********************************************************/

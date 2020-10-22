@@ -30,6 +30,7 @@
     </el-form>
     <div class="table">
       <el-table
+        v-adaptive
         v-loading="loading"
         :data="dataList"
         height="100%"
@@ -194,9 +195,9 @@ export default {
     // 查询角色列表
     getDataList(pageNo) {
       this.loading = true
-      let item = {}
-      item = {
-        pageNo: pageNo || this.pagination.pageNo,
+      this.pagination.pageNo = pageNo || this.pagination.pageNo
+      const item = {
+        pageNo: this.pagination.pageNo,
         pageSize: this.pagination.pageSize,
         param: this.queryForm.param
       }
@@ -376,11 +377,6 @@ export default {
     }
 }
 #dataDictionary {
-  height: 100%;
-  .table{
-    height: calc(100% - 96px);
-
-  }
   .el-select{
     width: 100%;
   }

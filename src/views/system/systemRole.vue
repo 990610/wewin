@@ -22,6 +22,7 @@
       <!-- <table-total :selected-num="multipleSelection.length" :clear="clearMul" /> -->
       <el-table
         ref="table"
+        v-adaptive
         v-loading="loading"
         :data="roleList"
         height="100%"
@@ -186,9 +187,9 @@ export default {
     // 查询角色列表
     getRoleList(pageNo) {
       this.loading = true
-      let item = {}
-      item = {
-        pageNo: pageNo || this.pagination.pageNo,
+      this.pagination.pageNo = pageNo || this.pagination.pageNo
+      const item = {
+        pageNo: this.pagination.pageNo,
         pageSize: this.pagination.pageSize,
         param: this.roleName
       }
@@ -337,10 +338,6 @@ export default {
 <style lang="scss">
 @import './css/system.scss';
 #systemRole {
-  height: 100%;
-  .table{
-    height: calc(100% - 111px);
 
-  }
 }
 </style>

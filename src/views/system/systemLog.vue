@@ -5,18 +5,13 @@
       <el-form-item label="操作用户名：">
         <el-input v-model="queryForm.userName" size="small" placeholder="操作人姓名" />
       </el-form-item>
-      <el-form-item label="开始时间：">
+      <el-form-item label="日期：" prop="rangeDate">
         <el-date-picker
-          v-model="queryForm.beginDate"
-          type="datetime"
-          placeholder="开始时间"
-        />
-      </el-form-item>
-      <el-form-item label="结束时间：">
-        <el-date-picker
-          v-model="queryForm.endDate"
-          type="datetime"
-          placeholder="结束时间"
+          v-model="selecteTime"
+          type="datetimerange"
+          range-separator="至"
+          start-placeholder="开始日期"
+          end-placeholder="结束日期"
         />
       </el-form-item>
       <el-form-item class="btns">
@@ -27,13 +22,14 @@
     <div class="table">
       <el-table
         v-loading="loading"
+        v-adaptive
         :data="logList"
         height="100%"
         border
       >
         <el-table-column prop="ip" label="源IP" />
-        <el-table-column prop="method" label="请求方法" />
-        <el-table-column prop="params" label="请求参数" />
+        <el-table-column show-overflow-tooltip prop="method" label="请求方法" />
+        <el-table-column show-overflow-tooltip prop="params" label="请求参数" />
         <el-table-column prop="operation" label="用户操作" />
         <el-table-column prop="time" label="执行时间" />
         <el-table-column prop="username" label="操作用户名" />
@@ -61,16 +57,11 @@
 
 <script>
 import * as that from '@/api/system/SysLogController'
-import { dateFormatIE } from '@/utils/index'
 export default {
   name: 'SystemLog',
-  filters: {
-    timeFormate: function(value) {
-      return dateFormatIE(value)
-    }
-  },
   data() {
     return {
+      selecteTime: null,
       // 分页管理员列表
       logList: [],
       // 所有的角色
@@ -112,6 +103,7 @@ export default {
     // 重置查询
     resetQuery() {
       this.queryForm = this.$options.data().queryForm
+      this.selecteTime = null
       this.getSysLog(1)
     },
     // 查询按钮
@@ -121,9 +113,16 @@ export default {
     // 查询系统日志列表
     getSysLog(pageNo) {
       this.loading = true
-      let item = {}
-      item = {
-        pageNo: pageNo || this.pagination.pageNo,
+      this.pagination.pageNo = pageNo || this.pagination.pageNo
+      if (this.selecteTime) {
+        this.queryForm.beginDate = this.selecteTime[0]
+        this.queryForm.endDate = this.selecteTime[1]
+      } else {
+        this.queryForm.beginDate = ''
+        this.queryForm.endDate = ''
+      }
+      const item = {
+        pageNo: this.pagination.pageNo,
         pageSize: this.pagination.pageSize,
         param: this.queryForm
       }
@@ -152,10 +151,6 @@ export default {
 <style lang="scss">
 @import './css/system.scss';
 #systemLog {
-  height: 100%;
-  .table{
-    height: calc(100% - 96px);
-  }
   .el-select{
     width: 100%;
   }

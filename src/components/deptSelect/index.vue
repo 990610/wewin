@@ -1,7 +1,31 @@
-<!--b-->
+<!--
+  name：部门下拉树选择插件（默认部门数据）
+  input：{
+    deptid：默认部门id（可不传），
+    deptdata：默认数据（可不传），
+    multiple：是否多选
+  }
+  outPut：{
+    deptid：选中的部门id 单选为数值多选为数组
+    result：返回选择对象信息 需要通过函数接收@result=“getResult(result)”接收，单选是获取对象，多选是获取选择的部门id数组同上
+  }
+  author：pxt
+  time：2020-10-23
+-->
 <template>
   <div>
-    <treeselect v-model="value" :flat="multiple" :auto-select-ancestors="multiple" :multiple="multiple" :options="treeOptions" :normalizer="normalizer" placeholder="请选择" @input="inputChange" @select="treeSelect" @close="closeTreeSelect" />
+    <treeselect
+      v-model="value"
+      :flat="multiple"
+      :auto-select-ancestors="multiple"
+      :multiple="multiple"
+      :options="treeOptions"
+      :normalizer="normalizer"
+      placeholder="请选择"
+      @input="inputChange"
+      @select="treeSelect"
+      @close="closeTreeSelect"
+    />
   </div>
 </template>
 <script>

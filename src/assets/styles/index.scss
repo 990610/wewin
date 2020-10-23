@@ -33,9 +33,9 @@ body {
   text-rendering: optimizeLegibility;
   font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
 }
-label {
-  font-weight: 700;
-}
+// label {
+  // font-weight: 700;
+// }
 
 html {
   height: 100%;
@@ -303,8 +303,8 @@ div:focus {
     // display:inline-block;
     
     height: 32px;
-    // line-height: 32px;
     width: 200px;
+    // line-height: 32px;
     .vue-treeselect__multi-value-item{
       background-color: #d6d3d396;
       color: #000;

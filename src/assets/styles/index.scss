@@ -302,8 +302,8 @@ div:focus {
   .vue-treeselect{
     // display:inline-block;
     
-    height: 32px;
-    width: 200px;
+    width: 160px;
+    top: 4px;
     // line-height: 32px;
     .vue-treeselect__multi-value-item{
       background-color: #d6d3d396;
@@ -312,6 +312,14 @@ div:focus {
     }
     .vue-treeselect__value-container{
       line-height: 21px;
+    }
+    .vue-treeselect__control{
+      height: 31px;
+      border-radius: 4px;
+    }
+    .vue-treeselect__input{
+      height: 31px;
+      line-height: 31px;
     }
   }
     .vue-treeselect--has-value .vue-treeselect__multi-value{

@@ -20,6 +20,7 @@
     <div class="table">
       <el-table
         ref="table"
+        v-adaptive
         v-loading="loading"
         :data="jobList"
         height="100%"
@@ -48,14 +49,14 @@
               v-hasPermi="['sys:schedule:update']"
               size="mini"
               type="text"
-              icon="el-icon-edit"
+              icon="el-icon-video-play"
               @click="handleStart(scope.row)"
             >启动</el-button>
             <el-button
               v-hasPermi="['sys:schedule:update']"
               size="mini"
               type="text"
-              icon="el-icon-edit"
+              icon="el-icon-video-pause"
               @click="handleStop(scope.row)"
             >停止</el-button>
             <el-button
@@ -448,11 +449,7 @@ export default {
     }
 }
 #systemTimer {
-  height: 100%;
-  .table{
-    height: calc(100% - 96px);
-
-  }
+  // height: 100%;
   .el-select{
     width: 100%;
   }

@@ -56,21 +56,21 @@ export default {
       // console.log(e)
       if (!this.multiple) {
         this.$emit('update:deptid', e.deptId)
-        this.$emit('resutl', e)
+        this.$emit('result', e)
       }
     },
     inputChange(value) {
       // console.log(value)
       if (value === undefined || value.length === 0) {
         this.$emit('update:deptid', value)
-        this.$emit('resutl', value)
+        this.$emit('result', value)
       }
     },
     // 下拉树关闭函数
     closeTreeSelect(value, instanceId) {
       if (this.multiple) {
         this.$emit('update:deptid', value)
-        this.$emit('resutl', value)
+        this.$emit('result', value)
       }
     },
     normalizer(node) {

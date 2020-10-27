@@ -230,6 +230,13 @@ export default {
       this.form.roleName = row.roleName
       this.form.remark = row.remark
       that.sysRoleInfoRoleId({ roleId }).then(res => {
+        var idx = res.menuIdList.indexOf(-99999)
+        if (idx !== -1) {
+          res.menuIdList.splice(
+            idx,
+            res.menuIdList.length - idx
+          )
+        }
         this.$refs.menuTree.setCheckedKeys(res.menuIdList)
       })
         .catch(error => { console.log(error) })
@@ -238,7 +245,7 @@ export default {
     submitForm(forName) {
       this.$refs[forName].validate((valid) => {
         if (valid) {
-          const menuIdList = this.$refs.menuTree.getCheckedKeys().concat(this.$refs.menuTree.getHalfCheckedKeys())
+          const menuIdList = this.$refs.menuTree.getCheckedKeys().concat([-99999], this.$refs.menuTree.getHalfCheckedKeys())
           const item = {
             remark: this.form.remark,
             roleId: this.form.roleId,

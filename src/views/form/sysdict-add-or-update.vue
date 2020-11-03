@@ -120,7 +120,7 @@ export default {
     dataFormSubmit() {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
-          if (this.dataForm.id) {
+          if (!this.dataForm.id) {
             // 新增接口调用
             //  that.*****(this.dataForm).then(res=>{
             //      this.msgSuccess('新增成功')

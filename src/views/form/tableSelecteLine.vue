@@ -96,7 +96,6 @@ export default {
       },
       // table 选择
       multipleSelection: []
-
     }
   },
   mounted() {

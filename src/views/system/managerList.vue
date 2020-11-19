@@ -474,7 +474,7 @@ export default {
         type: 'warning'
       }).then(() => {
         that.sysUserResetPwd({ userId: row.userId }).then(res => {
-          this.msgSuccess('重置成功')
+          this.msgSuccess('重置成功，密码为：123456')
         })
           .catch(error => { console.log(error) })
       }).catch(() => {})

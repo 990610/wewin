@@ -1,20 +1,16 @@
 <template>
   <div class="dashboard-container app-container">
-    <div class="dashboard-text">name: {{ name }}</div>
-    <div class="mycharts">
-      <pie-chart />
-    </div>
+    <h3>2020/11/19更新：</h3>
+    <p>1、vux添加deptId字段 <br>2、优化数据字典新增提示</p>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import pieChart from '@/components/echart/PieChart'
 export default {
   // eslint-disable-next-line vue/name-property-casing
-  name: 'dashboard',
+  name: 'Dashboard',
   components: {
-    pieChart
   },
   data() {
     return {

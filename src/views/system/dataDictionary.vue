@@ -84,16 +84,16 @@
               <el-input v-model="form.id" disabled />
             </el-form-item>
             <el-form-item label="字典码" prop="code">
-              <el-input v-model="form.code" placeholder="请输入字典码" maxlength="20" />
+              <el-input v-model="form.code" placeholder="请输入字典码如：0" maxlength="20" />
             </el-form-item>
             <el-form-item label="字典名称" prop="name">
-              <el-input v-model="form.name" placeholder="请输入字典名称" maxlength="20" />
+              <el-input v-model="form.name" placeholder="请输入字典名称如：性别" maxlength="20" />
             </el-form-item>
             <el-form-item label="字典类型" prop="type">
-              <el-input v-model="form.type" placeholder="请输入字典类型" maxlength="20" />
+              <el-input v-model="form.type" placeholder="请输入字典类型如：sex" maxlength="20" />
             </el-form-item>
             <el-form-item label="字典值" prop="value">
-              <el-input v-model="form.value" placeholder="请输入字典值" maxlength="20" />
+              <el-input v-model="form.value" placeholder="请输入字典值如：男/女" maxlength="20" />
             </el-form-item>
             <el-form-item label="备注" prop="remark">
               <el-input v-model="form.remark" placeholder="请输入备注" maxlength="20" />

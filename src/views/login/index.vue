@@ -100,7 +100,7 @@ export default {
     return {
       loginForm: {
         username: 'admin',
-        password: 'admin',
+        password: 'Wewin@123',
         captcha: '',
         uuid: ''
       },

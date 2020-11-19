@@ -6,6 +6,7 @@ const getDefaultState = () => {
     token: getToken(),
     name: '',
     deptName: '',
+    deptId: '',
     phone: '',
     roles: [],
     permissions: []
@@ -28,7 +29,10 @@ const mutations = {
     state.deptName = deptName
   },
   SET_PHONE: (state, phone) => {
-    state.deptName = phone
+    state.phone = phone
+  },
+  SET_DEPTID: (state, deptId) => {
+    state.deptId = deptId
   },
   SET_ROLES: (state, roles) => {
     state.roles = roles
@@ -72,10 +76,11 @@ const actions = {
           commit('SET_ROLES', ['ROLE_DEFAULT'])
           commit('SET_PERMISSIONS', response.permissions)
         }
-        const { userName, deptName, phone } = response
+        const { userName, deptName, phone, deptId } = response
         commit('SET_NAME', userName)
         commit('SET_DEPTNAME', deptName)
         commit('SET_PHONE', phone)
+        commit('SET_DEPTID', deptId)
         resolve(response)
       }).catch(error => {
         reject(error)

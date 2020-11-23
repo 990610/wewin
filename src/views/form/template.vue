@@ -43,7 +43,7 @@
         v-loading="loading"
         :data="dataList"
         height="100%"
-        :header-draggend="headerDraggend"
+        :header-dragend="headerDragend"
         border
         @selection-change="selectionChangeHandle"
       >
@@ -155,7 +155,7 @@ export default {
         .catch(error => { this.loading = false; console.log(error) })
     },
     // 头部拖动
-    headerDraggend() {
+    headerDragend() {
       this.$nextTick(() => {
         this.$refs.table.doLayout()
       })

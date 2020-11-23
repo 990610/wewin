@@ -34,7 +34,7 @@
           width="250"
           fixed="right"
         >
-          <template slot-scope="scope">
+          <template slot-scope="">
             <!-- 权限控制 依页面而定 -->
             <!-- v-hasPermi="['sys::update']" -->
             <el-button

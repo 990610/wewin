@@ -1,7 +1,11 @@
 <template>
   <div class="dashboard-container app-container">
     <h3>2020/11/19更新：</h3>
-    <p>1、vux添加deptId字段 <br>2、优化数据字典新增提示</p>
+    <p>1、vux添加deptId字段
+      <br>2、优化数据字典新增提示
+    </p>
+    <h3>2020/11/23更新</h3>
+    <p>新增开发模板页面，可自行复制粘贴</p>
   </div>
 </template>
 

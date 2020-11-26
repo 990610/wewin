@@ -178,7 +178,7 @@ export default {
           message: '两次输入的密码不一样！',
           type: 'warning'
         })
-        this.dialog.form.rePassword = ' '
+        this.dialog.form.rePassword = ''
       }
     }
   }

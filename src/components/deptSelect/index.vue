@@ -13,7 +13,7 @@
   time：2020-10-23
 -->
 <template>
-  <div>
+  <div id="treeSelect">
     <treeselect
       v-model="value"
       :flat="multiple"
@@ -112,6 +112,29 @@ export default {
 }
 </script>
 
-<style lang='scss' scoped>
+<style lang='scss'>
+#treeSelect{
+  .vue-treeselect__single-value{
+     color:rgb(96, 98, 102);
+  }
+  .vue-treeselect__input{
+    font-size: 12px;
+    font-weight: normal !important;
+
+  }
+  .vue-treeselect--single .vue-treeselect__option--selected{
+    background: #fff !important;
+    color: #0085d0 !important;
+  }
+  .vue-treeselect__option{
+    color: rgb(96, 98, 102);
+  }
+  .vue-treeselect__control{
+    height: 34px;
+    .vue-treeselect__input-container{
+      height: 32px;
+    }
+  }
+}
 
 </style>

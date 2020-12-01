@@ -20,9 +20,11 @@ $menuHover:#ffffff;
 $subMenuBg:#ffffff;
 $subMenuHover:#ffffff;
 
-$sideBarWidth: 210px;
+$sideBarWidth: 211px;
 //顶部导航栏的颜色控制
 $navBackgroudColor:$themeColor;
+// 顶部导航栏的高度控制
+$navHeight:60px;
 // the :export directive is the magic sauce for webpack
 // https://www.bluematador.com/blog/how-to-share-variables-between-js-and-sass
 :export {

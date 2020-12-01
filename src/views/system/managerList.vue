@@ -50,9 +50,11 @@
       <el-form-item label="部门：" class="treeSelect">
         <dept-select :deptid.sync="queryForm.deptId" />
       </el-form-item>
-      <el-form-item class="btns">
+      <el-form-item class="btns-l">
         <el-button v-hasPermi="['sys:user:list']" type="primary" icon="el-icon-search" size="mini" @click="handleQuery">查询</el-button>
         <el-button class="reset-btn" type="primary" icon="el-icon-refresh-left" size="mini" @click="resetQuery">重置</el-button>
+      </el-form-item>
+      <el-form-item class="btns">
         <el-button v-hasPermi="['sys:user:save']" type="primary" icon="el-icon-plus" size="mini" @click="handleAdd">新增用户</el-button>
         <!-- <el-button v-show="multipleSelection.length > 0" v-hasPermi="['sys:user:delete']" type="danger" icon="el-icon-delete" size="mini" @click="deleteMore">批量删除</el-button> -->
       </el-form-item>
@@ -66,6 +68,7 @@
         :data="managerList"
         height="100%"
         border
+        @header-dragend="headerDragend"
       >
         <!-- @selection-change="handleSelectionChange" -->
         <!-- <el-table-column type="selection" width="55" /> -->
@@ -314,6 +317,12 @@ export default {
     this.getDeptList()
   },
   methods: {
+    // 头部拖动
+    headerDragend() {
+      this.$nextTick(() => {
+        this.$refs.table.doLayout()
+      })
+    },
     getRoleList() {
       sysRoleListAll().then(res => {
         this.roleListAll = res

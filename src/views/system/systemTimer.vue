@@ -10,9 +10,11 @@
           size="small"
         />
       </el-form-item>
-      <el-form-item class="btns">
-        <el-button class="reset-btn" type="primary" icon="el-icon-refresh-left" size="mini" @click="resetQuery">重置</el-button>
+      <el-form-item class="btns-l">
         <el-button v-hasPermi="['sys:schedule:list']" type="primary" icon="el-icon-search" size="mini" @click="handleQuery">查询</el-button>
+        <el-button class="reset-btn" type="primary" icon="el-icon-refresh-left" size="mini" @click="resetQuery">重置</el-button>
+      </el-form-item>
+      <el-form-item class="btns">
         <el-button v-hasPermi="['sys:schedule:save']" type="primary" icon="el-icon-plus" size="mini" @click="handleAdd">新增定时任务</el-button>
         <el-button v-hasPermi="['sys:log:list']" class="add-btn" type="primary" icon="el-icon-date" size="mini" @click="openLog">日志列表</el-button>
       </el-form-item>
@@ -26,6 +28,7 @@
         height="100%"
         border
         class="table-fixed"
+        @header-dragend="headerDragend"
       >
         <el-table-column prop="beanName" label="bean的名称" />
         <el-table-column prop="params" label="参数" />
@@ -250,6 +253,12 @@ export default {
     this.getJobList()
   },
   methods: {
+    // 头部拖动
+    headerDragend() {
+      this.$nextTick(() => {
+        this.$refs.table.doLayout()
+      })
+    },
     // 重置查询
     resetQuery() {
       this.queryForm = this.$options.data().queryForm

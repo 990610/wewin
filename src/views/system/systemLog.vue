@@ -14,18 +14,20 @@
           end-placeholder="结束日期"
         />
       </el-form-item>
-      <el-form-item class="btns">
+      <el-form-item class="btns-l">
         <el-button v-hasPermi="['sys:log:list']" type="primary" icon="el-icon-search" size="mini" @click="handleQuery">查询</el-button>
         <el-button class="reset-btn" type="primary" icon="el-icon-refresh-left" size="mini" @click="resetQuery">重置</el-button>
       </el-form-item>
     </el-form>
     <div class="table">
       <el-table
+        ref="table"
         v-loading="loading"
         v-adaptive
         :data="logList"
         height="100%"
         border
+        @header-dragend="headerDragend"
       >
         <el-table-column prop="ip" label="源IP" />
         <el-table-column show-overflow-tooltip prop="method" label="请求方法" />
@@ -100,6 +102,12 @@ export default {
     this.getSysLog()
   },
   methods: {
+    // 头部拖动
+    headerDragend() {
+      this.$nextTick(() => {
+        this.$refs.table.doLayout()
+      })
+    },
     // 重置查询
     resetQuery() {
       this.queryForm = this.$options.data().queryForm

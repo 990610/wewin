@@ -15,12 +15,14 @@
     </el-form>
     <div class="table">
       <el-table
+        ref="table"
         v-loading="loading"
         :data="menuList"
         row-key="menuId"
         border
         :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
         height="100%"
+        @header-dragend="headerDragend"
       >
         <el-table-column prop="title" label="菜单名称" :show-overflow-tooltip="true" width="160" />
         <el-table-column prop="icon" label="图标" align="center" width="100">
@@ -103,7 +105,7 @@
                 />
               </el-form-item>
               <el-form-item label="菜单路径" prop="path">
-                <el-input v-model="form.path" placeholder="请输入菜单路径" />
+                <el-input v-model="form.path" placeholder="请输入菜单路径" @input="pathChange" />
               </el-form-item>
               <el-form-item label="组件路径" prop="component">
                 <el-input v-model="form.component" placeholder="请输入前端组件：Layout" />
@@ -277,6 +279,12 @@ export default {
     this.getMenuList()
   },
   methods: {
+    // 头部拖动
+    headerDragend() {
+      this.$nextTick(() => {
+        this.$refs.table.doLayout()
+      })
+    },
     // 表单重置
     reset() {
       this.form = this.$options.data().form
@@ -321,10 +329,12 @@ export default {
         this.form.type = 0
         this.form.component = 'Layout'
         this.form.redirect = 'noRedirect'
+        this.form.path = '/'
       } else {
         this.form.type = (row.menuId && row.parentId === 0 ? 1 : 2)
         this.form.parentTitle = row.title
         this.form.parentId = row.menuId
+        this.form.component = row.path.substring(1) + '/'
         // this.open = true
         setTimeout(() => {
           this.menuListTreeSetCurrentNode()
@@ -416,6 +426,13 @@ export default {
       }
       if (e === 1) {
         this.form.redirect = undefined
+      }
+    },
+    pathChange(e) {
+      if (this.form.type === 1) {
+        const preStr = this.form.component.split('/')
+        this.form.component = preStr[0] + '/' + e
+        this.form.name = e && e[0].toUpperCase() + e.substring(1)
       }
     }
   }

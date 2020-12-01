@@ -80,6 +80,10 @@
 .el-table__fixed-right{
   height: 100% !important;
 }
+//多选框未居中问题
+.el-table-column--selection .cell{
+  padding: 10px;
+}
 // 分页组件的全局样式
 .el-pagination {
     text-align: right;

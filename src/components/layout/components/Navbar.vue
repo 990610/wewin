@@ -78,7 +78,7 @@
           </el-row>
         </el-form>
         <div slot="footer" class="dialog-footer">
-          <el-button size="small" class="sure-edit-password" @click="dialog.show = false">取 消</el-button>
+          <el-button size="small" class="close-btn" @click="dialog.show = false">取 消</el-button>
           <el-button
             size="small"
             class="sure-edit-password"
@@ -190,13 +190,13 @@ export default {
   top:43px !important;
 }
 .navbar {
-	height: 50px;
+	height: $navHeight;
 	overflow: hidden;
 	position: relative;
 	background: $navBackgroudColor;
 	box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
 	.hamburger-container {
-		line-height: 46px;
+		line-height: $navHeight;
 		height: 100%;
 		float: left;
 		cursor: pointer;
@@ -215,7 +215,7 @@ export default {
 	.right-menu {
 		float: right;
 		height: 100%;
-		line-height: 50px;
+		line-height: $navHeight;
 
 		&:focus {
 			outline: none;
@@ -243,11 +243,11 @@ export default {
 			margin-right: 30px;
 
 			.avatar-wrapper {
-				margin-top: 5px;
+				// margin-top: 5px;
 				position: relative;
-
 				.user-avatar {
 					cursor: pointer;
+           vertical-align: middle;
 					width: 40px;
 					height: 40px;
 					border-radius: 10px;
@@ -259,7 +259,7 @@ export default {
           color: $headerColor;
           padding: 0 5px;
           display: inline-block;
-          line-height: 40px;
+          line-height: $navHeight;
           cursor: pointer;
         }
 			}

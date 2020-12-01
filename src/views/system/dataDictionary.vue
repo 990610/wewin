@@ -10,9 +10,11 @@
           size="small"
         />
       </el-form-item>
-      <el-form-item class="btns">
+      <el-form-item class="btns-l">
         <el-button v-hasPermi="['sys:dict:list']" type="primary" icon="el-icon-search" size="mini" @click="handleQuery">查询</el-button>
         <el-button class="reset-btn" type="primary" icon="el-icon-refresh-left" size="mini" @click="resetQuery">重置</el-button>
+      </el-form-item>
+      <el-form-item class="btns">
         <el-button v-hasPermi="['sys:dict:save']" type="primary" icon="el-icon-plus" size="mini" @click="handleAdd">新增字典</el-button>
         <el-button v-hasPermi="['sys:dict:down']" type="warning" icon="el-icon-download" size="mini" @click="handleExport">模板导出</el-button>
         <el-upload
@@ -30,11 +32,13 @@
     </el-form>
     <div class="table">
       <el-table
+        ref="table"
         v-adaptive
         v-loading="loading"
         :data="dataList"
         height="100%"
         border
+        @header-dragend="headerDragend"
       >
         <!-- @selection-change="handleSelectionChange" -->
         <!-- <el-table-column type="selection" width="55" /> -->
@@ -326,6 +330,12 @@ export default {
       console.log(response)
       console.log(file)
       console.log(fileList)
+    },
+    // 头部拖动
+    headerDragend() {
+      this.$nextTick(() => {
+        this.$refs.table.doLayout()
+      })
     },
     // 分页大小选择
     handleSizeChange(val) {

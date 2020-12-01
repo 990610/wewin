@@ -39,8 +39,9 @@
         :tree-props="{children: 'childDepts', hasChildren: 'hasChildren'}"
         :expand-row-keys="expandRow"
         highlight-current-row
-        @selection-change="handleSelectionChange"
+        @header-dragend="headerDragend"
       >
+        <!-- @selection-change="handleSelectionChange" -->
         <!-- <el-table-column type="selection" width="55" /> -->
         <el-table-column prop="deptId" label="部门Id" />
         <el-table-column prop="name" label="部门名称" />
@@ -186,6 +187,12 @@ export default {
       .catch(error => { console.log(error) })
   },
   methods: {
+    // 头部拖动
+    headerDragend() {
+      this.$nextTick(() => {
+        this.$refs.table.doLayout()
+      })
+    },
     // 表单重置
     reset() {
       this.form = this.$options.data().form

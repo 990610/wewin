@@ -10,9 +10,11 @@
           size="small"
         />
       </el-form-item>
-      <el-form-item class="btns">
+      <el-form-item class="btns-l">
         <el-button v-hasPermi="['sys:role:list']" type="primary" icon="el-icon-search" size="mini" @click="handleQuery">查询</el-button>
         <el-button class="reset-btn" type="primary" icon="el-icon-refresh-left" size="mini" @click="resetQuery">重置</el-button>
+      </el-form-item>
+      <el-form-item class="btns">
         <el-button v-hasPermi="['sys:role:save']" type="primary" icon="el-icon-plus" size="mini" @click="handleAdd">新增角色</el-button>
         <!-- <el-button v-hasPermi="['sys:role:save']" class="add-btn" type="primary" icon="el-icon-download" size="mini" @click="handleAdd">导出角色</el-button> -->
         <!-- <el-button v-show="multipleSelection.length > 0" v-hasPermi="['sys:role:delete']" type="danger" icon="el-icon-delete" size="mini" @click="deleteMore">批量删除</el-button> -->
@@ -27,6 +29,7 @@
         :data="roleList"
         height="100%"
         border
+        @header-dragend="headerDragend"
       >
         <!-- <el-table-column type="selection" width="55" /> -->
         <el-table-column prop="index" type="index" label="序号" width="50">
@@ -175,6 +178,12 @@ export default {
     sysMenuList().then(res => { this.menuList = res })
   },
   methods: {
+    // 头部拖动
+    headerDragend() {
+      this.$nextTick(() => {
+        this.$refs.table.doLayout()
+      })
+    },
     // 重置查询
     resetQuery() {
       this.roleName = ''

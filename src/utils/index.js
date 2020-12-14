@@ -1,40 +1,52 @@
 // 时间格式化模块
 import moment from 'moment'
 /**
- *防抖动
- * @param {Function} func
- * @param {number} wait
- * @param {boolean} immediate
- * @return {*}
- */
-export function debounce(func, wait, immediate) {
-  let timeout, args, context, timestamp, result
-  const later = function() {
-    // 据上一次触发时间间隔
-    const last = +new Date() - timestamp
-    // 上次被包装函数被调用时间间隔 last 小于设定时间间隔 wait
-    if (last < wait && last > 0) {
-      timeout = setTimeout(later, wait - last)
+* @desc 函数防抖---“立即执行版本” 和 “非立即执行版本” 的组合版本
+* @param func 需要执行的函数
+* @param wait 延迟执行时间（毫秒）
+* @param immediate---true 表立即执行，false 表非立即执行
+* 按钮点击使用方式：myClick：debounce((a,b,c)=>{},wait,immediate)
+**/
+export function debounce(func, wait = 500, immediate) {
+  let timer
+  return function() {
+    const context = this
+    const args = arguments
+    if (timer) clearTimeout(timer)
+    if (immediate) {
+      var callNow = !timer
+      timer = setTimeout(() => {
+        timer = null
+      }, wait)
+      if (callNow) func.apply(context, args)
     } else {
-      timeout = null
-      // 如果设定为immediate===true，因为开始边界已经调用过了此处无需调用
-      if (!immediate) {
-        result = func.apply(context, args)
-        if (!timeout) context = args = null
-      }
+      timer = setTimeout(function() {
+        func.apply(context, args)
+      }, wait)
     }
   }
-  return function(...args) {
-    context = this
-    timestamp = +new Date()
-    const callNow = immediate && !timeout
-    // 如果延时不存在，重新设定延时
-    if (!timeout) timeout = setTimeout(later, wait)
-    if (callNow) {
-      result = func.apply(context, args)
-      context = args = null
+}
+/**
+* @desc 函数节流---“立即执行版本” 和 “非立即执行版本” 的组合版本
+* @param func 需要执行的函数
+* @param wait 延迟执行时间（毫秒）
+* @param immediate---true 表立即执行，false 表非立即执行
+* 按钮点击使用方式：myClick：throttle((a,b,c)=>{},wait,immediate)
+**/
+export function throttle(fn, wait = 500, isImmediate = false) {
+  var flag = true
+  // eslint-disable-next-line no-unused-vars
+  var timer = null
+  return function() {
+    if (flag) {
+      // console.log(true)
+      isImmediate && fn.apply(this, arguments)
+      flag = false
+      timer = setTimeout(() => {
+        !isImmediate && fn.apply(this, arguments)
+        flag = true
+      }, wait)
     }
-    return result
   }
 }
 // 随机生成uuid
@@ -53,35 +65,6 @@ export function replacePath(template, context) {
   if (!context) return template
   return template.replace(/{(.*?)}/g, (match, key) => context[key.trim()] || '')
 }
-// 时间格式化 未兼容IE
-export function dateFormat(date, fmt) {
-  console.log(date)
-  let ret = ''
-  date = new Date(date)
-  console.log('--')
-  console.log(date)
-  const opt = {
-    'y+': date.getFullYear().toString(), // 年
-    'M+': (date.getMonth() + 1).toString(), // 月
-    'd+': date.getDate().toString(), // 日
-    'h+': date.getHours().toString(), // 时
-    'm+': date.getMinutes().toString(), // 分
-    's+': date.getSeconds().toString() // 秒
-    // 有其他格式化字符需求可以继续添加，必须转化成字符串
-  }
-  console.log(opt)
-  for (const k in opt) {
-    ret = new RegExp('(' + k + ')').exec(fmt)
-    if (ret) {
-      fmt = fmt.replace(
-        ret[1],
-        ret[1].length === 1 ? opt[k] : opt[k].padStart(ret[1].length, '0')
-      )
-    }
-  }
-  return fmt
-}
-
 // 时间格式化兼容ie
 export function dateFormatIE(value, fmt) {
   return moment(value).format(fmt || 'YYYY-MM-DD HH:mm:ss')
@@ -106,9 +89,9 @@ export function ToPathStr(val) {
   str = str.substr(0, str.length - 1)
   return str
 }
-// 文件下载 数据+文件名
+// Blob流文件下载 数据+文件名
+// 注：只适合小文件的下载 大文件下载建议直接走url下载
 export function downloadFile(data, name) {
-  console.log(name)
   if (!data) {
     return
   }
@@ -120,3 +103,47 @@ export function downloadFile(data, name) {
   document.body.appendChild(link)
   link.click()
 };
+// 文件下载 url 直接访问方式  缺点：无法自定义文件名
+// 使用这种方法时 遇到图片，文本如 ['.png', '.bmp', '.png', '.tif', '.jpg', '.jpeg', '.pdf', '.txt'] 等此类文件会直接打开 此时推荐走上面种下载方式
+// 如果是大型文件如果是压缩包等推荐使用此方法
+// 实际使用中建议二者结合
+export function downLoadByURL(url) {
+  if (!url) {
+    return ''
+  }
+  const link = document.createElement('a')
+  link.style.display = 'none'
+  // url需要拼接： baseURL + 目录 + url
+  link.href = process.env.VUE_APP_BASE_API + '/file/' + url
+  link.setAttribute('download', url.substring(url.indexOf('-')))
+  link.setAttribute('target', '_self')
+  document.body.appendChild(link)
+  link.click()
+  document.body.removeChild(link)
+}
+// 综合两种方法下载
+export function downLoad(url, RequestFun) {
+  if (!url) {
+    return ''
+  }
+  // 文件类型判断
+  const type = url.substring(url.lastIndexOf('.'))
+  const urlList = ['.png', '.bmp', '.png', '.tif', '.jpg', '.jpeg', '.pdf', '.txt']
+  // 如果属于图片或者文本则走blob流
+  if (urlList.includes(type)) {
+    // blob流请求后台接口
+    RequestFun({ filePath: url }).then(res => {
+      // blob流文件下载  截取部门做文件名 可自行修改
+      downloadFile(res, url.substring(url.indexOf('-')))
+    })
+  } else {
+    // a标签直接下载
+    downLoadByURL(url)
+  }
+}
+// 重写console.log 函数，用于生产环境取消console.log
+export function rewirteLog() {
+  console.log = (function(log) {
+    return process.env.NODE_ENV === 'development' ? log : function() {}
+  }(console.log))
+}

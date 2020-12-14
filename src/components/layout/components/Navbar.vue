@@ -153,6 +153,7 @@ export default {
       await this.$store.dispatch('user/logout')
       // 退出登录，下次登录回到首页
       this.$router.push(`/login`)
+      this.$router.go(0)
       // 退出登录，下次登录回到对应页
       // this.$router.push(`/login?redirect=${this.$route.fullPath}`)
     },

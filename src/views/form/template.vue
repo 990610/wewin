@@ -43,7 +43,6 @@
         v-loading="loading"
         :data="dataList"
         height="100%"
-        :header-dragend="headerDragend"
         border
         @selection-change="selectionChangeHandle"
       >
@@ -153,12 +152,6 @@ export default {
         })
       })
         .catch(error => { this.loading = false; console.log(error) })
-    },
-    // 头部拖动
-    headerDragend() {
-      this.$nextTick(() => {
-        this.$refs.table.doLayout()
-      })
     },
     // 多选
     selectionChangeHandle(val) {

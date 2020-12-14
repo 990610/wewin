@@ -1,10 +1,9 @@
 import Vue from 'vue'
-// 默认重置css样式，统一各个浏览器样式
-import 'normalize.css/normalize.css' // A modern alternative to CSS resets
+import 'normalize.css/normalize.css' // 默认重置css样式，统一各个浏览器样式
 import ElementUI from 'element-ui'
 // import 'element-ui/lib/theme-chalk/index.css'
-import '@/assets/styles/element-variables.scss' // global css
-import '@/assets/styles/index.scss' // global css
+import '@/assets/styles/element-variables.scss' // Element 主题设置
+import '@/assets/styles/index.scss' // 全局 css
 import App from './App'
 import store from './store'
 import router from './router'
@@ -13,27 +12,27 @@ import adaptive from './directive/el-table'
 import '@/assets/icons' // icon
 import '@/permission' // permission control
 import { message } from '@/utils/resetMessage'
+import { rewirteLog } from '@/utils/index'
 import fileters from '@/utils/fileters'
 // element ui 全局设置 表格内容不换行实现提示
-// ElementUI.Table.props.showOverflowTooltip = {
-//   default: true,
-//   type: Boolean
-// }
-// ElementUI.TableColumn.props.showOverflowTooltip = {
-//   default: true,
-//   type: Boolean
-// }
-// console.log(ElementUI)
+ElementUI.TableColumn.props.showOverflowTooltip = {
+  default: true,
+  type: Boolean
+}
 Vue.use(ElementUI)
+// 全局挂载提示
 Vue.prototype.$message = message
-Vue.prototype.msgSuccess = function(msg) {
-  this.$message({ showClose: true, message: msg, type: 'success' })
+Vue.prototype.msgSuccess = function(msg, duration = 2000) {
+  this.$message({ showClose: true, message: msg, type: 'success', duration: duration })
 }
-Vue.prototype.msgWarning = function(msg) {
-  this.$message({ showClose: true, message: msg, type: 'warning', duration: 2000 })
+Vue.prototype.msgWarning = function(msg, duration = 2000) {
+  this.$message({ showClose: true, message: msg, type: 'warning', duration: duration })
 }
+Vue.prototype.msgError = function(msg, duration = 2000) {
+  this.$message({ showClose: true, message: msg, type: 'error', duration: duration })
+}
+
 Vue.config.productionTip = false
-console.log(fileters)
 // 注册过滤器
 for (const key in fileters) {
   if (fileters.hasOwnProperty(key)) {
@@ -42,6 +41,8 @@ for (const key in fileters) {
 }
 Vue.use(permission)
 Vue.use(adaptive)
+// 生产环境取消console.log
+rewirteLog()
 new Vue({
   el: '#app',
   router,

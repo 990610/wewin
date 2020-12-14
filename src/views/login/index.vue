@@ -155,7 +155,7 @@ export default {
           this.$store
             .dispatch('user/login', item)
             .then(() => {
-              this.$router.push({ path: this.redirect || '/' })
+              this.$router.push({ path: '/' })
               this.loading = false
             })
             .catch(() => {

@@ -31,7 +31,6 @@ router.beforeEach(async(to, from, next) => {
         // 判断当前用户是否已拉取完user_info信息
         store.dispatch('user/getInfo').then(res => {
           // 拉取user_info
-          console.log(res)
           // const roles = res.roles
           store.dispatch('GenerateRoutes').then(accessRoutes => {
           // 测试 默认静态页面

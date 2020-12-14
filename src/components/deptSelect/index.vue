@@ -21,6 +21,7 @@
       :multiple="multiple"
       :options="treeOptions"
       :normalizer="normalizer"
+      no-results-text="未搜索到数据"
       placeholder="请选择"
       @input="inputChange"
       @select="treeSelect"

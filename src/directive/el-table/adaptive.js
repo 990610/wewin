@@ -18,6 +18,7 @@ const doResize = async(el, binding, vnode) => {
 
   // 计算列表高度并设置
   let height = window.innerHeight - el.getBoundingClientRect().top - bottomOffset;
+  // 控制表格最低高度
   if (height < 300) {
     height = 300
   }
@@ -25,15 +26,28 @@ const doResize = async(el, binding, vnode) => {
   $table.doLayout();
 }
 
+const doLayoutTable = async(el, binding, vnode) => {
+  const { componentInstance: $table } = await vnode;
+  setTimeout(() => {
+    $table.doLayout();
+  }, 0)
+}
+
 export default {
   // 初始化设置
   bind(el, binding, vnode) {
+    // 获取header的DOM对象
+    const subEl = el.getElementsByClassName('el-table__header')[0]
     // 设置resize监听方法
     el.resizeListener = async() => {
       await doResize(el, binding, vnode);
     }
     // 绑定监听方法到addResizeListener
     addResizeListener(window.document.body, el.resizeListener);
+    // 发现头部点击后重新刷新table 用于头部拖拽后造成错位
+    subEl.addEventListener('mouseup', async() => {
+      await doLayoutTable(el, binding, vnode)
+    })
   },
   // 绑定默认高度
   async inserted(el, binding, vnode) {

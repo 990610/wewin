@@ -67,7 +67,9 @@
       height: 100%;
       width: 100% !important;
     }
-
+    .el-scrollbar__view>ul>div:last-child{
+        margin-bottom: 50px
+    }
     // menu hover
     .submenu-title-noDropdown,
     .el-submenu__title {
@@ -155,7 +157,6 @@
   .el-menu--collapse .el-menu .el-submenu {
     min-width: $sideBarWidth !important;
   }
-
   // mobile responsive
   .mobile {
     .main-container {

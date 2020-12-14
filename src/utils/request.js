@@ -55,10 +55,12 @@ service.interceptors.response.use(
     }
   },
   error => {
-    console.log('err' + error) // for debug
-    var msg = ''
-    if (error.message === 'Network Error') {
-      msg = '网络错误'
+    if (error.message.includes('timeout')) {
+      error.message = '请求超时'
+    } else if (error.message.includes('status code 500')) {
+      error.message = '系统维护中！'
+    } else if (error.message.includes('Network Error')) {
+      error.message = '网络断开！'
     }
     message({
       message: error.message,
@@ -71,4 +73,4 @@ service.interceptors.response.use(
 
 export default service
 export var backendIP = process.env.VUE_APP_BASE_API
-export var mockIP = 'http://service.wewin.com.cn:8071/api/5f34e300c4557651c8ad2034/pc'// 模拟IP地址
+export var mockIP = ''// 模拟IP地址

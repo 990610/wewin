@@ -6,7 +6,6 @@
     margin-left: $sideBarWidth;
     position: relative;
   }
-
   .sidebar-container {
     transition: width 0.28s;
     width: $sideBarWidth !important;
@@ -24,7 +23,12 @@
     .horizontal-collapse-transition {
       transition: 0s width ease-in-out, 0s padding-left ease-in-out, 0s padding-right ease-in-out;
     }
-
+    .is-active{
+      background-color:$menuColor !important;
+      &>.svg-icon{
+        color: $menuActiveText;
+      }
+    }
     .scrollbar-wrapper {
       overflow-x: hidden !important;
     }
@@ -55,6 +59,7 @@
 
     .svg-icon {
       margin-right: 16px;
+      color:$menuColor;
     }
 
     .sub-el-icon {
@@ -75,20 +80,34 @@
     .el-submenu__title {
       &:hover {
         background-color: $menuHover !important;
+        color: $menuActiveText !important;
+        .svg-icon{
+           color: $menuActiveText !important;
+         }
       }
     }
-
     .is-active>.el-submenu__title {
       color: $subMenuActiveText !important;
+      .svg-icon{
+           color: $menuColor !important;
+      }
+      &:hover{
+         color:$menuActiveText !important;
+         .svg-icon{
+           color: $menuActiveText !important;
+         }
+      }
     }
-
     & .nest-menu .el-submenu>.el-submenu__title,
     & .el-submenu .el-menu-item {
       min-width: $sideBarWidth !important;
-      background-color: $subMenuBg !important;
-
+      background-color: $subMenuBg ;
       &:hover {
         background-color: $subMenuHover !important;
+        color: $menuActiveText !important;
+        .svg-icon{
+           color: $menuActiveText !important;
+         }
       }
     }
   }
@@ -157,6 +176,7 @@
   .el-menu--collapse .el-menu .el-submenu {
     min-width: $sideBarWidth !important;
   }
+
   // mobile responsive
   .mobile {
     .main-container {
@@ -176,9 +196,7 @@
       }
     }
   }
-
   .withoutAnimation {
-
     .main-container,
     .sidebar-container {
       transition: none;
@@ -196,6 +214,9 @@
       margin-right: 12px;
       margin-left: -2px;
     }
+    &:hover{
+      color: $menuActiveText;
+    }
   }
 
   .nest-menu .el-submenu>.el-submenu__title,
@@ -205,8 +226,7 @@
       background-color: $menuHover !important;
     }
   }
-
-  // the scroll bar appears when the subMenu is too long
+  // 收缩是弹出框
   >.el-menu--popup {
     max-height: 100vh;
     overflow-y: auto;
@@ -222,6 +242,23 @@
     &::-webkit-scrollbar-thumb {
       background: #99a9bf;
       border-radius: 20px;
+    }
+    .is-active{
+      background-color: $menuColor !important;
+      .svg-icon{
+          color: $menuActiveText !important;
+      }
+    }
+    .el-menu-item{
+      .svg-icon{
+          color: $menuHover;
+      } 
+      &:hover{
+        color: $menuActiveText !important;
+        .svg-icon{
+          color: $menuActiveText !important;
+        } 
+      }
     }
   }
 }

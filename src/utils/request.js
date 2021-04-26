@@ -45,6 +45,9 @@ service.interceptors.response.use(
     } else if (res.code === 401) {
       removeToken()
       router.push('/login')
+      store.commit('user/RESET_STATE')
+      store.dispatch('tagsView/delAllViews')
+      // router.go(0)
       message({
         message: res.message,
         type: 'error',

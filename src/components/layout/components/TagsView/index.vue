@@ -149,10 +149,13 @@ export default {
       })
     },
     closeAllTags(view) {
+      console.log(view)
       this.$store.dispatch('tagsView/delAllViews').then(({ visitedViews }) => {
-        if (this.affixTags.some(tag => tag.path === view.path)) {
-          return
-        }
+        console.log(this.affixTags)
+        // if (this.affixTags.some(tag => tag.path === view.path)) {
+        //   return
+        // }
+        console.log(visitedViews, view)
         this.toLastView(visitedViews, view)
       })
     },

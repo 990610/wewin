@@ -25,7 +25,14 @@
           :expand-on-click-node="false"
           :filter-node-method="filterNode"
           @node-click="nodeClick"
-        />
+        >
+          <span slot-scope="{node,data}" class="span-ellipsis">
+            <el-tooltip v-if=" node.label.length > 9" popper-class="popperClass" class="item" effect="light" :content="node.label" placement="top-start">
+              <span :title="node.label">{{ node.label }}</span>
+            </el-tooltip>
+            <span v-else :title="node.label">{{ node.label }}</span>
+          </span>
+        </el-tree>
       </div>
       <!-- <div class="table"> -->
       <el-table
@@ -74,7 +81,7 @@
         <div class="drawer-content">
           <el-form ref="drawerForm" :model="form" size="small" :rules="rules" label-width="100px" label-position="right">
             <el-form-item label="部门名称" prop="name">
-              <el-input v-model="form.name" placeholder="请输入用户名" maxlength="20" />
+              <el-input v-model="form.name" placeholder="请输入部门名称" maxlength="40" />
             </el-form-item>
             <el-form-item ref="parentName" label="上级部门" prop="parentName">
               <el-popover ref="deptListPopover" v-model="showPop" width="408" placement="bottom-start" trigger="click">
@@ -390,10 +397,12 @@ export default {
 @import './css/system.scss';
 .el-popover {
     max-height: 400px;
-    overflow: auto;
+    overflow-y: hidden;
     .el-tree{
+      min-width: 100%;
       max-height: 320px;
       overflow: auto;
+      display: inline-block;
     }
 }
 #departmanet {
@@ -402,16 +411,24 @@ export default {
     display: flex;
     position: relative;
     width: 100%;
-     height: calc(100% - 62px);
+    height: calc(100% - 62px);
     .content-left{
       min-width: 250px;
+      max-width: 350px;
       // width: 20%;
       height: 100%;
       overflow: auto;
       // background: skyblue;
       margin-right: 10px;
       border: 1px solid #EBEEF5;
-      border-radius: 5px;;
+      border-radius: 5px;
+      .span-ellipsis {
+        width: 100%;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+
     }
     // .table{
     //   width: 80%;

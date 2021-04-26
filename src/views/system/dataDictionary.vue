@@ -378,14 +378,14 @@ export default {
 </script>
 <style lang="scss">
 @import './css/system.scss';
-.el-popover {
-    max-height: 400px;
-    overflow: auto;
-    .el-tree{
-      max-height: 320px;
-      overflow: auto;
-    }
-}
+// .el-popover {
+//     max-height: 400px;
+//     overflow: auto;
+//     .el-tree{
+//       max-height: 320px;
+//       overflow: auto;
+//     }
+// }
 #dataDictionary {
   .el-select{
     width: 100%;

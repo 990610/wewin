@@ -85,7 +85,7 @@
               <el-input v-model="form.roleName" placeholder="请输入角色名称" maxlength="20" />
             </el-form-item>
             <el-form-item label="角色备注" prop="remark">
-              <el-input v-model="form.remark" type="textarea" :autosize="{ minRows: 2, maxRows: 6}" maxlength="200" placeholder="请输入角色备注" />
+              <el-input v-model="form.remark" type="textarea" :autosize="{ minRows: 2, maxRows: 6}" maxlength="99" placeholder="请输入角色备注" />
             </el-form-item>
             <el-form-item label="权限" prop="">
               <el-tree

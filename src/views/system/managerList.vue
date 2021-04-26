@@ -87,6 +87,7 @@
         <el-table-column prop="phone" label="手机号" />
         <el-table-column prop="deptName" label="部门名称" />
         <el-table-column prop="email" label="邮箱" />
+        <el-table-column min-width="180" prop="roles" label="角色名称" :formatter="getRoleName" />
         <el-table-column prop="status" label="状态">
           <template slot-scope="scope">
             {{ scope.row.status ? '正常':'禁用' }}
@@ -147,7 +148,7 @@
               <el-input v-model="form.realName" placeholder="请输入真实姓名" maxlength="20" />
             </el-form-item>
             <el-form-item v-if="title === '新增'" label="密码" prop="password">
-              <el-input v-model="form.password" type="password" auto-complete="new-password" placeholder="请输入密码" maxlength="16" />
+              <el-input v-model.trim="form.password" type="password" auto-complete="new-password" placeholder="请输入密码" maxlength="16" />
             </el-form-item>
             <el-form-item label="性别" prop="sex">
               <el-radio v-model="form.sex" label="0">男</el-radio>
@@ -187,7 +188,7 @@
               />
             </el-form-item>
             <el-form-item label="角色" prop="roleIdList">
-              <el-select v-model="form.roleIdList" multiple clearable filterable placeholder="请选择">
+              <el-select v-model="form.roleIdList" style="width:100%;" multiple clearable filterable placeholder="请选择">
                 <el-option
                   v-for="item in roleListAll"
                   :key="item.roleId"
@@ -527,6 +528,18 @@ export default {
     filterNode(value, data) {
       if (!value) return true
       return data.name.indexOf(value) !== -1
+    },
+    getRoleName(row, column, cellValue, index) {
+      // console.log(cellValue)
+      if (cellValue) {
+        var roleName = []
+        for (const item of cellValue) {
+          roleName.push(item.roleName)
+        }
+        return roleName.join(',')
+      } else {
+        return ''
+      }
     }
 
   }
@@ -536,10 +549,12 @@ export default {
 @import './css/system.scss';
 .el-popover {
     max-height: 400px;
-    overflow: auto;
+    overflow-y: hidden;
     .el-tree{
+      min-width: 100%;
       max-height: 320px;
       overflow: auto;
+      display: inline-block;
     }
 }
 .search-popover{

@@ -284,7 +284,7 @@ export default {
     // 删除按钮操作
     handleDelete(row) {
       this.$confirm(
-        '是否确认删除名称为"' + row.roleName + '的角色?',
+        '是否确认删除名称为"' + row.roleName + '"的角色?',
         '警告',
         {
           confirmButtonText: '确定',

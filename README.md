@@ -1,6 +1,6 @@
 ## 项目文档使用地址
 ```
-https://www.yuque.com/docs/share/ff95b0c6-f59f-453f-b6b8-10bf551efb53?# 《前端基础模板使用文档》
+https://wewin.yuque.com/docs/share/85b712c8-36df-4561-8055-e8db9eea2ae1?# 《前端：后台管理系统基础框架》
 
 ```
 
@@ -8,7 +8,7 @@ https://www.yuque.com/docs/share/ff95b0c6-f59f-453f-b6b8-10bf551efb53?# 《前�
 
 ```bash
 # 克隆项目
-git clone http://git.wewin.com.cn:9500/pangtao/vue-element-template.git
+git clone https://git.wewin.com.cn:9500/BaseFramework/vue-element-template.git
 
 # 安装依赖 
 npm install

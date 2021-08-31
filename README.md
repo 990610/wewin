@@ -34,7 +34,7 @@ npm install
 -   运行
 
 ```
-npm run server
+npm run serve
 ```
 
 > (默认用户名：superadmin 默认密码：123456)

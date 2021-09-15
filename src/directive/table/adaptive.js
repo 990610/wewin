@@ -34,7 +34,7 @@ const doLayoutTable = async (el, binding, vnode) => {
 };
 
 const bindAndUpdate = (el, binding, vnode) => {
-    var type = binding.value.type ? binding.value.type : "table";
+    var type = (binding.value && binding.value.type) || "table";
     switch (type) {
         // 表格自适应
         case "table":
@@ -78,7 +78,8 @@ export default {
     },
     // 绑定默认高度
     async inserted(el, binding, vnode) {
-        switch (binding.value.type) {
+        var type = (binding.value && binding.value.type) || "table";
+        switch (type) {
             case "table":
                 await doResize(el, binding, vnode);
                 break;
@@ -90,7 +91,8 @@ export default {
     // 销毁时设置
     unbind(el, binding, vnode) {
         // 移除resize监听
-        switch (binding.value.type) {
+        var type = (binding.value && binding.value.type) || "table";
+        switch (type) {
             case "table":
                 removeResizeListener(el, el.resizeListener);
                 break;

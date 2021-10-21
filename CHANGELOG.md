@@ -7,6 +7,7 @@
 > 用户名：superadmin 密码：123456
 
 -   [Fix] 修复config.js在项目打包后配置不生效的问题
+-   [Fix] table adaptive.js type判断修复
 
 ### V1.1.0 (发布日期：20210831）
 

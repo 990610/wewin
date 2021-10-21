@@ -10,8 +10,7 @@ import "normalize.css/normalize.css"; // 默认重置css样式，统一各个浏
 import "@/assets/styles/index.scss"; // 全局 css
 
 // build后全局配置
-const publicConfig = require("../public/config");
-Vue.prototype.$publicConfig = publicConfig;
+Vue.prototype.$publicConfig = window.publicConfig;
 
 /**
  * 初始化Element-ui

@@ -1,5 +1,13 @@
 # 前端：后台管理系统基础框架 更新日志
 
+### V1.1.1 (发布日期：20211021）
+
+> 文档地址：https://wewin.yuque.com/docs/share/c4c8126b-5091-4eea-b85e-19bb39c93328?#
+> 预览地址：http://iotweb.wewin.com.cn/project/vue-element-template/index.html#/login
+> 用户名：superadmin 密码：123456
+
+-   [Fix] 修复config.js在项目打包后配置不生效的问题
+
 ### V1.1.0 (发布日期：20210831）
 
 > 文档地址：https://wewin.yuque.com/docs/share/c4c8126b-5091-4eea-b85e-19bb39c93328?#

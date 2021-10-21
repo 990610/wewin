@@ -6,7 +6,7 @@ import router from "../router";
 import md5 from "js-md5";
 import { message } from "@/utils/reset-message";
 
-export var backendIP = require("../../public/config").ip[process.env.NODE_ENV];
+export var backendIP = window.publicConfig.ip[process.env.NODE_ENV];
 export var mockIP = ""; // 模拟IP地址
 
 const service = axios.create({
